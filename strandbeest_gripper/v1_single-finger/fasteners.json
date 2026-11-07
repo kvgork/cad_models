@@ -1,0 +1,52 @@
+{
+ "note": "Every pin is a free M3 screw in Ø3.4 holes. Snug the nyloc nuts but do not clamp them. Also needed: 1 Feetech STS3215 servo.",
+ "lines": [
+  {
+   "qty": 2,
+   "where": "crank → servo horn (the two horn holes away from J1)",
+   "items": [
+    "M3×6 socket head screw (ISO 4762)"
+   ]
+  },
+  {
+   "qty": 1,
+   "where": "J1: head in the pocket under the crank, up through k and j",
+   "items": [
+    "M3×16 socket head screw (ISO 4762)",
+    "M3 nyloc nut (DIN 985)"
+   ]
+  },
+  {
+   "qty": 1,
+   "where": "G: from below through the frame bore and post, up through b-d-e and c",
+   "items": [
+    "M3×30 socket head screw (ISO 4762)",
+    "M3 nyloc nut (DIN 985)"
+   ]
+  },
+  {
+   "qty": 1,
+   "where": "J4 (k, c, g-h-i)",
+   "items": [
+    "M3×16 socket head screw (ISO 4762)",
+    "M3 nyloc nut (DIN 985)"
+   ]
+  },
+  {
+   "qty": 3,
+   "where": "J2, J3, J5",
+   "items": [
+    "M3×12 socket head screw (ISO 4762)",
+    "M3 nyloc nut (DIN 985)"
+   ]
+  },
+  {
+   "qty": 14,
+   "where": "between every layer pair on every pin",
+   "items": [
+    "M3 washer (DIN 125, 0.5 mm)"
+   ],
+   "approx": true
+  }
+ ]
+}

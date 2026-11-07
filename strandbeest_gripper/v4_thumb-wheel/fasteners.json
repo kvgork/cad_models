@@ -1,0 +1,92 @@
+{
+ "note": "Snug the nyloc nuts but do not clamp them: every joint must turn freely. Lengths are computed from the layer stack (grip + 0.5 mm washer + 4 mm nut, rounded up to a standard length). Medium threadlocker on the thin-nut axles. No servo: driven by hand.",
+ "lines": [
+  {
+   "qty": 1,
+   "where": "thumb-wheel axle, from below the base",
+   "items": [
+    "M3×30 socket head screw (ISO 4762)",
+    "M3 nyloc nut (DIN 985)"
+   ]
+  },
+  {
+   "qty": 2,
+   "where": "crank 1 and crank 2 axles; nut in the gear-top recess, threadlocker",
+   "items": [
+    "M3×22 socket head screw (ISO 4762)",
+    "M3 thin nut (DIN 439)"
+   ]
+  },
+  {
+   "qty": 2,
+   "where": "idler axles, from below the base",
+   "items": [
+    "M3×30 socket head screw (ISO 4762)",
+    "M3 nyloc nut (DIN 985)"
+   ]
+  },
+  {
+   "qty": 2,
+   "where": "J1 of each finger, screwed into the crank gear",
+   "items": [
+    "Shoulder screw Ø4×25, M3 thread (ISO 7379)"
+   ]
+  },
+  {
+   "qty": 2,
+   "where": "G (b-d-e, c), from below through the plate and post",
+   "items": [
+    "M3×45 socket head screw (ISO 4762)",
+    "M3 nyloc nut (DIN 985)"
+   ]
+  },
+  {
+   "qty": 2,
+   "where": "J2 (b-d-e hub → j)",
+   "items": [
+    "M3×22 socket head screw (ISO 4762)",
+    "M3 nyloc nut (DIN 985)"
+   ]
+  },
+  {
+   "qty": 2,
+   "where": "J3 (b-d-e, f)",
+   "items": [
+    "M3×12 socket head screw (ISO 4762)",
+    "M3 nyloc nut (DIN 985)"
+   ]
+  },
+  {
+   "qty": 2,
+   "where": "J4 (c, g-h-i hub, k)",
+   "items": [
+    "M3×18 socket head screw (ISO 4762)",
+    "M3 nyloc nut (DIN 985)"
+   ]
+  },
+  {
+   "qty": 2,
+   "where": "J5 (f hub → g-h-i)",
+   "items": [
+    "M3×22 socket head screw (ISO 4762)",
+    "M3 nyloc nut (DIN 985)"
+   ]
+  },
+  {
+   "qty": 2,
+   "where": "jaw pivots at F",
+   "items": [
+    "M3×30 socket head screw (ISO 4762)",
+    "M3 nyloc nut (DIN 985)"
+   ]
+  },
+  {
+   "qty": 26,
+   "where": "between layers",
+   "items": [
+    "M3 washer (DIN 125, 0.5 mm)"
+   ],
+   "approx": true
+  }
+ ]
+}

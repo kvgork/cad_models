@@ -1,0 +1,20 @@
+{
+ "note": "**NEEDS CHECK:** screw lengths are not verified against the JeTank plate thickness or the RPLIDAR C1 insert depth. Measure both before buying.",
+ "lines": [
+  {
+   "qty": 2,
+   "where": "holder → JeTank top plate (38 mm pitch), through the 4 mm bar",
+   "items": [
+    "M3×8 socket head screw (ISO 4762)",
+    "M3 nut (ISO 4032)"
+   ]
+  },
+  {
+   "qty": 4,
+   "where": "RPLIDAR C1 → platform (43 mm square, into the C1 inserts), through the 4 mm platform",
+   "items": [
+    "M2.5×8 socket head screw (ISO 4762)"
+   ]
+  }
+ ]
+}

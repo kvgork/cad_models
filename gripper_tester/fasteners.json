@@ -1,0 +1,36 @@
+{
+ "note": "Adapter quantities are per gripper adapter. The stock M3×6 horn screws reach only about 2.9 mm into the inserts, so use M3×8. Spacers and M2.5 screws come with the SO-101 kit.",
+ "lines": [
+  {
+   "qty": 4,
+   "where": "adapter: gripper horn holes (Ø4 × 6 insert holes)",
+   "items": [
+    "M3 heat-set insert",
+    "M3×8 socket head screw (ISO 4762)"
+   ]
+  },
+  {
+   "qty": 1,
+   "where": "baseplate lock: +Y rail, wedges the adapter down",
+   "items": [
+    "M3 heat-set insert",
+    "M3×10 thumb or wing screw"
+   ]
+  },
+  {
+   "qty": 4,
+   "where": "control board on the bosses (press-fit spacers)",
+   "items": [
+    "M2.5×6 HEX5 F-F spacer",
+    "M2.5×4 screw"
+   ]
+  },
+  {
+   "qty": 4,
+   "where": "optional: Ø4.5 corner holes to a table, or rubber feet instead",
+   "items": [
+    "M4 screw, length to suit table"
+   ]
+  }
+ ]
+}
