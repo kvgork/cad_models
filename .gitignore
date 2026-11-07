@@ -1,0 +1,8 @@
+# Orchestration pipeline state
+.agent-state/
+# SolidCraft lock + previous-save backup
+.~*.lock
+*.bak
+# Scratch
+*.tmp
+__pycache__/

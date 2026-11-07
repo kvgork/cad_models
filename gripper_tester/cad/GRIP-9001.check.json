@@ -1,0 +1,8 @@
+[
+ {"command":"document.metadata.set","params":{"values":{"part_number":"GRIP-9001","description":"ASSY, GRIPPER TESTER, FIT CHECK","revision":"X1","project":"gripper_tester"}}},
+ {"command":"file.insert_step","params":{"path":"gripper_tester/exports/GRIP-0002_X1.step","name":"adapter_part"}},
+ {"command":"occurrence.move","params":{"occurrence":"adapter_part:1","space":"world","matrix":[[1,0,0,-40],[0,1,0,0],[0,0,1,5]],"move_grounded":true}},
+ {"command":"file.insert_step","params":{"path":"lib/so101/LIB-0005.step","name":"so101_gripper"}},
+ {"command":"occurrence.move","params":{"occurrence":"so101_gripper:1","space":"world","matrix":[[1,0,0,-40],[0,1,0,0.218],[0,0,1,15.05]],"move_grounded":true}},
+ {"command":"inspect.clearance","params":{"bodies":["baseplate","adapter"],"against":["adapter","Wrist_Roll_Follower_SO101 v1"],"nearest":6}}
+]

@@ -1,0 +1,34 @@
+# gripper_tester — GRIP-0001, GRIP-0002, GRIP-9001
+
+A bench baseplate for testing SO-101 style grippers. Grippers swap tool-free on a dovetail slide, and the plate also holds the Waveshare bus-servo control board.
+
+## Parts
+
+| PN | Source | Qty | Print |
+|---|---|---|---|
+| GRIP-0001 baseplate | `cad/GRIP-0001.json` → `exports/GRIP-0001_X1.{step,stl,3mf}` | 1 | flat, no supports |
+| GRIP-0002 gripper adapter | `cad/GRIP-0002.json` → `exports/GRIP-0002_X1.{step,stl,3mf}` | 1 per gripper | dovetail down, no supports |
+| GRIP-9001 fit-check assembly | `cad/GRIP-9001.check.json` (overlay on GRIP-0001) → `cad/GRIP-9001.sc` | — | — |
+
+GRIP-9001 places the adapter export and the SO-101 follower gripper (`lib/so101/LIB-0005.step`) on the baseplate and runs `inspect.clearance` (`tools/build.sh gripper_tester --assemblies`, ~10 min).
+`exports/_superseded/gripper_adapter_pre-migration.3mf` is the hand-exported 3MF from before the 2026-11-07 migration.
+
+## Interfaces (taken from the SO-ARM100 STEP files)
+
+- **Gripper ↔ adapter.** The adapter copies the STS3215 servo horn that the gripper normally bolts to: a Ø19.6 × 0.9 locating boss (the gripper hub has a Ø20 × 1 mm recess), plus 4 × M3 on a Ø14 circle at 45°. Any SO-101 part with the horn interface fits (follower gripper, leader `Wrist_Roll`).
+- **Adapter ↔ baseplate.** Dovetail 34 → 28 mm wide, 6 mm tall, 40 mm long, with 0.2 mm clearance per side. It slides in from the −X end against an end stop. A side M3 thumb screw locks it: the screw presses on the angled flank and wedges the adapter down.
+- **Control board.** The Waveshare Bus Servo Adapter (A) is 42 × 33 mm with holes on a 37 × 28 mm pitch. It sits on 4 bosses with Ø5 × 4 mm holes. M2.5 × 6 HEX5 F-F spacers press into those holes, the same way as on the official `WaveShare_Mounting_Plate_SO101`.
+
+## Hardware
+
+- Adapter: 4 × M3 heat-set inserts (Ø4 hole, 6 deep). The stock M3×6 screws reach about 2.9 mm into the inserts; M3×8 is better.
+- Baseplate lock: 1 × M3 heat-set insert in the +Y rail, and an M3×10 thumb or wing screw.
+- Board: 4 × M2.5×6 hex spacers and 4 × M2.5×4 screws, both from the SO-101 kit.
+- Plate: 4 × Ø4.5 corner holes (M4 to a table, or rubber feet). There is also a 24 × 8 cable slot between the stations.
+
+## Key parameters
+
+- Baseplate: `L W T`, `gx` (gripper station X), `bx` (board X), `dt_*`, `clr`, `brd_dx/dy`.
+- Adapter: `dt_*`, `horn_d/h`, `bc_half`, `insert_d/depth`.
+
+Keep `dt_*` the same in both scripts.

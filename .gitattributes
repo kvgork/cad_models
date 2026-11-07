@@ -1,0 +1,12 @@
+# Vault: 05-Wiki/research/2026-11-06-cad-project-structure-best-practices.md §5.3
+# --- SolidCraft containers (ZIP) -> LFS
+*.sc   filter=lfs diff=lfs merge=lfs -text
+# --- Neutral/mesh exports and vendor models -> LFS (both cases: Linux patterns are case-sensitive)
+*.[Ss][Tt][Ee][Pp] filter=lfs diff=lfs merge=lfs -text
+*.[Ss][Tt][Pp]     filter=lfs diff=lfs merge=lfs -text
+*.[Ss][Tt][Ll]     filter=lfs diff=lfs merge=lfs -text
+*.3[Mm][Ff]        filter=lfs diff=lfs merge=lfs -text
+*.[Pp][Dd][Ff]     filter=lfs diff=lfs merge=lfs -text
+*.png              filter=lfs diff=lfs merge=lfs -text
+# --- SolidCraft command scripts (source of truth): readable diffs, never auto-merge
+**/cad/*.json  diff merge=binary

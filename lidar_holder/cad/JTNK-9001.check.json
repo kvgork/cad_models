@@ -1,0 +1,6 @@
+[
+ {"command":"document.metadata.set","params":{"values":{"part_number":"JTNK-9001","description":"ASSY, LIDAR HOLDER, FIT CHECK","revision":"X1","project":"lidar_holder"}}},
+ {"command":"file.insert_step","params":{"path":"lib/rplidar_c1/LIB-0008.stp","name":"rplidar_c1"}},
+ {"command":"occurrence.move","params":{"occurrence":"rplidar_c1:1","space":"world","matrix":[[0,-1,0,0],[1,0,0,0],[0,0,1,20]],"move_grounded":true}},
+ {"command":"inspect.clearance","params":{"bodies":["holder"],"nearest":4}}
+]
