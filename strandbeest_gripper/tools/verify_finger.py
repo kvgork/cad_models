@@ -19,8 +19,8 @@ from jansen import pose, check_reference  # noqa: E402
 import gen_finger as g  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
-SC = os.path.join(ROOT, 'strandbeest_gripper/cad/GRIP-9002.sc')
-SCRIPT = os.path.join(ROOT, 'strandbeest_gripper/cad/GRIP-9002.verify.json')
+SC = os.path.join(ROOT, g.VDIR, 'cad', g.parts.fname('GRIP-9002') + '.sc')
+SCRIPT = os.path.join(ROOT, g.VDIR, 'cad', g.parts.fname('GRIP-9002') + '.verify.json')
 
 res = []
 
@@ -31,15 +31,15 @@ def check(name, ok, value):
 
 TRACE = {'J2': ('j', 30.2), 'J3': ('bde', 26.7), 'J4': ('c', 30.2), 'J5': ('f', 30.2), 'F': ('ghi', 40.0)}
 DRIVE = [g.THETA_MIN, -40, -20, 0, 20, 40, g.THETA_MAX, 0]
-LINKS = [f"{g.PN[k]}:1" for k in ('j', 'k', 'c', 'f', 'bde', 'ghi')]
-ALL = [f"{g.PN[k]}:1" for k in ('frame', 'crank', 'j', 'k', 'c', 'f', 'bde', 'ghi')]   # servo left out: links never go below z 25.2 > servo top 20.2
+LINKS = [f"{g.CN[k]}:1" for k in ('j', 'k', 'c', 'f', 'bde', 'ghi')]
+ALL = [f"{g.CN[k]}:1" for k in ('frame', 'crank', 'j', 'k', 'c', 'f', 'bde', 'ghi')]   # servo left out: links never go below z 25.2 > servo top 20.2
 
 
 def verify_script():
     c = [{"command": "joint.list", "params": {}}]
     c += [{"command": "joint.drive", "params": {"joint": "O_crank", "value": v}} for v in DRIVE]
     for n, (k, z) in TRACE.items():
-        c.append({"command": "motion.trace", "params": {"occurrence": f"{g.PN[k]}:1", "point": [g.J[n][0], g.J[n][1], z],
+        c.append({"command": "motion.trace", "params": {"occurrence": f"{g.CN[k]}:1", "point": [g.J[n][0], g.J[n][1], z],
                                                         "joint": "O_crank", "from": g.THETA_MIN, "to": g.THETA_MAX, "samples": 130}})
     rng = dict(joint="O_crank", **{"from": g.THETA_MIN, "to": g.THETA_MAX}, step=1, report_gaps=True)
     c.append({"command": "joint.sweep", "params": dict(rng, occurrences=LINKS, against=ALL)})          # links vs everything
@@ -105,7 +105,7 @@ if __name__ == '__main__':
     main = links_sw
     tol_deg = math.degrees(main['gap_tolerance_mm'] / 11.5)
     for lab, x, want in (('+', pos, g.STOP_MAX), ('-', neg, g.STOP_MIN)):
-        hit = x['stopped_by'] and {x['stopped_by']['a'], x['stopped_by']['b']} == {'GRIP-0003:1', 'GRIP-0004:1'}
+        hit = x['stopped_by'] and {x['stopped_by']['a'], x['stopped_by']['b']} == {g.CN['frame'] + ':1', g.CN['crank'] + ':1'}
         check(f'hard stop {lab}: crank tab hits frame post at {want:+.2f} deg (+- 0.25 + mesh {tol_deg:.2f})',
               bool(hit) and abs(x['stopped_at'] - want) <= 0.25 + tol_deg, f"{x['stopped_at']:+.2f} deg")
 

@@ -20,8 +20,8 @@ from jansen import pose, check_reference  # noqa: E402
 import gen_dual as g  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
-SC = os.path.join(ROOT, 'strandbeest_gripper/cad/GRIP-9003.sc')
-SCRIPT = os.path.join(ROOT, 'strandbeest_gripper/cad/GRIP-9003.verify.json')
+SC = os.path.join(ROOT, g.Variant().out.replace('.json', '.sc'))
+SCRIPT = os.path.join(ROOT, g.Variant().out.replace('.json', '.verify.json'))
 
 N = 181                                   # trace samples over 0..360
 TRACE = [(f, n, key, z) for f in (1, 2) for n, key, z in
@@ -39,7 +39,7 @@ LABELS = ('gears vs frame', 'finger 1 links vs all parts', 'finger 2 links vs al
 # checked statically (inspect.clearance) at every degree of one tooth pitch of the crank gear (the
 # mesh pattern repeats every pitch).
 PITCH = 360.0 / g.ZC
-MESH_ANGLES = [float(a) for a in range(0, int(round(PITCH)) + 1)]
+MESH_ANGLES = [float(a) for a in range(0, int(round(PITCH)) + 1)] + [float(a) for a in range(30, 360, 10)]   # one pitch fine + full turn coarse
 GEAR_BODIES = [g.comp_name('crank1', 1), g.comp_name('idler', 1), g.comp_name('idler', 2), g.comp_name('crank2', 1)]
 MESHES = [(GEAR_BODIES[0], GEAR_BODIES[1]), (GEAR_BODIES[1], GEAR_BODIES[2]), (GEAR_BODIES[2], GEAR_BODIES[3])]
 
@@ -140,7 +140,7 @@ def main():
                     if {b, nb['body']} == set(m):
                         worst[m] = min(worst[m], nb['distance_mm'])
     for m, d in worst.items():
-        check(f'mesh {m[0]} / {m[1]}: no overlap, min clearance >= 0.1 mm over one tooth pitch ({len(MESH_ANGLES)} poses)',
+        check(f'mesh {m[0]} / {m[1]}: no overlap, min clearance >= 0.1 mm over one tooth pitch + full turn ({len(MESH_ANGLES)} poses)',
               not any({a, b} == set(m) for a, b, _ in overl) and 0.1 <= d < 1e9, f'{d:.3f} mm')
     for x, lab in zip(r[-len(SWEEPS):], LABELS):
         mg = sorted((v['mm'], k, v.get('to')) for k, v in (x.get('min_gap') or {}).items())

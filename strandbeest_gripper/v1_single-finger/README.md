@@ -1,0 +1,100 @@
+# Strandbeest gripper v1: single finger + anvil (GRIP-9002)
+
+Overview of all versions: [../README.md](../README.md).
+
+
+This is one Strandbeest-style finger driven by an STS3215 servo. It is Theo Jansen's leg ("holy numbers") scaled by **0.4**, with a 6 mm crank. The foot of the leg becomes a fingertip that travels on a nearly straight line and pinches objects against a fixed anvil.
+
+Design background: vault `05-Wiki/research/2026-11-06-strandbeest-jansen-linkage-grippers.md` §4.5, and `00-Inbox/2026-11-07-strandbeest-finger-research.md`.
+
+**Status: X1, not printed yet — NEEDS PRINT TEST** (pin fit, servo sleeve fit, stop strength).
+
+![closed, crank +66°](docs/GRIP-9002_assy-single-finger_crank_66.png)
+
+| Open: crank −63° | Mid: crank 0° | Closed: crank +66° |
+|---|---|---|
+| ![](docs/GRIP-9002_assy-single-finger_crank_-63.png) | ![](docs/GRIP-9002_assy-single-finger_crank_0.png) | ![](docs/GRIP-9002_assy-single-finger_crank_66.png) |
+
+## What it does (checked in CAD by `../tools/verify_finger.py`, all PASS)
+
+| Quantity | Value |
+|---|---|
+| Operating crank range | −63° … +66° |
+| Fingertip travel | 19.7 mm |
+| Straightness | 0.20 mm |
+| Grip opening (pad to anvil) | 21.0 mm open → 1.3 mm closed |
+| Hard stops | crank tabs hit the frame post at +68.25° and about −65.5° |
+| Collisions over the range | none; links 0.5 mm apart (washer gap) |
+| Joint centres vs `../tools/jansen.py` | ≤ 0.0001 mm |
+
+- The closing direction is +crank (counter-clockwise seen from above).
+- The foot plate turns about 30° while gripping. The pad is round and centred on joint F, so the contact point does not move.
+
+## Move it in SolidCraft
+
+1. Open `cad/GRIP-9002_assy-single-finger.sc`.
+2. Drag the crank (GRIP-0004), or drive the joint `O_crank` (limits −65.25 … +68.25). The other 9 revolute joints follow; it is one closed loop.
+3. From the CLI: `joint.drive {"joint":"O_crank","value":40}`. Use `motion.trace` on the pad to see the stroke.
+
+## Files
+
+| PN | Part | Layer (z) | Print |
+|---|---|---|---|
+| GRIP-0003 | frame: servo sleeve, G post, anvil column | z −21.4…45 | sleeve opening up; PETG/ASA (servo runs warm); supports only under the anvil arm if needed |
+| GRIP-0004 | crank disc + 2 stop tabs (on the servo horn) | 0 (18.7–24.7) | flat; PETG |
+| GRIP-0006 | link k (J1–J4) | 1 | flat |
+| GRIP-0009 | triangle b-d-e (G–J2–J3), **"UP" debossed** | 1 | flat, UP on top |
+| GRIP-0005 | link j (J1–J2) | 2 | flat |
+| GRIP-0007 | link c (G–J4) | 2 | flat |
+| GRIP-0008 | link f (J3–J5) | 2 | flat |
+| GRIP-0010 | triangle g-h-i (J4–J5–F) + Ø10 fingertip pad | 3 | plate down, pad up |
+
+- **Source:** `../tools/gen_finger.py` writes `cad/GRIP-9002_assy-single-finger.json`. Then `../tools/build.sh strandbeest_gripper/v1_single-finger` builds `cad/GRIP-9002_assy-single-finger.sc` and `exports/<PN>_<name>_X1.{step,stl,3mf}`.
+- **Kinematics:** `../tools/jansen.py` (it asserts the published scale-1 reference: stride 67.9 / height 22.5 / ymin −91.8).
+- **Verification:** `../tools/verify_finger.py` (runs `cad/GRIP-9002_assy-single-finger.verify.json`).
+- **Parameters** (in the script): `link_t` 3, `gap` 0.5, `pin_d` 3.4, `head_d` 6.5, `fit_clr` 0.2, `wall` 2.5, `pad_d` 10. The link width (7 mm) is a generator constant, because slot width takes numbers only in SolidCraft 0.30.1.
+
+## Hardware
+
+| Qty | Item | Where |
+|---|---|---|
+| 1 | Feetech STS3215 | in the sleeve, horn up |
+| 2 | M3×6 | crank → horn (the two horn holes away from J1) |
+| 1 | M3×16 socket head + nyloc | J1: head in the pocket under the crank, up through k and j |
+| 1 | M3×30 + nyloc | G: from below through the frame bore and post, up through b-d-e and c |
+| 1 | M3×16 + nyloc | J4 (k, c, g-h-i) |
+| 3 | M3×12 + nyloc | J2, J3, J5 |
+| ~14 | M3 washers, 0.5 mm (DIN 125) | between every layer pair on every pin |
+
+Every pin is a free M3 screw in Ø3.4 holes. **Snug the nyloc nuts but do not clamp them:** the links must turn freely. If the pins wobble, print a coupon and lower `pin_d` to 3.2–3.3.
+
+## Assembly (order matters)
+
+1. Push the servo into the sleeve, horn up and cable through the notch. **Set the servo to its centre position first.**
+2. Put the J1 screw up through the crank, with its head in the pocket. Then fit the crank on the horn with 2 × M3×6, J1 pointing to bearing 168.4°. That is pose θ = 0: the coordinates below.
+3. Stack the links in layer order with a washer between each layer.
+   - **b-d-e has "UP" on top.**
+   - The linkage can physically be assembled as its mirror image, which still moves but does not grip. Check the joint positions against this table at θ = 0, in the servo STEP frame (mm, axis at (12.5, 0)):
+
+   | O | J1 | J2 | J3 | J4 | J5 | G | F (pad) |
+   |---|---|---|---|---|---|---|---|
+   | 12.50, 0.00 | 6.62, 1.21 | 19.39, −14.18 | 41.15, −9.21 | 26.72, 15.67 | 37.97, 6.23 | 28.02, 0.00 | 36.79, 32.48 |
+
+4. Fit the G screw from below, through the bore, last.
+
+## Servo setup
+
+- **Angle limits:** crank −63° … +66° from the θ = 0 position. That is 2° or more inside the stops, so the servo never stalls into them.
+- **Direction:** check that a positive step closes the finger (counter-clockwise from above). If it opens instead, invert the direction in the servo config.
+- **Grip force:** set it indirectly with Torque_Limit; the STS3215 has no torque mode. Expect roughly 25–46 N per finger by the vault's estimate, unmeasured. Pin friction is the first thing to measure.
+
+## Warnings
+
+- **Do not turn the crank by hand beyond the stops.** Near crank 192° the k–c loop has only a 0.48 mm margin to toggle and can snap to its mirror branch. The tabs exist to prevent that.
+- **Tab stop accuracy:** the measured stop is −65.73° against the designed −65.25°. The difference is within the mesh gap tolerance of the check (0.107 mm, about 0.5° at the tab).
+- **Crank counterbores:** the horn-screw counterbores on the crank cut 0.55 mm into the central access hole. The screw heads still seat on the remaining ring.
+- **Not modelled:** screws, washers and nuts. The servo sleeve is a friction fit with no retention screw (v1).
+
+## Next (v1 notes)
+
+Two mirrored fingers on one servo with a 1:1 gear pair, instead of the anvil. Re-optimise the link lengths for even grip force (vault §4.5). Add a soft Fin Ray-style pad.

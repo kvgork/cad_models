@@ -1,4 +1,4 @@
-"""Generate cad/GRIP-9002.json: the Strandbeest (Jansen) finger v1 assembly.
+"""Generate v1_single-finger/cad/GRIP-9002_assy-single-finger.json: the Strandbeest (Jansen) finger v1 assembly.
 
 Every link is its own component with its own part number (GRIP-0003..0010).
 The script builds them at the theta = 0 pose from jansen.py, inserts the
@@ -6,9 +6,9 @@ STS3215 servo, adds the 10 revolute joints and exports each part.
 
 Run from the repo root:
     python3 strandbeest_gripper/tools/gen_finger.py [--smoke]
-    solidcraft-cli run strandbeest_gripper/cad/GRIP-9002.json --save strandbeest_gripper/cad/GRIP-9002.sc
+    tools/build.sh strandbeest_gripper/v1_single-finger
 
-World frame = the servo STEP's own frame (lib/sts3215/LIB-0009.step): output
+World frame = the servo STEP's own frame (lib/sts3215/LIB-0009_servo-sts3215.step): output
 axis at A = (12.5, 0) along +Z, horn top at z = 18.7. The linkage (link frame
 of jansen.py) is turned +ROT about A so pivot G lands at +X, past the case.
 """
@@ -18,6 +18,8 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'tools'))
+import parts  # noqa: E402
 from jansen import pose, check_reference  # noqa: E402
 
 S = 0.4                      # scale on the holy numbers
@@ -55,6 +57,8 @@ def zbot(layer):
 
 PN = {'frame': 'GRIP-0003', 'crank': 'GRIP-0004', 'j': 'GRIP-0005', 'k': 'GRIP-0006',
       'c': 'GRIP-0007', 'f': 'GRIP-0008', 'bde': 'GRIP-0009', 'ghi': 'GRIP-0010'}
+CN = {k: parts.fname(v) for k, v in PN.items()}      # component / body names: <PN>_<name>
+VDIR = 'strandbeest_gripper/v1_single-finger'
 DESC = {'frame': 'FRAME, FINGER, STRANDBEEST', 'crank': 'CRANK, FINGER, STRANDBEEST',
         'j': 'LINK, J, STRANDBEEST', 'k': 'LINK, K, STRANDBEEST', 'c': 'LINK, C, STRANDBEEST',
         'f': 'LINK, F, STRANDBEEST', 'bde': 'TRIANGLE, BDE, STRANDBEEST',
@@ -111,11 +115,11 @@ def pin_holes(body, names, z0, h):
 
 def component(key):
     c("component.activate", component=0)
-    c("component.create", name=PN[key], activate=True)
+    c("component.create", name=CN[key], activate=True)
 
 
 # ---------------------------------------------------------------- frame GRIP-0003
-fb = PN['frame']
+fb = CN['frame']
 c("component.create", name=fb, activate=True, grounded=True)
 SX, SY = 22.7, 12.4                       # servo case half-extents
 ZB, ZT = -21.4, 14.0                      # frame bottom (2 mm floor under z -19.4), sleeve top
@@ -155,7 +159,7 @@ c("solid.extrude", distance=f"{AN_Z1 - AN_Z0} mm", operation="join", targets=[fb
 
 # ---------------------------------------------------------------- crank GRIP-0004
 component('crank')
-cb = PN['crank']
+cb = CN['crank']
 c("solid.cylinder", diameter="20 mm", height=f"{CRANK_T} mm", base=[A[0], A[1], HORN_TOP],
   operation="new", body_name=cb, name="crank_disc")
 
@@ -207,7 +211,7 @@ smoke = '--smoke' in sys.argv
 links = ['k', 'c'] if smoke else ['j', 'k', 'c', 'f', 'bde', 'ghi']
 for key in links:
     component(key)
-    body = PN[key]
+    body = CN[key]
     z = zbot(LAYER[key])
     if key in BARS:
         p, q = BARS[key]
@@ -237,11 +241,11 @@ for key in links:
 
 # ---------------------------------------------------------------- servo + joints
 c("component.activate", component=0)
-c("file.insert_step", path="lib/sts3215/LIB-0009.step", name="LIB-0009")
+c("file.insert_step", path=f"lib/sts3215/{parts.fname('LIB-0009')}.step", name=parts.fname('LIB-0009'))
 
 
 def occ(key):
-    return f"{PN[key]}:1"
+    return f"{CN[key]}:1"
 
 
 def rev(name, a, b, pt, z, limits=None):
@@ -251,7 +255,7 @@ def rev(name, a, b, pt, z, limits=None):
     c("joint.as_built", **params)
 
 
-c("joint.as_built", type="rigid", a=occ('frame'), b="LIB-0009:1", name="servo_in_frame")
+c("joint.as_built", type="rigid", a=occ('frame'), b=parts.fname('LIB-0009') + ":1", name="servo_in_frame")
 rev("O_crank", occ('frame'), occ('crank'), A, HORN_TOP, [[STOP_MIN, STOP_MAX]])
 JOINTS = [("J1_crank_k", 'crank', 'k', 'J1'), ("J4_k_c", 'k', 'c', 'J4'), ("G_frame_c", 'frame', 'c', 'G')]
 if not smoke:
@@ -264,21 +268,21 @@ for name, a, b, n in JOINTS:
 
 # ---------------------------------------------------------------- metadata + exports
 for key in ['frame', 'crank'] + links:
-    c("component.metadata.set", component=PN[key], part_number=PN[key], description=DESC[key],
+    c("component.metadata.set", component=CN[key], part_number=PN[key], description=DESC[key],
       revision="X1", bom_type="normal")
-c("component.metadata.set", component="LIB-0009", part_number="LIB-0009", description="SERVO, STS3215",
+c("component.metadata.set", component=parts.fname('LIB-0009'), part_number="LIB-0009", description="SERVO, STS3215",
   bom_type="purchased")
 if not smoke:
     for key in ['frame', 'crank'] + links:
         for ext, cmd in (('step', 'file.export_step'), ('stl', 'file.export_stl'), ('3mf', 'file.export_3mf')):
-            params = dict(path=f"strandbeest_gripper/exports/{PN[key]}_X1.{ext}", bodies=[PN[key]])
+            params = dict(path=f"{VDIR}/exports/{parts.export(PN[key], 'X1', ext)}", bodies=[CN[key]])
             if ext != 'step':
                 params["quality"] = "fine"
             c(cmd, **params)
 
 if __name__ == '__main__':
     check_reference()
-    out = 'strandbeest_gripper/cad/' + ('smoke.json' if smoke else 'GRIP-9002.json')
+    out = f"{VDIR}/cad/" + ('smoke.json' if smoke else parts.fname('GRIP-9002') + '.json')
     with open(out, 'w') as fh:
         fh.write('[\n' + ',\n'.join(' ' + json.dumps(x, separators=(',', ':')) for x in cmds) + '\n]\n')
     print(out, len(cmds), 'steps; ROT %.2f deg; G world (%.2f, %.2f); tabs %s' %
