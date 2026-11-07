@@ -7,7 +7,7 @@ These are personal CAD models built with SolidCraft. Each one is a parametric co
 | [gripper_tester](gripper_tester/README.md) | GRIP-0001, GRIP-0002, GRIP-9001 | Bench baseplate + dovetail adapter for swapping SO-101 grippers; Waveshare board mount |
 | [gripper_tips](gripper_tips/README.md) | SO101-0001, SO101-0002 | Snap-on red calibration caps for the SO-101 gripper jaws |
 | [lidar_holder](lidar_holder/README.md) | JTNK-0001, JTNK-9001 | RPLIDAR C1 riser for the JeTank |
-| [strandbeest_gripper](strandbeest_gripper/README.md) | GRIP-0003…0010, GRIP-9002 | Jansen-linkage (Strandbeest) finger v1, STS3215-driven |
+| [strandbeest_gripper](strandbeest_gripper/README.md) | v1: GRIP-0003…0010, GRIP-9002 · v2: GRIP-0011…0022, GRIP-9003 | Jansen-linkage (Strandbeest) gripper: v1 one finger + anvil; v2 two mirrored fingers that clamp and feed |
 
 - Part numbers and revisions: [PARTS.md](PARTS.md).
 - Pinned tool versions: [TOOLS.md](TOOLS.md).
