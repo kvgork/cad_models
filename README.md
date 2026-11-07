@@ -25,6 +25,7 @@ GRIP-0015_link-j-hub_X1.stl
 ```
 
 - **Materials:** use PETG or ASA for loaded parts and parts next to servos; PLA is fine for fit checks.
+- **What to print:** each product (or version) README starts with a **print list**: how many of each STL file to print.
 - **Print settings and hardware:** each README lists print orientation, screws, inserts and assembly order.
 - **All parts:** [PARTS.md](PARTS.md) lists every part number with its name, folder and material.
 

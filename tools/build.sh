@@ -54,4 +54,6 @@ for p in "${PRODUCTS[@]}"; do
     done
   fi
 done
+# refresh the print list in each built folder's README (qty per STL)
+python3 tools/printlist.py "${PRODUCTS[@]}" || fail=1
 exit $fail
