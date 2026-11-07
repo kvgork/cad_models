@@ -17,26 +17,44 @@ If a rule here conflicts with those notes, the notes win; update this file to ma
 ## Layout
 
 ```
-<product>/README.md              what it is, interfaces, print notes
-<product>/cad/<PN>.json          command script: the source of truth (parametric)
-<product>/cad/<PN>.sc            built design, regenerated from the script (LFS)
-<product>/cad/<PN>.check.json    overlay: fit/clearance check run with --in <part>.sc
-<product>/exports/<PN>_<REV>.{step,stl,3mf}   generated only; never hand-edit
-<product>/exports/_superseded/   replaced exports are moved here, never deleted
-<product>/tools/                 generator or analysis scripts (python), repo-relative paths
-lib/<group>/LIB-NNNN.<ext> + SOURCE.md   vendor parts, READ-ONLY
-tools/build.sh                   rebuild all (`--assemblies` runs overlays, ~10 min)
-PARTS.md                         part-number register; TOOLS.md pinned versions
+<product>/README.md                    what it is, interfaces, print notes
+<product>/cad/<PN>_<name>.json         command script: the source of truth (parametric)
+<product>/cad/<PN>_<name>.sc           built design, regenerated from the script (LFS)
+<product>/cad/<PN>_<name>.check.json   overlay: fit/clearance check run with --in <part>.sc
+<product>/exports/<PN>_<name>_<REV>.{step,stl,3mf}   generated only; never hand-edit
+<product>/exports/_superseded/         replaced exports are moved here, never deleted
+<product>/tools/                       generator / analysis scripts (python), repo-relative paths
+lib/<group>/<LIB-NNNN>_<name>.<ext> + SOURCE.md   vendor parts, READ-ONLY
+tools/build.sh                         rebuild all (`--assemblies` runs overlays, ~10 min); tools/parts.py reads PARTS.md
+PARTS.md                               part register (PN, name, folder); TOOLS.md pinned versions
 ```
+
+**Products with several design versions** get one folder per version, each a complete product (see `strandbeest_gripper/`):
+
+```
+<product>/README.md                    overview: version table + comparison
+<product>/tools/                       generators/verifiers shared by all versions
+<product>/v<N>[x]_<short-name>/        e.g. v2_dual-finger, v3a_pivot-jaws
+    README.md  cad/  exports/  docs/   exports = the COMPLETE print kit for that version,
+                                       shared parts included (LFS stores identical files once)
+```
+
+- A new version gets a new folder and a new assembly number. Earlier versions are left untouched.
+- Parts that don't fit an earlier version get new part numbers; parts that do fit keep theirs.
+- `tools/build.sh <product>/<version>` builds one version.
 
 ## Naming and revisions
 
-- **Native file name = part number, never the revision:** `<PROJ>-<NNNN>`, using only `A–Z 0–9 - _`.
+- **File names are readable: `<PN>_<name>`**, where name is lower-case `a-z 0-9 -` from the Name column of `PARTS.md` (e.g. `GRIP-0015_link-j-hub.json`). There is never a revision in a native file name.
+  - **User decision (2026-11-07):** this deliberately extends the vault rule "file name = part number". A bare code isn't readable.
+  - Component and body names in assemblies use the same `<PN>_<name>` (+ `_F1`/`_F2` instance suffixes).
+  - Generators get names from `tools/parts.py`, never typed by hand.
+- **Part numbers:** `<PROJ>-<NNNN>`.
   - PROJ is `SO101`, `JTNK`, `GRIP` or `LIB`.
   - 0001–8999 are parts and 9000–9999 are assemblies.
   - Never reuse or renumber a part number.
-- **New part number:** take the next free one from `PARTS.md`, add a row there, and tell the user it was allocated.
-- **Export name:** `<PN>_<REV>.<ext>`.
+- **New part number:** take the next free one from `PARTS.md`, add a row there **with a name and folder**, and tell the user it was allocated.
+- **Export name:** `<PN>_<name>_<REV>.<ext>`.
   - Unreleased print iterations are `X1`, `X2`, ….
   - A release takes a letter `A`, `B`, … (skip I O Q S X Z) and a git tag `<PN>/<REV>`.
   - A change that breaks fit or function with the old part gets a **new part number**. A change that keeps fit gets the next revision.
@@ -84,6 +102,36 @@ PARTS.md                         part-number register; TOOLS.md pinned versions
 5. **Fit and motion:** `inspect.clearance` / `inspect.section` for fit; `joint.sweep` for mechanisms.
 6. **Screenshot last:** a sanity check, never proof. Never claim a dimension from an image.
 7. **Export:** re-eval the export, report the numbers against the spec in a table, and say plainly what was not checked.
+
+## Mechanisms, linkages and gears (lessons from strandbeest_gripper, 2026-11-07)
+
+**Modelling the mechanism**
+- **Analytic model first.** Write a small Python model, and have it assert a published reference value: `jansen.py` checks Ghassaei's stride / height / ymin, which also catches a wrong branch choice. Generate the assembly script from that model.
+- **Build in place, then joint.** Build every link in place at one pose. Then add `joint.as_built` revolutes with `at: {point, z: [0,0,1]}`. Verify with `motion.trace` against the model: joint centres should agree within about 0.0001 mm.
+- **Closed loops solve.** `joint.drive` handles them. A redundant parallelogram (two identical legs plus a bar pinned at both ends) loses the loop, so make one end a `pin_slot`. Do the same in the real part: a short slot keeps print tolerances from binding it.
+- **Planar stacks need a layer plan.** Work it out over the motion range, including hubs, screw heads and nuts (`strandbeest_gripper/tools/layers.py`).
+  - Fill empty layers in a pin column with printed hubs on the lower link, never loose spacers.
+  - Limit the range with hard stops if you don't need a full turn: it needs fewer layers, and stops keep the mechanism away from toggle points.
+- **Rigid tools on a rotating link swing with it.** Before lengthening a tip or jaw, compute its orientation over the stroke. The fix is a pivot or a parallel twin linkage, not a longer rigid part.
+- **Mirror parts.** The mirror image of an asymmetric plate is a different part: give it its own part number and mark it (UP1/UP2) so it can't be assembled wrong. A planar linkage can also be assembled in its mirror branch, so put θ = 0 joint coordinates in the README.
+
+**Gears**
+- Generate involutes in the script.
+- Use **z ≥ 17 teeth at 20° pressure angle**; z16 interfered with its partner.
+- Tooth phase per mesh depends on the parity of the tooth count. Use a general mesh-phase formula (`gen_v3.mesh_phase`), never a rule that only works for even counts.
+- **Test a phase formula on a mesh that is NOT on the line of centres.** The collinear case (offset 0) hid a sign error that made off-axis meshes overlap. After building, always check each mesh for overlap with `inspect.clearance`.
+- Couple motion with `joint.gear`.
+- **Mind what rides on top of a gear.** Hubs or pins on a gear sweep over its partner's tooth tips. Make driven gears 0.5 mm thinner (no flush tops), and check every mesh over the full turn, not just one tooth pitch.
+
+**Verifying and inspecting**
+- **`joint.sweep` has work budgets.**
+  - Leave vendor STEPs and dense gear meshes out of big sweeps.
+  - Split `occurrences`/`against` into chunks (gears 2 at a time, other parts 8).
+  - Check gear meshes statically: `joint.drive` steps plus `inspect.clearance` over one tooth pitch.
+- **Verify scripts assert result counts.** A `zip()` over a short result list or an empty trace passes silently. Generate the verify script from the same generator, never with hard-coded coordinates.
+- **Check feature warnings in the GUI** (`inspect_design` over the bridge); `eval` doesn't show them. A join that only touches a face doesn't fuse, so make joined features overlap.
+- **Renames and moves:** rebuild afterwards and compare every body's volume with the volumes from before.
+- **Reloading in the GUI:** opening a file that is already open just switches to its tab. Ask the user to close it (without saving) first.
 
 ## FDM printability (defaults; calibrate per printer and material, then write the measured value back)
 

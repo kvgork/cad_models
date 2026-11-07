@@ -4,8 +4,8 @@ Two snap-on caps that cover the tips of the standard SO-101 follower gripper jaw
 
 | PN | Source → exports | Fits | Built in the frame of |
 |---|---|---|---|
-| SO101-0001 | `cad/SO101-0001.json` → `exports/SO101-0001_X1.{step,stl,3mf}` | `Moving_Jaw_SO101` | `lib/so101/LIB-0003.step` (the finger runs along −Y) |
-| SO101-0002 | `cad/SO101-0002.json` → `exports/SO101-0002_X1.{step,stl,3mf}` | the fixed jaw on `Wrist_Roll_Follower_SO101` | `lib/so101/LIB-0005.step` (the finger runs along +Z) |
+| SO101-0001 | `cad/SO101-0001_tip-moving-jaw.json` → `exports/SO101-0001_tip-moving-jaw_X1.{step,stl,3mf}` | `Moving_Jaw_SO101` | `lib/so101/LIB-0003_so101-moving-jaw.step` (the finger runs along −Y) |
+| SO101-0002 | `cad/SO101-0002_tip-fixed-jaw.json` → `exports/SO101-0002_tip-fixed-jaw_X1.{step,stl,3mf}` | the fixed jaw on `Wrist_Roll_Follower_SO101` | `lib/so101/LIB-0005_so101-wrist-roll-follower.step` (the finger runs along +Z) |
 
 Each cap is modelled in its jaw's own STEP coordinates. Insert the jaw STEP at its origin and the cap sits exactly where it belongs.
 

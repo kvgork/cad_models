@@ -6,11 +6,11 @@ A bench baseplate for testing SO-101 style grippers. Grippers swap tool-free on 
 
 | PN | Source | Qty | Print |
 |---|---|---|---|
-| GRIP-0001 baseplate | `cad/GRIP-0001.json` → `exports/GRIP-0001_X1.{step,stl,3mf}` | 1 | flat, no supports |
-| GRIP-0002 gripper adapter | `cad/GRIP-0002.json` → `exports/GRIP-0002_X1.{step,stl,3mf}` | 1 per gripper | dovetail down, no supports |
-| GRIP-9001 fit-check assembly | `cad/GRIP-9001.check.json` (overlay on GRIP-0001) → `cad/GRIP-9001.sc` | — | — |
+| GRIP-0001 baseplate | `cad/GRIP-0001_baseplate.json` → `exports/GRIP-0001_baseplate_X1.{step,stl,3mf}` | 1 | flat, no supports |
+| GRIP-0002 gripper adapter | `cad/GRIP-0002_gripper-adapter.json` → `exports/GRIP-0002_gripper-adapter_X1.{step,stl,3mf}` | 1 per gripper | dovetail down, no supports |
+| GRIP-9001 fit-check assembly | `cad/GRIP-9001_assy-tester-fit-check.check.json` (overlay on GRIP-0001) → `cad/GRIP-9001_assy-tester-fit-check.sc` | — | — |
 
-GRIP-9001 places the adapter export and the SO-101 follower gripper (`lib/so101/LIB-0005.step`) on the baseplate and runs `inspect.clearance` (`tools/build.sh gripper_tester --assemblies`, ~10 min).
+GRIP-9001 places the adapter export and the SO-101 follower gripper (`lib/so101/LIB-0005_so101-wrist-roll-follower.step`) on the baseplate and runs `inspect.clearance` (`tools/build.sh gripper_tester --assemblies`, ~10 min).
 `exports/_superseded/gripper_adapter_pre-migration.3mf` is the hand-exported 3MF from before the 2026-11-07 migration.
 
 ## Interfaces (taken from the SO-ARM100 STEP files)

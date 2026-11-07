@@ -4,8 +4,8 @@ A riser that mounts an RPLIDAR C1 on the JeTank top plate.
 
 | PN | Source → exports | Print |
 |---|---|---|
-| JTNK-0001 holder | `cad/JTNK-0001.json` → `exports/JTNK-0001_X1.{step,stl,3mf}` | platform down, no supports |
-| JTNK-9001 fit-check assembly | `cad/JTNK-9001.check.json` (overlay on JTNK-0001) → `cad/JTNK-9001.sc` | — |
+| JTNK-0001 holder | `cad/JTNK-0001_lidar-holder.json` → `exports/JTNK-0001_lidar-holder_X1.{step,stl,3mf}` | platform down, no supports |
+| JTNK-9001 fit-check assembly | `cad/JTNK-9001_assy-lidar-fit-check.check.json` (overlay on JTNK-0001) → `cad/JTNK-9001_assy-lidar-fit-check.sc` | — |
 
 ## Interfaces
 
@@ -13,4 +13,4 @@ A riser that mounts an RPLIDAR C1 on the JeTank top plate.
 - **LiDAR side:** RPLIDAR C1 base, 55.6 mm square, with an M2.5 insert pattern on a 43 mm square.
 - **Height:** `rise` = 20 mm from the robot top plate to the LiDAR underside.
 
-JTNK-9001 inserts the vendor model (`lib/rplidar_c1/LIB-0008.stp`) at `rise` and runs `inspect.clearance` against the holder.
+JTNK-9001 inserts the vendor model (`lib/rplidar_c1/LIB-0008_rplidar-c1.stp`) at `rise` and runs `inspect.clearance` against the holder.
