@@ -1,0 +1,21 @@
+[
+ {"command":"joint.list","params":{}},
+ {"command":"joint.drive","params":{"joint":"O_crank","value":-63.0}},
+ {"command":"joint.drive","params":{"joint":"O_crank","value":-40}},
+ {"command":"joint.drive","params":{"joint":"O_crank","value":-20}},
+ {"command":"joint.drive","params":{"joint":"O_crank","value":0}},
+ {"command":"joint.drive","params":{"joint":"O_crank","value":20}},
+ {"command":"joint.drive","params":{"joint":"O_crank","value":40}},
+ {"command":"joint.drive","params":{"joint":"O_crank","value":66.0}},
+ {"command":"joint.drive","params":{"joint":"O_crank","value":0}},
+ {"command":"motion.trace","params":{"occurrence":"GRIP-0005:1","point":[19.3941,-14.1847,30.2],"joint":"O_crank","from":-63.0,"to":66.0,"samples":130}},
+ {"command":"motion.trace","params":{"occurrence":"GRIP-0009:1","point":[41.1518,-9.2063,26.7],"joint":"O_crank","from":-63.0,"to":66.0,"samples":130}},
+ {"command":"motion.trace","params":{"occurrence":"GRIP-0007:1","point":[26.7214,15.6665,30.2],"joint":"O_crank","from":-63.0,"to":66.0,"samples":130}},
+ {"command":"motion.trace","params":{"occurrence":"GRIP-0008:1","point":[37.965,6.2281,30.2],"joint":"O_crank","from":-63.0,"to":66.0,"samples":130}},
+ {"command":"motion.trace","params":{"occurrence":"GRIP-0010:1","point":[36.7913,32.4819,40.0],"joint":"O_crank","from":-63.0,"to":66.0,"samples":130}},
+ {"command":"joint.sweep","params":{"joint":"O_crank","from":-63.0,"to":66.0,"step":1,"report_gaps":true,"occurrences":["GRIP-0005:1","GRIP-0006:1","GRIP-0007:1","GRIP-0008:1","GRIP-0009:1","GRIP-0010:1"],"against":["GRIP-0003:1","GRIP-0004:1","GRIP-0005:1","GRIP-0006:1","GRIP-0007:1","GRIP-0008:1","GRIP-0009:1","GRIP-0010:1"]}},
+ {"command":"joint.sweep","params":{"joint":"O_crank","from":-63.0,"to":66.0,"step":1,"report_gaps":true,"occurrences":["GRIP-0004:1"],"against":["GRIP-0003:1"]}},
+ {"command":"joint.limits","params":{"joint":"O_crank"}},
+ {"command":"joint.sweep","params":{"joint":"O_crank","from":66.0,"to":72.25,"step":0.25,"occurrences":["GRIP-0003:1","GRIP-0004:1","GRIP-0005:1","GRIP-0006:1","GRIP-0007:1","GRIP-0008:1","GRIP-0009:1","GRIP-0010:1"]}},
+ {"command":"joint.sweep","params":{"joint":"O_crank","from":-63.0,"to":-69.25,"step":0.25,"occurrences":["GRIP-0003:1","GRIP-0004:1","GRIP-0005:1","GRIP-0006:1","GRIP-0007:1","GRIP-0008:1","GRIP-0009:1","GRIP-0010:1"]}}
+]
