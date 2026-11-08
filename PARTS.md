@@ -45,6 +45,15 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (property `revision`,
 | GRIP-0033 | frame-hand | X1 | FRAME, DUAL FINGER, HAND DRIVE, STRANDBEEST V4 | strandbeest_gripper/v4_thumb-wheel | PETG, FDM |
 | GRIP-0034 | gear-crank-axle | X1 | GEAR, CRANK, ON AXLE, Z20 M1 (replaces the horn-mounted GRIP-0012) | strandbeest_gripper/v4_thumb-wheel | PETG, FDM |
 | GRIP-0035 | thumb-wheel | X1 | WHEEL, THUMB, KNURLED D50, GEAR Z40 M1 | strandbeest_gripper/v4_thumb-wheel | PETG, FDM |
+| GRIP-0036 | pin-j3 | X1 | PIN, PRINTED, D3, SHANK 8.5, J3 | strandbeest_gripper/v4a_printed-pins | PETG, FDM |
+| GRIP-0037 | pin-j4 | X1 | PIN, PRINTED, D3, SHANK 15.5, J4 | strandbeest_gripper/v4a_printed-pins | PETG, FDM |
+| GRIP-0038 | pin-j2-j5 | X1 | PIN, PRINTED, D3, SHANK 19, J2 + J5 | strandbeest_gripper/v4a_printed-pins | PETG, FDM |
+| GRIP-0039 | pin-crank-axle | X1 | PIN, PRINTED, D3, SHANK 21.5, CRANK AXLE | strandbeest_gripper/v4a_printed-pins | PETG, FDM |
+| GRIP-0040 | pin-gear-axle | X1 | PIN, PRINTED, D3, SHANK 23.5, IDLER + WHEEL AXLE | strandbeest_gripper/v4a_printed-pins | PETG, FDM |
+| GRIP-0041 | pin-jaw | X1 | PIN, PRINTED, D3, SHANK 25, JAW PIVOT | strandbeest_gripper/v4a_printed-pins | PETG, FDM |
+| GRIP-0042 | pin-g | X1 | PIN, PRINTED, D3, SHANK 38, G | strandbeest_gripper/v4a_printed-pins | PETG, FDM |
+| GRIP-0043 | pin-j1-shoulder | X1 | PIN, PRINTED, SHOULDER D4 X 24.5, PRESS TIP, J1 | strandbeest_gripper/v4a_printed-pins | PETG, FDM |
+| GRIP-0044 | cap-pin | X1 | CAP, PRESS-ON, FOR D3 PRINTED PIN | strandbeest_gripper/v4a_printed-pins | PETG, FDM |
 | GRIP-9001 | assy-tester-fit-check | X1 | ASSY, GRIPPER TESTER, FIT CHECK | gripper_tester | — |
 | GRIP-9002 | assy-single-finger | X1 | ASSY, FINGER, STRANDBEEST (v1: single finger + anvil) | strandbeest_gripper/v1_single-finger | — |
 | GRIP-9003 | assy-dual-finger | X1 | ASSY, GRIPPER, DUAL FINGER, STRANDBEEST V2 (feeder) | strandbeest_gripper/v2_dual-finger | — |
@@ -52,6 +61,7 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (property `revision`,
 | GRIP-9005 | assy-twin-legs | X1 | ASSY, GRIPPER, DUAL FINGER, TWIN LEG PARALLEL JAWS, STRANDBEEST V3B | strandbeest_gripper/v3b_twin-legs | — |
 | GRIP-9007 | assy-thumb-wheel | X1 | ASSY, GRIPPER, DUAL FINGER, PIVOT JAWS, THUMB WHEEL, STRANDBEEST V4 | strandbeest_gripper/v4_thumb-wheel | — |
 | GRIP-9006 | assy-rigid-nose | X1 | ASSY, GRIPPER, DUAL FINGER, RIGID NOSE, STRANDBEEST V3C | strandbeest_gripper/v3c_rigid-nose | — |
+| GRIP-9008 | assy-printed-pins | X1 | ASSY, GRIPPER, THUMB WHEEL, PRINTED PINS, STRANDBEEST V4A | strandbeest_gripper/v4a_printed-pins | — |
 | SO101-0001 | tip-moving-jaw | X1 | TIP, JAW, MOVING, CALIBRATION | gripper_tips | red PLA/PETG, FDM |
 | SO101-0002 | tip-fixed-jaw | X1 | TIP, JAW, FIXED, CALIBRATION | gripper_tips | red PLA/PETG, FDM |
 | JTNK-0001 | lidar-holder | X1 | HOLDER, LIDAR, RPLIDAR C1 | lidar_holder | PETG, FDM |
@@ -66,4 +76,4 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (property `revision`,
 | LIB-0008 | rplidar-c1 | — | LIDAR, RPLIDAR C1 (vendor STEP) | lib/rplidar_c1 | purchased |
 | LIB-0009 | servo-sts3215 | — | SERVO, STS3215 (vendor STEP) | lib/sts3215 | purchased |
 
-Next free: GRIP-0036, GRIP-9008, SO101-0003, JTNK-0002, JTNK-9002, LIB-0010.
+Next free: GRIP-0045, GRIP-9009, SO101-0003, JTNK-0002, JTNK-9002, LIB-0010.

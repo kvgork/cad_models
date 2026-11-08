@@ -11,7 +11,7 @@
 | [gripper_tester](gripper_tester/README.md) | Bench baseplate with a dovetail slide for swapping SO-101 grippers, plus a mount for the Waveshare servo board | X1, CAD-checked |
 | [gripper_tips](gripper_tips/README.md) | Snap-on calibration caps for the two SO-101 gripper jaws (print in red) | X1, CAD-checked |
 | [lidar_holder](lidar_holder/README.md) | Riser that mounts an RPLIDAR C1 on the JeTank | X1, CAD-checked |
-| [strandbeest_gripper](strandbeest_gripper/README.md) | Gripper built from Theo Jansen's Strandbeest leg. Six versions: one finger (v1), a two-finger feeder (v2), three long-jaw variants (v3a/b/c) and a hand-operated thumb-wheel version (v4) | X1, CAD-checked, not printed yet |
+| [strandbeest_gripper](strandbeest_gripper/README.md) | Gripper built from Theo Jansen's Strandbeest leg. Seven versions: one finger (v1), a two-finger feeder (v2), three long-jaw variants (v3a/b/c), a hand-operated thumb-wheel version (v4) and v4a, the same with all pins printed | X1, CAD-checked, not printed yet |
 
 "CAD-checked" means the kinematics, fits and collisions were verified in SolidCraft by the scripts in the repo. Nothing in an X1 has been printed and measured yet.
 

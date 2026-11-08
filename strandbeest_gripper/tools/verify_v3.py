@@ -40,10 +40,14 @@ def run(key):
     sc = os.path.join(ROOT, v.out.replace('.json', '.sc'))
     script = os.path.join(ROOT, v.out.replace('.json', '.verify.json'))
     printed = [g.occ(k, f) for k, f in g.PARTS]
+    # v4a: printed pins and caps are checked on their own (they touch the links they hold by design:
+    # no washers), the v4 sweeps run on the v4 parts as before
+    pins = [o for o in printed if '_pin-' in o or '_cap-' in o]
+    printed = [o for o in printed if o not in pins]
     gears = [g.comp_name('crank1', 1), g.comp_name('idler', 1), g.comp_name('idler', 2), g.comp_name('crank2', 1)]
     meshes = [(gears[0], gears[1]), (gears[1], gears[2]), (gears[2], gears[3])]
     DJ, DK = v.drive                            # joint you turn, its degrees per crank degree
-    if key == 'h':
+    if key in ('h', 'p'):
         gears.append(g.comp_name('wheel', 1))
         meshes.append((gears[0], gears[-1]))
     links = {f: [g.occ(k, f) for k in g.LINK_KEYS] for f in (1, 2)}
@@ -58,7 +62,7 @@ def run(key):
             traces.append((f"{n} finger {f}", g.occ(k, f), list(g.J[f][n]) + [z], ref))
     jaw_pts = {}
     sweeps = [(['gears'], [g.occ('frame', 1)], 'gears vs frame')]
-    if key in ('a', 'h'):
+    if key in ('a', 'h', 'p'):
         for f in (1, 2):
             o = g.occ('jawp', f)
             tip = g.W(v3.lk(g.JL[f]['F'], v.JAW_L))
@@ -113,6 +117,12 @@ def run(key):
     for occs, against, lab in sweeps:
         c.append({"command": "joint.sweep", "params": {"joint": DJ, "from": 0, "to": 360 * DK, "step": 2 * abs(DK),
                                                        "occurrences": occs, "against": against, "report_gaps": True}})
+    pin_angles = [float(a) for a in range(0, 360, 30)] if pins else []
+    for a in pin_angles:
+        c.append({"command": "joint.drive", "params": {"joint": DJ, "value": a * DK}})
+        c.append({"command": "inspect.clearance", "params": {"bodies": [o[:-2] for o in pins],
+                                                            "against": [o[:-2] for o in printed], "nearest": 1}})
+    npin = 2 * len(pin_angles)
     with open(script, 'w') as fh:
         fh.write('[\n' + ',\n'.join(' ' + json.dumps(x, separators=(',', ':')) for x in c) + '\n]\n')
     with tempfile.TemporaryDirectory() as td:
@@ -120,7 +130,9 @@ def run(key):
         subprocess.run(['solidcraft-cli', 'run', script, '--in', sc, '--results', '--json-out', out],
                        check=True, stdout=subprocess.DEVNULL, cwd=ROOT)
         r = json.load(open(out))
-    assert len(r) == 2 + len(DRIVE) + len(allpts) + 2 * len(mesh_angles) + 1 + len(sweeps), len(r)
+    assert len(r) == 2 + len(DRIVE) + len(allpts) + 2 * len(mesh_angles) + 1 + len(sweeps) + npin, len(r)
+    rp = r[len(r) - npin:]
+    r = r[:len(r) - npin]
 
     res = []
 
@@ -152,7 +164,7 @@ def run(key):
     F1 = [link(q) for q in tr['F finger 1']]
     F2 = [link(q) for q in tr['F finger 2']]
 
-    if key in ('a', 'b', 'h'):
+    if key in ('a', 'b', 'h', 'p'):
         for f in (1, 2):
             a0, a1 = jt[f'jaw{f}_0'], jt[f'jaw{f}_1']
             ang = [math.degrees(math.atan2(b[1] - a[1], b[0] - a[0])) for a, b in zip(a0, a1)]
@@ -170,7 +182,7 @@ def run(key):
         clamp = [k for k, gp in enumerate(gap_root) if gp <= min(gap_root) + 0.4]
         xs = [jt['jaw1_0'][k][0] for k in clamp]
         check('feed stroke while clamped >= 19.5 mm', max(xs) - min(xs) >= 19.5, f'{max(xs) - min(xs):.1f} mm')
-        if key in ('a', 'h'):
+        if key in ('a', 'h', 'p'):
             # pivot angle needed between jaw and foot over the turn (real part: jaw free on its pin)
             fa = []
             for k in range(N):
@@ -222,6 +234,15 @@ def run(key):
         check(f'{lab}: no contact over a full turn, closest >= 0.49 mm',
               a['stop'] is None and bool(mg) and mg[0][0] >= 0.49,
               f'{mg[0][0]:.3f} mm {mg[0][1]} - {mg[0][2]}' if mg else a['stop'])
+    if pins:
+        pc = rp[1::2]
+        ov = [(o['a'], o['b'], o.get('volume_mm3', o.get('volume'))) for x in pc for o in x.get('overlaps', [])]
+        bad = [o for o in ov if (o[2] is None or o[2] > 0.001)]
+        dists = [nb['distance_mm'] for x in pc for near in (x.get('nearest') or {}).values() for nb in near]
+        check(f'{len(pins)} printed pins + caps vs all parts at {len(pin_angles)} crank angles: no overlap '
+              '(touching the links they hold is expected: no washers)',
+              len(pc) == len(pin_angles) and all(x.get('pairs_checked', 0) > 0 for x in pc) and not bad,
+              f"{min(x.get('pairs_checked', 0) for x in pc)}+ pairs per angle, {len(bad)} overlaps" + (f' e.g. {bad[0]}' if bad else ''))
     print(f'== v3{key} {v.assy_pn}')
     w = max(len(n) for n, _, _ in res)
     for n, ok, val in res:

@@ -345,11 +345,112 @@ class Thumb(Pivot):
         c("joint.gear", a="W_wheel", b="O1_crank", ra=RW, rb=g.RC)
 
 
-VARIANTS = {'a': Pivot, 'b': Twin, 'c': Tip, 'h': Thumb}
+# ---------------------------------------------------------------------------- v4a printed pins
+def new_cyl(d, z0, h, pt, body, name):
+    c("solid.cylinder", diameter=d, height=f"{fx(h)} mm", base=[fx(pt[0]), fx(pt[1]), fx(z0)],
+      operation="new", body_name=body, name=name)
+
+
+class PrintedPins(Thumb):
+    """v4 with every fastener printed: D3 pins (head + D-flat for printing on its side) in the
+    unchanged D3.4 holes, held by press-on caps; a printed D4 shoulder pin with a press tip at J1.
+    No washers (functional test). Pins and caps sit inside the envelope v4's screws, nuts and
+    heads were laid out for (layers.py), so the v4 parts are reused unchanged."""
+    assy_pn = "GRIP-9008"
+    assy_desc = "ASSY, GRIPPER, THUMB WHEEL, PRINTED PINS, STRANDBEEST V4A"
+    vdir = 'strandbeest_gripper/v4a_printed-pins'
+    HEAD_H, CAP_H, PIN_R, FLAT = 3.0, 2.0, 1.5, 0.25
+    # pin key -> part number (one PN per shank length)
+    PINS = {'pin_j3': 'GRIP-0036', 'pin_j4': 'GRIP-0037', 'pin_j25': 'GRIP-0038', 'pin_crank': 'GRIP-0039',
+            'pin_gear': 'GRIP-0040', 'pin_jaw': 'GRIP-0041', 'pin_g': 'GRIP-0042'}
+    pn = dict(Thumb.pn, **PINS, pin_j1='GRIP-0043', cap='GRIP-0044')
+    desc = dict(Thumb.desc, pin_j3='PIN, PRINTED, D3, SHANK 8.5, J3', pin_j4='PIN, PRINTED, D3, SHANK 15.5, J4',
+                pin_j25='PIN, PRINTED, D3, SHANK 19, J2 + J5', pin_crank='PIN, PRINTED, D3, SHANK 21.5, CRANK AXLE',
+                pin_gear='PIN, PRINTED, D3, SHANK 23.5, IDLER + WHEEL AXLE', pin_jaw='PIN, PRINTED, D3, SHANK 25, JAW PIVOT',
+                pin_g='PIN, PRINTED, D3, SHANK 38, G', pin_j1='PIN, PRINTED, SHOULDER D4 X 24.5, PRESS TIP, J1',
+                cap='CAP, PRESS-ON, FOR D3 PRINTED PIN')
+    SHANK = {'pin_j3': 8.5, 'pin_j4': 15.5, 'pin_j25': 19.0, 'pin_crank': 21.5, 'pin_gear': 23.5,
+             'pin_jaw': 25.0, 'pin_g': 38.0}
+
+    def params(self):
+        return super().params() + [
+            ("ppin_d", "3.0 mm", "printed pin shank: 0.2 mm radial play in the D3.4 holes"),
+            ("ppin_head_d", "5.5 mm", "printed pin head = M3 socket head (fits the D6.5 counterbores)"),
+            ("ppin_flat", f"{self.FLAT} mm", "D-flat depth on pin + head: print the pin lying on it"),
+            ("cap_d", "6.0 mm", "press-on cap, inside the M3 nyloc envelope (6.4) the layers allow for"),
+            ("cap_bore", "2.8 mm", "cap hole: 0.2 mm interference on the D3 pin (press fit, NEEDS PRINT TEST)"),
+            ("j1_shoulder", "4.0 mm", "J1 shoulder in the D4.2 bores (replaces ISO 7379 D4)"),
+            ("j1_head_d", "7.0 mm", "J1 pin head"),
+            ("j1_tip_d", "2.7 mm", "J1 press tip into the D2.5 tap hole in the crank gear (NEEDS PRINT TEST)"),
+        ]
+
+    def locations(self):
+        """(pin key, xy, z_seat = top of head / start of shank, z_cap = cap bottom, attach occurrence)."""
+        L, zb, zt = g.LAYER, g.zb, g.zt
+        seat = self.plate_z[0] - 0.5 + 3.5          # head top in the base counterbore
+        frame = occ('frame', 1)
+        locs = [('pin_gear', self.Wc, seat, g.HORN_TOP + g.IDLE_T, frame)]
+        for f in (1, 2):
+            locs += [('pin_crank', J[f]['O'], seat, g.HORN_TOP + g.GEAR_T - 2.2, frame),
+                     ('pin_gear', J[f]['I'], seat, g.HORN_TOP + g.IDLE_T, frame),
+                     ('pin_g', J[f]['G'], seat, zt(max(L[o] for o in PINS['G'])), frame),
+                     ('pin_jaw', J[f]['F'], zb(L['ghi']), JAW_Z0 + JAW_H, occ('ghi', f))]
+            for n, key in (('J2', 'pin_j25'), ('J3', 'pin_j3'), ('J4', 'pin_j4'), ('J5', 'pin_j25')):
+                own = PINS[n]
+                low = min(own, key=lambda o: L[o])
+                locs.append((key, J[f][n], zb(L[low]), zt(max(L[o] for o in own)), occ(low, f)))
+        return locs
+
+    def extra_parts(self):
+        parts = super().extra_parts()
+        count = {}
+        self.attach = []
+        for key, p, z_seat, z_cap, att in self.locations():
+            need = z_cap + self.CAP_H - z_seat
+            assert self.SHANK[key] - 0.5 < need <= self.SHANK[key] + 1e-6, (key, need)
+            count[key] = count.get(key, 0) + 1
+            name = g.comp_name(key, count[key])
+            new_component(name)
+            z0 = z_seat - self.HEAD_H
+            new_cyl("ppin_head_d", z0, self.HEAD_H, p, name, f"{name}_head")
+            cyl("ppin_d", z_seat - 0.01, self.SHANK[key] + 0.01, p, "join", name, f"{name}_shank")
+            off = self.PIN_R - self.FLAT                # D-flat plane, -y side of the axis
+            c("solid.box", length="10 mm", width="5 mm", height=f"{fx(self.HEAD_H + self.SHANK[key] + 2)} mm",
+              center=[fx(p[0]), fx(p[1] - off - 2.5), fx(z0 + (self.HEAD_H + self.SHANK[key]) / 2)],
+              operation="cut", targets=[name], name=f"{name}_flat")
+            parts.append((key, count[key]))
+            self.attach.append((att, g.occ(key, count[key])))
+            count['cap'] = count.get('cap', 0) + 1
+            cname = g.comp_name('cap', count['cap'])
+            new_component(cname)
+            new_cyl("cap_d", z_cap, self.CAP_H, p, cname, f"{cname}_disc")
+            cyl("cap_bore", z_cap - 0.5, self.CAP_H + 1, p, "cut", cname, f"{cname}_bore")
+            parts.append(('cap', count['cap']))
+            self.attach.append((att, g.occ('cap', count['cap'])))
+        # J1: shoulder pin, head on top of k, press tip into the crank gear's tap hole
+        for f in (1, 2):
+            name = g.comp_name('pin_j1', f)
+            new_component(name)
+            gear_top = g.HORN_TOP + g.GEAR_T
+            top = g.zt(max(g.LAYER[o] for o in PINS['J1'] if o != 'crank'))
+            new_cyl("j1_tip_d", g.HORN_TOP + 0.5, gear_top - g.HORN_TOP - 0.5 + 0.01, J[f]['J1'], name, f"{name}_tip")
+            cyl("j1_shoulder", gear_top, top - gear_top + 0.01, J[f]['J1'], "join", name, f"{name}_shoulder")
+            cyl("j1_head_d", top, self.HEAD_H, J[f]['J1'], "join", name, f"{name}_head")
+            parts.append(('pin_j1', f))
+            self.attach.append((occ(f'crank{f}', 1), g.occ('pin_j1', f)))
+        return parts
+
+    def extra_joints(self):
+        super().extra_joints()
+        for i, (a, b) in enumerate(self.attach):
+            c("joint.as_built", type="rigid", a=a, b=b, name=f"fix_{b.split(':')[0]}")
+
+
+VARIANTS = {'a': Pivot, 'b': Twin, 'c': Tip, 'h': Thumb, 'p': PrintedPins}
 
 if __name__ == '__main__':
     g.check_reference()
-    for key in (sys.argv[1:] or ['a', 'b', 'c', 'h']):
+    for key in (sys.argv[1:] or ['a', 'b', 'c', 'h', 'p']):
         v = VARIANTS[key]()
         cmds = g.build(v)
         g.write(v, cmds)
