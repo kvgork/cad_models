@@ -59,7 +59,7 @@ X1, not printed yet. **NEEDS PRINT TEST.** This is [v4](../v4_thumb-wheel/README
 
 ## Print plate (Bambu Studio)
 
-**`exports/plates/GRIP-9009_assy-snap-pins_plate1_X1.3mf`** holds all 39 parts on one 256 × 256 mm plate (X1, P1, A1), each laid flat in its print orientation. Open it in Bambu Studio, choose PETG and your printer, then slice. The plate layout is in `exports/plates/…_plate1_X1.png`. For an A1 mini, run `python3 tools/plates.py strandbeest_gripper/v4b_snap-pins --bed 180`.
+**`exports/plates/GRIP-9009_assy-snap-pins_plate1-petg_X1.3mf`** holds all 39 parts on one 256 × 256 mm plate (X1, P1, A1), each laid flat in its print orientation. Open it in Bambu Studio, choose PETG and your printer, then slice. The plate layout is in `exports/plates/…_plate1-petg_X1.png`. For an A1 mini, run `python3 tools/plates.py strandbeest_gripper/v4b_snap-pins --bed 180`.
 
 Before slicing:
 - Add a brim to the two J1 pins (GRIP-0043). They stand 33 mm tall on a Ø7 head.

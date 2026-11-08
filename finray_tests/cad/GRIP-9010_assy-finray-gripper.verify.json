@@ -1,0 +1,412 @@
+[
+{
+"command": "joint.list",
+"params": {}
+},
+{
+"command": "motion.trace",
+"params": {
+"occurrence": "GRIP-0053_carriage-a_F1:1",
+"point": [
+-31.0,
+4.0,
+25.0
+],
+"joint": "R_knob",
+"from": -5400.0,
+"to": 6840.0,
+"samples": 35
+}
+},
+{
+"command": "motion.trace",
+"params": {
+"occurrence": "GRIP-0054_carriage-b_F1:1",
+"point": [
+31.0,
+4.0,
+25.0
+],
+"joint": "R_knob",
+"from": -5400.0,
+"to": 6840.0,
+"samples": 35
+}
+},
+{
+"command": "motion.trace",
+"params": {
+"occurrence": "GRIP-0055_pinion-z18_F1:1",
+"point": [
+0.0,
+-14.0,
+7.3
+],
+"joint": "R_knob",
+"from": 0,
+"to": 3240.0,
+"samples": 10
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": 360
+}
+},
+{
+"command": "joint.list",
+"params": {}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": 0
+}
+},
+{
+"command": "joint.sweep",
+"params": {
+"joint": "R_knob",
+"from": -5400.0,
+"to": 6840.0,
+"step": 360.0,
+"occurrences": [
+"GRIP-0053_carriage-a_F1:1",
+"GRIP-0057_finray-a-baseline_F1:1"
+],
+"against": [
+"GRIP-0052_base-plate_F1:1",
+"GRIP-0054_carriage-b_F1:1",
+"GRIP-0057_finray-a-baseline_F2:1"
+],
+"report_gaps": true
+}
+},
+{
+"command": "joint.sweep",
+"params": {
+"joint": "R_knob",
+"from": -5400.0,
+"to": 6840.0,
+"step": 360.0,
+"occurrences": [
+"GRIP-0054_carriage-b_F1:1",
+"GRIP-0057_finray-a-baseline_F2:1"
+],
+"against": [
+"GRIP-0052_base-plate_F1:1"
+],
+"report_gaps": true
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": -5400.0
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0055_pinion-z18_F1"
+],
+"against": [
+"GRIP-0053_carriage-a_F1",
+"GRIP-0054_carriage-b_F1"
+],
+"nearest": 2
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": -5211.504440784613
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0055_pinion-z18_F1"
+],
+"against": [
+"GRIP-0053_carriage-a_F1",
+"GRIP-0054_carriage-b_F1"
+],
+"nearest": 2
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": -5023.008881569224
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0055_pinion-z18_F1"
+],
+"against": [
+"GRIP-0053_carriage-a_F1",
+"GRIP-0054_carriage-b_F1"
+],
+"nearest": 2
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": -4834.513322353837
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0055_pinion-z18_F1"
+],
+"against": [
+"GRIP-0053_carriage-a_F1",
+"GRIP-0054_carriage-b_F1"
+],
+"nearest": 2
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": -4646.0177631384495
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0055_pinion-z18_F1"
+],
+"against": [
+"GRIP-0053_carriage-a_F1",
+"GRIP-0054_carriage-b_F1"
+],
+"nearest": 2
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": -4457.522203923062
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0055_pinion-z18_F1"
+],
+"against": [
+"GRIP-0053_carriage-a_F1",
+"GRIP-0054_carriage-b_F1"
+],
+"nearest": 2
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": -4269.026644707675
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0055_pinion-z18_F1"
+],
+"against": [
+"GRIP-0053_carriage-a_F1",
+"GRIP-0054_carriage-b_F1"
+],
+"nearest": 2
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": 0.0
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0055_pinion-z18_F1"
+],
+"against": [
+"GRIP-0053_carriage-a_F1",
+"GRIP-0054_carriage-b_F1"
+],
+"nearest": 2
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": 6274.513322353837
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0055_pinion-z18_F1"
+],
+"against": [
+"GRIP-0053_carriage-a_F1",
+"GRIP-0054_carriage-b_F1"
+],
+"nearest": 2
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": 6840.0
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0055_pinion-z18_F1"
+],
+"against": [
+"GRIP-0053_carriage-a_F1",
+"GRIP-0054_carriage-b_F1"
+],
+"nearest": 2
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": 6840.0
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0057_finray-a-baseline_F1"
+],
+"against": [
+"GRIP-0057_finray-a-baseline_F2"
+],
+"nearest": 1
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": -5400.0
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0057_finray-a-baseline_F1"
+],
+"against": [
+"GRIP-0057_finray-a-baseline_F2"
+],
+"nearest": 1
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": 0
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0057_finray-a-baseline_F1",
+"GRIP-0057_finray-a-baseline_F2"
+],
+"against": [
+"GRIP-0053_carriage-a_F1",
+"GRIP-0054_carriage-b_F1"
+],
+"nearest": 1
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": 6840.0
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"M6x70-ISO4017_F1",
+"M6-nyloc-DIN985_F1",
+"M6-nut-ISO4032_F1",
+"GRIP-0056_knob_F1"
+],
+"against": [
+"GRIP-0053_carriage-a_F1",
+"GRIP-0054_carriage-b_F1",
+"GRIP-0052_base-plate_F1"
+],
+"nearest": 1
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": -5400.0
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"M6x70-ISO4017_F1",
+"M6-nyloc-DIN985_F1",
+"M6-nut-ISO4032_F1",
+"GRIP-0056_knob_F1"
+],
+"against": [
+"GRIP-0053_carriage-a_F1",
+"GRIP-0054_carriage-b_F1",
+"GRIP-0052_base-plate_F1"
+],
+"nearest": 1
+}
+}
+]

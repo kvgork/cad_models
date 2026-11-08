@@ -61,6 +61,14 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (property `revision`,
 | GRIP-0049 | snap-pin-gear-axle | X1 | PIN, SNAP, PRINTED, D3, SHANK 21.4, IDLER + WHEEL AXLE | strandbeest_gripper/v4b_snap-pins | PETG, FDM |
 | GRIP-0050 | snap-pin-jaw | X1 | PIN, SNAP, PRINTED, D3, SHANK 23.2, JAW PIVOT | strandbeest_gripper/v4b_snap-pins | PETG, FDM |
 | GRIP-0051 | snap-pin-g | X1 | PIN, SNAP, PRINTED, D3, SHANK 35.9, G | strandbeest_gripper/v4b_snap-pins | PETG, FDM |
+| GRIP-0052 | base-plate | X1 | BASE, FINRAY GRIPPER, RAIL + SCREW WALL + PINION POST | finray_tests | PETG, FDM |
+| GRIP-0053 | carriage-a | X1 | CARRIAGE, JAW A, NUT TRAP + RACK, FINRAY GRIPPER | finray_tests | PETG, FDM |
+| GRIP-0054 | carriage-b | X1 | CARRIAGE, JAW B, RACK + ARM, FINRAY GRIPPER | finray_tests | PETG, FDM |
+| GRIP-0055 | pinion-z18 | X1 | GEAR, PINION, Z18 M1, FINRAY GRIPPER | finray_tests | PETG, FDM |
+| GRIP-0056 | knob | X1 | KNOB, THUMB, D32, M6 HEX HEAD | finray_tests | PETG, FDM |
+| GRIP-0057 | finray-a-baseline | X1 | FINGER, FIN RAY, A BASELINE, 6 RIBS 0 DEG | finray_tests | TPU 90A, FDM |
+| GRIP-0058 | finray-b-wrap | X1 | FINGER, FIN RAY, B WRAP, 5 RIBS +15 DEG THIN | finray_tests | TPU 90A, FDM |
+| GRIP-0059 | finray-c-stiff | X1 | FINGER, FIN RAY, C STIFF, 7 RIBS -15 DEG THICK | finray_tests | TPU 90A, FDM |
 | GRIP-9001 | assy-tester-fit-check | X1 | ASSY, GRIPPER TESTER, FIT CHECK | gripper_tester | — |
 | GRIP-9002 | assy-single-finger | X1 | ASSY, FINGER, STRANDBEEST (v1: single finger + anvil) | strandbeest_gripper/v1_single-finger | — |
 | GRIP-9003 | assy-dual-finger | X1 | ASSY, GRIPPER, DUAL FINGER, STRANDBEEST V2 (feeder) | strandbeest_gripper/v2_dual-finger | — |
@@ -70,6 +78,7 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (property `revision`,
 | GRIP-9006 | assy-rigid-nose | X1 | ASSY, GRIPPER, DUAL FINGER, RIGID NOSE, STRANDBEEST V3C | strandbeest_gripper/v3c_rigid-nose | — |
 | GRIP-9008 | assy-printed-pins | X1 | ASSY, GRIPPER, THUMB WHEEL, PRINTED PINS, STRANDBEEST V4A | strandbeest_gripper/v4a_printed-pins | — |
 | GRIP-9009 | assy-snap-pins | X1 | ASSY, GRIPPER, THUMB WHEEL, SNAP PINS, STRANDBEEST V4B | strandbeest_gripper/v4b_snap-pins | — |
+| GRIP-9010 | assy-finray-gripper | X1 | ASSY, GRIPPER, THUMB SCREW, SLIDE-IN FIN RAY FINGERS | finray_tests | — |
 | SO101-0001 | tip-moving-jaw | X1 | TIP, JAW, MOVING, CALIBRATION | gripper_tips | red PLA/PETG, FDM |
 | SO101-0002 | tip-fixed-jaw | X1 | TIP, JAW, FIXED, CALIBRATION | gripper_tips | red PLA/PETG, FDM |
 | JTNK-0001 | lidar-holder | X1 | HOLDER, LIDAR, RPLIDAR C1 | lidar_holder | PETG, FDM |
@@ -84,4 +93,4 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (property `revision`,
 | LIB-0008 | rplidar-c1 | — | LIDAR, RPLIDAR C1 (vendor STEP) | lib/rplidar_c1 | purchased |
 | LIB-0009 | servo-sts3215 | — | SERVO, STS3215 (vendor STEP) | lib/sts3215 | purchased |
 
-Next free: GRIP-0052, GRIP-9010, SO101-0003, JTNK-0002, JTNK-9002, LIB-0010.
+Next free: GRIP-0060, GRIP-9011, SO101-0003, JTNK-0002, JTNK-9002, LIB-0010.
