@@ -42,12 +42,12 @@ def run(key):
     printed = [g.occ(k, f) for k, f in g.PARTS]
     # v4a: printed pins and caps are checked on their own (they touch the links they hold by design:
     # no washers), the v4 sweeps run on the v4 parts as before
-    pins = [o for o in printed if '_pin-' in o or '_cap-' in o]
+    pins = [o for o in printed if '_pin-' in o or '_snap-pin-' in o or '_cap-' in o]
     printed = [o for o in printed if o not in pins]
     gears = [g.comp_name('crank1', 1), g.comp_name('idler', 1), g.comp_name('idler', 2), g.comp_name('crank2', 1)]
     meshes = [(gears[0], gears[1]), (gears[1], gears[2]), (gears[2], gears[3])]
     DJ, DK = v.drive                            # joint you turn, its degrees per crank degree
-    if key in ('h', 'p'):
+    if key in ('h', 'p', 's'):
         gears.append(g.comp_name('wheel', 1))
         meshes.append((gears[0], gears[-1]))
     links = {f: [g.occ(k, f) for k in g.LINK_KEYS] for f in (1, 2)}
@@ -62,7 +62,7 @@ def run(key):
             traces.append((f"{n} finger {f}", g.occ(k, f), list(g.J[f][n]) + [z], ref))
     jaw_pts = {}
     sweeps = [(['gears'], [g.occ('frame', 1)], 'gears vs frame')]
-    if key in ('a', 'h', 'p'):
+    if key in ('a', 'h', 'p', 's'):
         for f in (1, 2):
             o = g.occ('jawp', f)
             tip = g.W(v3.lk(g.JL[f]['F'], v.JAW_L))
@@ -164,7 +164,7 @@ def run(key):
     F1 = [link(q) for q in tr['F finger 1']]
     F2 = [link(q) for q in tr['F finger 2']]
 
-    if key in ('a', 'b', 'h', 'p'):
+    if key in ('a', 'b', 'h', 'p', 's'):
         for f in (1, 2):
             a0, a1 = jt[f'jaw{f}_0'], jt[f'jaw{f}_1']
             ang = [math.degrees(math.atan2(b[1] - a[1], b[0] - a[0])) for a, b in zip(a0, a1)]
@@ -182,7 +182,7 @@ def run(key):
         clamp = [k for k, gp in enumerate(gap_root) if gp <= min(gap_root) + 0.4]
         xs = [jt['jaw1_0'][k][0] for k in clamp]
         check('feed stroke while clamped >= 19.5 mm', max(xs) - min(xs) >= 19.5, f'{max(xs) - min(xs):.1f} mm')
-        if key in ('a', 'h', 'p'):
+        if key in ('a', 'h', 'p', 's'):
             # pivot angle needed between jaw and foot over the turn (real part: jaw free on its pin)
             fa = []
             for k in range(N):

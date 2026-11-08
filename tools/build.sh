@@ -56,4 +56,6 @@ for p in "${PRODUCTS[@]}"; do
 done
 # refresh the print list in each built folder's README (qty per STL)
 python3 tools/printlist.py "${PRODUCTS[@]}" || fail=1
+# ready-to-slice build plates (exports/plates/*.3mf, 256 mm bed) from the same quantities
+python3 tools/plates.py "${PRODUCTS[@]}" >/dev/null || fail=1
 exit $fail

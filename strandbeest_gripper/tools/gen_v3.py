@@ -449,11 +449,86 @@ class PrintedPins(Thumb):
             c("joint.as_built", type="rigid", a=a, b=b, name=f"fix_{b.split(':')[0]}")
 
 
-VARIANTS = {'a': Pivot, 'b': Twin, 'c': Tip, 'h': Thumb, 'p': PrintedPins}
+class SnapPins(PrintedPins):
+    """v4b: v4 with one-piece printed snap pins: the v4a pin with a split, barbed tip that snaps
+    over the top of the stack, so there are no caps. Same D3.4 holes, so the v4 parts are reused
+    unchanged; J1 keeps v4a's shoulder pin (GRIP-0043). 39 prints instead of v4a's 56."""
+    assy_pn = "GRIP-9009"
+    assy_desc = "ASSY, GRIPPER, THUMB WHEEL, SNAP PINS, STRANDBEEST V4B"
+    vdir = 'strandbeest_gripper/v4b_snap-pins'
+    BARB_H, BARB_UP, SLOT_W, SLOT_DOWN = 1.5, 0.2, 0.8, 4.0
+    PINS = {'pin_j3': 'GRIP-0045', 'pin_j4': 'GRIP-0046', 'pin_j25': 'GRIP-0047', 'pin_crank': 'GRIP-0048',
+            'pin_gear': 'GRIP-0049', 'pin_jaw': 'GRIP-0050', 'pin_g': 'GRIP-0051'}
+    pn = dict(Thumb.pn, **PINS, pin_j1='GRIP-0043')
+    # shank = head top to barb shoulder: stack top + BARB_UP (axial play for the snap)
+    SHANK = {'pin_j3': 6.7, 'pin_j4': 13.7, 'pin_j25': 17.2, 'pin_crank': 19.7, 'pin_gear': 21.4,
+             'pin_jaw': 23.2, 'pin_g': 35.9}
+    desc = dict(Thumb.desc, pin_j3='PIN, SNAP, PRINTED, D3, SHANK 6.7, J3',
+                pin_j4='PIN, SNAP, PRINTED, D3, SHANK 13.7, J4', pin_j25='PIN, SNAP, PRINTED, D3, SHANK 17.2, J2 + J5',
+                pin_crank='PIN, SNAP, PRINTED, D3, SHANK 19.7, CRANK AXLE',
+                pin_gear='PIN, SNAP, PRINTED, D3, SHANK 21.4, IDLER + WHEEL AXLE',
+                pin_jaw='PIN, SNAP, PRINTED, D3, SHANK 23.2, JAW PIVOT', pin_g='PIN, SNAP, PRINTED, D3, SHANK 35.9, G',
+                pin_j1=PrintedPins.desc['pin_j1'])
+
+    def params(self):
+        return Thumb.params(self) + [
+            ("pin_clear", f"{self.CLEAR} mm", "radial play per side of a printed pin in its hole (0.10-0.15)"),
+            ("ppin_d", "3.4 mm - 2 * pin_clear", "printed pin shank in the D3.4 holes"),
+            ("ppin_head_d", "5.5 mm", "printed pin head = M3 socket head (fits the D6.5 counterbores)"),
+            ("ppin_flat", f"{self.FLAT} mm", "D-flat depth on pin + head: print the pin lying on it"),
+            ("barb_d", "4.0 mm", "snap barb: 0.3 mm catch per side over the D3.4 hole (NEEDS PRINT TEST)"),
+            ("barb_tip_d", "2.8 mm", "barb lead-in, smaller than the hole"),
+            ("snap_slot", f"{self.SLOT_W} mm", "slot that lets the two prongs close by 0.3 mm each"),
+            ("j1_shoulder", "4.2 mm - 2 * pin_clear", "J1 shoulder in the D4.2 bores (replaces ISO 7379 D4)"),
+            ("j1_head_d", "7.0 mm", "J1 pin head"),
+            ("j1_tip_d", "2.7 mm", "J1 press tip into the D2.5 tap hole in the crank gear (NEEDS PRINT TEST)"),
+        ]
+
+    def extra_parts(self):
+        parts = Thumb.extra_parts(self)
+        count = {}
+        self.attach = []
+        for key, p, z_seat, z_cap, att in self.locations():
+            z_sh = z_cap + self.BARB_UP                 # barb shoulder, catches the top face
+            assert abs(z_sh - z_seat - self.SHANK[key]) < 1e-6, (key, z_sh - z_seat)
+            count[key] = count.get(key, 0) + 1
+            name = g.comp_name(key, count[key])
+            new_component(name)
+            z0 = z_seat - self.HEAD_H
+            top = z_sh + self.BARB_H
+            new_cyl("ppin_head_d", z0, self.HEAD_H, p, name, f"{name}_head")
+            cyl("ppin_d", z_seat - 0.01, z_sh - z_seat + 0.02, p, "join", name, f"{name}_shank")
+            c("solid.cone", diameter="barb_d", top_diameter="barb_tip_d", height=f"{fx(self.BARB_H)} mm",
+              base=[fx(p[0]), fx(p[1]), fx(z_sh)], operation="join", targets=[name], name=f"{name}_barb")
+            off = self.PIN_R - self.FLAT                # D-flat plane, -y side of the axis
+            c("solid.box", length="10 mm", width="5 mm", height=f"{fx(top - z0 + 2)} mm",
+              center=[fx(p[0]), fx(p[1] - off - 2.5), fx((z0 + top) / 2)],
+              operation="cut", targets=[name], name=f"{name}_flat")
+            # split along x: the slot plane (y-z) stands upright when the pin lies on its flat
+            slot_len = self.BARB_H + self.BARB_UP + self.SLOT_DOWN
+            c("solid.box", length="snap_slot", width="10 mm", height=f"{fx(slot_len + 1)} mm",
+              center=[fx(p[0]), fx(p[1]), fx(top - slot_len / 2 + 0.5)],
+              operation="cut", targets=[name], name=f"{name}_slot")
+            parts.append((key, count[key]))
+            self.attach.append((att, g.occ(key, count[key])))
+        for f in (1, 2):                                # J1: v4a's shoulder pin, unchanged
+            name = g.comp_name('pin_j1', f)
+            new_component(name)
+            gear_top = g.HORN_TOP + g.GEAR_T
+            top = g.zt(max(g.LAYER[o] for o in PINS['J1'] if o != 'crank'))
+            new_cyl("j1_tip_d", g.HORN_TOP + 0.5, gear_top - g.HORN_TOP - 0.5 + 0.01, J[f]['J1'], name, f"{name}_tip")
+            cyl("j1_shoulder", gear_top, top - gear_top + 0.01, J[f]['J1'], "join", name, f"{name}_shoulder")
+            cyl("j1_head_d", top, self.HEAD_H, J[f]['J1'], "join", name, f"{name}_head")
+            parts.append(('pin_j1', f))
+            self.attach.append((occ(f'crank{f}', 1), g.occ('pin_j1', f)))
+        return parts
+
+
+VARIANTS = {'a': Pivot, 'b': Twin, 'c': Tip, 'h': Thumb, 'p': PrintedPins, 's': SnapPins}
 
 if __name__ == '__main__':
     g.check_reference()
-    for key in (sys.argv[1:] or ['a', 'b', 'c', 'h', 'p']):
+    for key in (sys.argv[1:] or ['a', 'b', 'c', 'h', 'p', 's']):
         v = VARIANTS[key]()
         cmds = g.build(v)
         g.write(v, cmds)

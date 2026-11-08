@@ -15,6 +15,7 @@ Each version folder holds its own `cad/` (generated command script + built `.sc`
 | [v3c_rigid-nose](v3c_rigid-nose/README.md) | GRIP-9006 assy-rigid-nose | v2 + short rigid noses on the pads | `tools/gen_v3.py c` / `tools/verify_v3.py c` |
 | [v4_thumb-wheel](v4_thumb-wheel/README.md) | GRIP-9007 assy-thumb-wheel | v3a **operated by hand**: no servo, a knurled thumb wheel drives it (1 wheel turn = 2 crank turns); printed parts + M3 screws | `tools/gen_v3.py h` / `tools/verify_v3.py h` |
 | [v4a_printed-pins](v4a_printed-pins/README.md) | GRIP-9008 assy-printed-pins | sub-version of v4 for a functional test: **every fastener printed** (Ø3 pins with press-on caps, printed J1 shoulder pin, no washers); nothing to buy | `tools/gen_v3.py p` / `tools/verify_v3.py p` |
+| [v4b_snap-pins](v4b_snap-pins/README.md) | GRIP-9009 assy-snap-pins | v4 fully printed with the **fewest parts**: one-piece snap pins (split barbed tip, no caps), printed J1 shoulder pin; 39 prints, nothing to buy, one ready-to-slice plate | `tools/gen_v3.py s` / `tools/verify_v3.py s` |
 
 **File names.** Files are `<part number>_<name>`, for example `exports/GRIP-0015_link-j-hub_X1.stl`, and the names come from `PARTS.md`. Components in the GUI browser carry the same name plus `_F1`/`_F2` for the finger (and `B` for v3b's second leg).
 
@@ -31,7 +32,7 @@ python3 strandbeest_gripper/tools/verify_dual.py          # acceptance checks
 - `layers.py`: works out the layer stack.
 - `gen_*.py` / `verify_*.py`: one generator and one check script per version.
 
-**Moving it in SolidCraft.** Open the version's `cad/*.sc`, then drive `O_crank` (v1), `O1_crank` (v2/v3) or `W_wheel` (v4, v4a), or drag the crank or wheel.
+**Moving it in SolidCraft.** Open the version's `cad/*.sc`, then drive `O_crank` (v1), `O1_crank` (v2/v3) or `W_wheel` (v4, v4a, v4b), or drag the crank or wheel.
 
 ## v3: long jaws in +x (three variants). X1, not printed yet — NEEDS PRINT TEST
 
