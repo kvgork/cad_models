@@ -359,7 +359,9 @@ class PrintedPins(Thumb):
     assy_pn = "GRIP-9008"
     assy_desc = "ASSY, GRIPPER, THUMB WHEEL, PRINTED PINS, STRANDBEEST V4A"
     vdir = 'strandbeest_gripper/v4a_printed-pins'
-    HEAD_H, CAP_H, PIN_R, FLAT = 3.0, 2.0, 1.5, 0.25
+    HEAD_H, CAP_H, FLAT = 3.0, 2.0, 0.25
+    CLEAR = 0.15                                    # radial play per side, pin in hole (user: 0.10-0.15)
+    PIN_R = (3.4 - 2 * CLEAR) / 2
     # pin key -> part number (one PN per shank length)
     PINS = {'pin_j3': 'GRIP-0036', 'pin_j4': 'GRIP-0037', 'pin_j25': 'GRIP-0038', 'pin_crank': 'GRIP-0039',
             'pin_gear': 'GRIP-0040', 'pin_jaw': 'GRIP-0041', 'pin_g': 'GRIP-0042'}
@@ -374,12 +376,13 @@ class PrintedPins(Thumb):
 
     def params(self):
         return super().params() + [
-            ("ppin_d", "3.0 mm", "printed pin shank: 0.2 mm radial play in the D3.4 holes"),
+            ("pin_clear", f"{self.CLEAR} mm", "radial play per side of a printed pin in its hole (0.10-0.15)"),
+            ("ppin_d", "3.4 mm - 2 * pin_clear", "printed pin shank in the D3.4 holes"),
             ("ppin_head_d", "5.5 mm", "printed pin head = M3 socket head (fits the D6.5 counterbores)"),
             ("ppin_flat", f"{self.FLAT} mm", "D-flat depth on pin + head: print the pin lying on it"),
             ("cap_d", "6.0 mm", "press-on cap, inside the M3 nyloc envelope (6.4) the layers allow for"),
-            ("cap_bore", "2.8 mm", "cap hole: 0.2 mm interference on the D3 pin (press fit, NEEDS PRINT TEST)"),
-            ("j1_shoulder", "4.0 mm", "J1 shoulder in the D4.2 bores (replaces ISO 7379 D4)"),
+            ("cap_bore", "ppin_d - 0.2 mm", "cap hole: 0.2 mm interference on the pin (press fit, NEEDS PRINT TEST)"),
+            ("j1_shoulder", "4.2 mm - 2 * pin_clear", "J1 shoulder in the D4.2 bores (replaces ISO 7379 D4)"),
             ("j1_head_d", "7.0 mm", "J1 pin head"),
             ("j1_tip_d", "2.7 mm", "J1 press tip into the D2.5 tap hole in the crank gear (NEEDS PRINT TEST)"),
         ]

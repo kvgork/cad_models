@@ -147,6 +147,7 @@ PARTS.md                               part register (PN, name, folder); TOOLS.m
 
 - **Walls:** `nozzle 0.4`, `line_w 0.45`, `layer_h 0.2`. Walls on the perimeter grid (0.9 / 1.35 / 1.8 mm); nothing under one perimeter.
 - **Clearances:** `fdm_clearance 0.2` (sliding). Moving parts 0.3. Rotating pin holes for M3: Ø3.4 (ISO 273 medium).
+  - **Printed pin in printed hole (user rule 2026-11-08): 0.10–0.15 mm play per side** (default 0.15, as a named parameter). Press fits on printed pins: 0.2 mm interference on the diameter.
 - **Heat-set inserts:** M3 hole Ø4.0–4.2, blind, ≥ 1 mm deeper than the insert. Use inserts for anything unscrewed twice.
 - **Orientation and overhangs:**
   - Chamfer bed-facing edges; don't fillet them.

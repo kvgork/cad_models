@@ -9,9 +9,9 @@ X1, not printed yet. **NEEDS PRINT TEST.** This is [v4](../v4_thumb-wheel/README
 ## What changes from v4
 
 - **The v4 parts are reused unchanged** (GRIP-0013…0035): the same STL files, with the same Ø3.4 holes.
-- **Pins (GRIP-0036…0042):** a Ø3.0 shank with a Ø5.5 × 3 head, in the existing Ø3.4 holes (0.2 mm play per side). There is one part number per shank length. A cap pressed onto the shank holds the pin in.
-- **Caps (GRIP-0044):** a Ø6 × 2 disc with a Ø2.8 hole, pressed onto the pin (0.2 mm interference). On the crank axles the cap sits in the gear-top recess where v4 had the thin nut.
-- **J1 (GRIP-0043):** a printed shoulder pin replaces the ISO 7379 screw. It has a Ø4 × 24.5 shoulder in the Ø4.2 bores, a Ø7 head on top and a Ø2.7 tip that presses into the Ø2.5 hole in the crank gear.
+- **Pins (GRIP-0036…0042):** a Ø3.1 shank with a Ø5.5 × 3 head, in the existing Ø3.4 holes (0.15 mm play per side, parameter `pin_clear`). There is one part number per shank length. A cap pressed onto the shank holds the pin in.
+- **Caps (GRIP-0044):** a Ø6 × 2 disc with a Ø2.9 hole, pressed onto the pin (0.2 mm interference). On the crank axles the cap sits in the gear-top recess where v4 had the thin nut.
+- **J1 (GRIP-0043):** a printed shoulder pin replaces the ISO 7379 screw. It has a Ø3.9 × 24.5 shoulder in the Ø4.2 bores (0.15 mm play per side), a Ø7 head on top and a Ø2.7 tip that presses into the Ø2.5 hole in the crank gear.
 - **No washers:** the links run directly against the pin heads and caps, with 0.5 mm of axial play per layer.
 - **Lengths:** each pin is the stack height + 2 mm for the cap, rounded up to 0.5 mm, so a pin tip sticks out of its cap by at most 0.3 mm. Heads and caps stay inside the space that v4's screw heads and nyloc nuts were laid out for (`../tools/layers.py`), so nothing new collides.
 
@@ -68,11 +68,11 @@ X1, not printed yet. **NEEDS PRINT TEST.** This is [v4](../v4_thumb-wheel/README
 
 | Fit | CAD | If it is wrong |
 |---|---|---|
-| Pin in link hole | Ø3.0 in Ø3.4 | Too loose: raise `ppin_d` to 3.1–3.2. Too tight: sand the pin. |
-| Cap on pin | Ø2.8 hole on Ø3.0 pin | Falls off: lower `cap_bore` to 2.7, or add a drop of CA glue. Splits: raise it to 2.9. |
+| Pin in link hole, J1 shoulder in its bore | 0.15 mm play per side (`pin_clear`): Ø3.1 in Ø3.4, Ø3.9 in Ø4.2 | Too loose: set `pin_clear` to 0.10 (Ø3.2 / Ø4.0). Too tight: sand the pin. |
+| Cap on pin | Ø2.9 hole on Ø3.1 pin (`cap_bore` = `ppin_d` − 0.2, follows the pin) | Falls off: make the interference 0.3, or add a drop of CA glue. Splits: make it 0.1. |
 | J1 tip in crank gear | Ø2.7 tip in Ø2.5 hole | Too loose: glue it. Too tight: lower `j1_tip_d`. |
 
-The parameters are in the assembly script (`cad/GRIP-9008_assy-printed-pins.json`). Change them in `../tools/gen_v3.py` (class `PrintedPins`), then rebuild.
+The parameters are in the assembly script (`cad/GRIP-9008_assy-printed-pins.json`). Change them in `../tools/gen_v3.py` (class `PrintedPins`, `CLEAR` for the play), then regenerate and rebuild: the D-flat position is computed there from the pin radius.
 
 ## Assembly
 
@@ -93,7 +93,7 @@ All 18 checks pass (2026-11-08):
 | Jaws | orientation constant (0.0000°); clamp gap 1.53 mm, opening 19.5 mm, pull stroke 19.9 mm |
 | Gear meshes, incl. thumb wheel | 0.141–0.142 mm, no overlap |
 | Collision sweeps (v4 parts, full turn) | none; closest 0.5 mm |
-| Printed pins and caps vs all parts, 12 crank angles | 0 overlaps (89 pairs checked at θ = 0). Heads and caps touch the links they hold at 0.0 mm: that is expected, because there are no washers |
+| Printed pins and caps vs all parts, 12 crank angles | 0 overlaps (81+ pairs checked per angle). Heads and caps touch the links they hold at 0.0 mm: that is expected, because there are no washers |
 
 Not checked: pin strength, press-fit grip and wear. Those need a test print.
 
