@@ -106,6 +106,23 @@ In the pictures, the parts added in each step are **orange** and the parts alrea
 | GRIP-0051 | 35.9 mm | 2 | G |
 | GRIP-0043 | shoulder pin | 2 | J1 (pressed in, no snap) |
 
+**Links and their lengths.** Use these to tell the parts apart and to check a print.
+- **Hole spacing** is centre to centre: these are the Jansen "holy numbers" × 0.4, taken from the generator (`jansen.py`, `gen_v3.py`).
+- **Overall length** and **height** are measured on the exported STL files. A bar is its hole spacing + 7 mm long (a Ø7 rounded end at each hole).
+- **Holes:** Ø3.4 for the snap pins, Ø4.2 at J1 (shoulder pin).
+
+| Part | Qty | Holes | Hole spacing (mm) | Overall length × height (mm) |
+|---|---|---|---|---|
+| j link, GRIP-0015 | 2 | J1 – J2 | 20.00 | 27.0 × 3.0 |
+| k link, GRIP-0016 | 2 | J1 – J4 | 24.76 | 31.8 × 3.0 |
+| c link, GRIP-0017 | 2 | G – J4 | 15.72 | 22.7 × 3.0 |
+| f link with hub, GRIP-0018 | 2 | J3 – J5 | 15.76 | 22.8 × 13.5 (hub) |
+| b-d-e triangle, GRIP-0019 (UP1) / GRIP-0021 (UP2) | 1 + 1 | G – J2 / G – J3 / J2 – J3 | 16.60 / 16.04 / 22.32 | 29.3 along J2–J3 × 13.5 (hubs) |
+| g-h-i triangle, GRIP-0023 (UP1) / GRIP-0024 (UP2) | 1 + 1 | J4 – J5 / J5 – F / J4 – F | 14.68 / 26.28 / 19.60 | 35.3 along J5–F × 14.5 (hub) |
+| jaw, GRIP-0025 | 2 | F (pivot only) | 25 mm grip face | 35.5 × 16.0 × 8.0 |
+| crank (J1 on the crank gear) | 2 | O – J1 | 6.00 | on the crank gears 0034 / 0013 |
+| gear centres | | O – idler / idler – idler | 26.50 / 33.00 | z20 crank gears, z33 idlers, module 1 |
+
 ### Step 1: gear train on the frame
 
 ![step 1](docs/build/step1_gear-train.png)
