@@ -139,6 +139,7 @@ PARTS.md                               part register (PN, name, folder); TOOLS.m
 
 **Verifying and inspecting**
 - **A joint on the driven side of a motion link (`joint.screw`, `joint.rack_pinion`, `joint.gear` b) ignores `joint.drive`/`motion.trace` on itself, silently.** Drive the source joint, and make the verifier assert that the motion really happened (range reached), not just that nothing collided (finray, 2026-11-08).
+- **`pin_slot`: the slot axis belongs to `a`.** Put the part with the slot first, or the slot turns with the pin's part (v6 jaw turned 38.6°).
 - **Motion-link signs:** a wrong `reverse` flag looks perfect at the as-built pose and only shows once driven, as teeth overlapping. Always run the mesh clearance check at several driven positions.
 - **`inspect.clearance` "unchecked" pairs are not "clear".** Pins in holes often come back unchecked (kernel intersect failed). The verifier must count them and fail on any it doesn't expect (v4b's J1 press fits were silently unchecked).
 - **A new gear in the gear layer:** re-check every pin head / barb that sits under the lowest link; pin-vs-all clearance at 12 angles catches it (v5: J3 heads vs the z60 idler; v3b's screws were never checked).
