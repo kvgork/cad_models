@@ -48,29 +48,32 @@ STEPS += [('step7_mount', FRAME + GEARS + FINGERS, MOUNT, 'iso'),
           ('step8_done_top', FRAME + GEARS + FINGERS + MOUNT, [], 'top')]
 
 
-def bodies():
-    out = subprocess.run(['solidcraft-cli', 'eval', SC], capture_output=True, text=True, check=True, cwd=ROOT)
+def bodies(sc):
+    out = subprocess.run(['solidcraft-cli', 'eval', sc], capture_output=True, text=True, check=True, cwd=ROOT)
     return [b['name'] for b in json.loads(out.stdout)['bodies']]
 
 
-def main():
-    allb = bodies()
-    known = set(FRAME + GEARS + FINGERS + MOUNT)
+def render(sc, out, steps):
+    """steps: (file, bodies in place, bodies added now (orange), view). Every other body is hidden."""
+    allb = bodies(sc)
+    known = {b for _, old, new, _ in steps for b in old + new}
     missing = known - set(allb)
     assert not missing, f'not in the model: {sorted(missing)}'
-    os.makedirs(os.path.join(ROOT, OUT), exist_ok=True)
+    os.makedirs(os.path.join(ROOT, out), exist_ok=True)
     with tempfile.TemporaryDirectory() as td:
-        for name, old, new, view in STEPS:
+        for name, old, new, view in steps:
             hide = [b for b in allb if b not in old and b not in new]
             script = os.path.join(td, 'hide.json')
-            json.dump([{"command": "browser.visibility", "params": {"visible": False, "items": hide}}], open(script, 'w'))
-            args = ['solidcraft-cli', 'snapshot', script, '--in', SC, '--out', f'{OUT}/{name}.png', '--view', view,
+            # browser.visibility refuses an empty list: nothing to hide -> empty script
+            json.dump([{"command": "browser.visibility", "params": {"visible": False, "items": hide}}] if hide else [],
+                      open(script, 'w'))
+            args = ['solidcraft-cli', 'snapshot', script, '--in', sc, '--out', f'{out}/{name}.png', '--view', view,
                     '--no-grid', '--no-axes', '--width', '1100', '--height', '750']
             for b in new:
                 args += ['--body', f'{b}:color={NEW}']
             subprocess.run(args, check=True, stdout=subprocess.DEVNULL, cwd=ROOT)
-            print(f'{OUT}/{name}.png: {len(old)} in place, {len(new)} new')
+            print(f'{out}/{name}.png: {len(old)} in place, {len(new)} new')
 
 
 if __name__ == '__main__':
-    main()
+    render(SC, OUT, STEPS)

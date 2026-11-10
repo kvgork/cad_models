@@ -204,6 +204,7 @@ class Twin(g.Variant):
     assy_pn = "GRIP-9005"
     assy_desc = "ASSY, GRIPPER, DUAL FINGER, TWIN LEG PARALLEL JAWS, STRANDBEEST V3B"
     vdir = 'strandbeest_gripper/v3b_twin-legs'
+    IDLER_X_T = g.IDLE_T     # z60 idler thickness
     OVERHANG = 30.0          # jaw beyond leg B's foot (leg B reaches ~26 mm past it along the stroke)
     pn = {('ghi', 1): 'GRIP-0023', ('ghi', 2): 'GRIP-0024', 'frame': 'GRIP-0028', ('crankB', 1): 'GRIP-0029',
           ('crankB', 2): 'GRIP-0032', 'idlerX': 'GRIP-0030', 'jawt': 'GRIP-0031'}   # crank B gears: tooth phase to J1 differs per finger
@@ -250,7 +251,7 @@ class Twin(g.Variant):
             g.crank_gear(f, self.JB[f], name, self.JBL[f]['O'], self.ph[('B', f)], on_horn=False, tag=f"crankB{f}")
             name = g.comp_name('idlerX', f)
             new_component(name)
-            g.gear_body(f"gear_idlerX{f}", self.XL[f], ZX, self.ph[('X', f)], name, thick=g.IDLE_T)
+            g.gear_body(f"gear_idlerX{f}", self.XL[f], ZX, self.ph[('X', f)], name, thick=self.IDLER_X_T)
             cyl("pin_d", g.HORN_TOP - 0.5, g.GEAR_T + 1, self.X[f], "cut", name, f"idlerX{f}_bore")
             for key in g.LINK_KEYS:
                 body = f"{g.parts.fname(g.pn(key, f))}_F{f}B"
@@ -260,7 +261,8 @@ class Twin(g.Variant):
                 if key == 'ghi':
                     ghi_hub(f, body, z0, self.JB[f], f"ghi{f}B")
                 c("component.metadata.set", component=body, part_number=g.pn(key, f),
-                  description=g.DESC[(key, f)] if (key, f) in g.DESC else g.DESC[key], revision="X1", bom_type="normal")
+                  description=g.DESC[(key, f)] if (key, f) in g.DESC else g.DESC[key], revision=g.rev_of(self, g.pn(key, f)),
+                  bom_type="normal")
             name = g.comp_name('jawt', f)
             new_component(name)
             tip = W(lk(self.JBL[f]['F'], self.OVERHANG))       # overhang past leg B so the jaw reaches out in +x
@@ -301,8 +303,10 @@ class Thumb(Pivot):
     desc = dict(Pivot.desc, frame='FRAME, DUAL FINGER, HAND DRIVE, STRANDBEEST V4',
                 crank1='GEAR, CRANK, ON AXLE, Z20 M1', wheel='WHEEL, THUMB, KNURLED D50, GEAR Z40 M1')
 
+    WHEEL_A = WHEEL_ANGLE
+
     def __init__(self):
-        a = math.radians(WHEEL_ANGLE)
+        a = math.radians(self.WHEEL_A)
         self.WL = (JL[1]['O'][0] + (g.RC + RW) * math.cos(a), JL[1]['O'][1] + (g.RC + RW) * math.sin(a))
         self.Wc = W(self.WL)
         self.phase = mesh_phase(g.PH['crank1'], g.ZC, JL[1]['O'], self.WL, ZW)
@@ -316,7 +320,9 @@ class Thumb(Pivot):
         cyl("head_d", z0 - 0.5, 3.5, self.Wc, "cut", fb, "axle_cbore_wheel")
 
     def extra_parts(self):
-        parts = super().extra_parts()
+        return super().extra_parts() + self.wheel_part()
+
+    def wheel_part(self):
         name = g.comp_name('wheel', 1)
         new_component(name)
         rim_z0, gear_z0 = self.plate_z[1] + 0.5, g.HORN_TOP - g.GAP
@@ -337,7 +343,7 @@ class Thumb(Pivot):
         c("solid.extrude", distance=f"{fx(g.HORN_TOP + g.IDLE_T - gear_z0)} mm", operation="join", targets=[name],
           name="wheel_gear")
         cyl("pin_d", rim_z0 - 0.5, g.HORN_TOP + g.GEAR_T - rim_z0 + 1, self.Wc, "cut", name, "wheel_bore")
-        return parts + [('wheel', 1)]
+        return [('wheel', 1)]
 
     def extra_joints(self):
         super().extra_joints()
@@ -457,6 +463,7 @@ class SnapPins(PrintedPins):
     assy_desc = "ASSY, GRIPPER, THUMB WHEEL, SNAP PINS, STRANDBEEST V4B"
     vdir = 'strandbeest_gripper/v4b_snap-pins'
     BARB_H, BARB_UP, SLOT_W, SLOT_DOWN = 1.5, 0.2, 0.8, 4.0
+    SHANK_OVER = 0.01            # shank runs this far into the barb cone (overlap so the join fuses)
     PINS = {'pin_j3': 'GRIP-0045', 'pin_j4': 'GRIP-0046', 'pin_j25': 'GRIP-0047', 'pin_crank': 'GRIP-0048',
             'pin_gear': 'GRIP-0049', 'pin_jaw': 'GRIP-0050', 'pin_g': 'GRIP-0051'}
     pn = dict(Thumb.pn, **PINS, pin_j1='GRIP-0043')
@@ -485,46 +492,228 @@ class SnapPins(PrintedPins):
         ]
 
     def extra_parts(self):
-        parts = Thumb.extra_parts(self)
-        count = {}
         self.attach = []
-        for key, p, z_seat, z_cap, att in self.locations():
-            z_sh = z_cap + self.BARB_UP                 # barb shoulder, catches the top face
-            assert abs(z_sh - z_seat - self.SHANK[key]) < 1e-6, (key, z_sh - z_seat)
+        parts = Thumb.extra_parts(self)
+        parts += self.snap_pins(self.locations(), {})
+        parts += self.j1_pins([(f, J[f]['J1'], occ(f'crank{f}', 1)) for f in (1, 2)])
+        return parts
+
+    def snap_pins(self, locs, count):
+        parts = []
+        for loc in locs:
+            key, p, z_seat, z_cap, att = loc[:5]
+            down = len(loc) > 5 and loc[5]              # flipped: head on top of the stack, barb below it
+            s_ = -1 if down else 1
+            z_sh = z_cap + s_ * self.BARB_UP            # barb shoulder, catches the far face of the stack
+            assert abs(s_ * (z_sh - z_seat) - self.SHANK[key]) < 1e-6, (key, z_sh - z_seat)
             count[key] = count.get(key, 0) + 1
             name = g.comp_name(key, count[key])
             new_component(name)
-            z0 = z_seat - self.HEAD_H
-            top = z_sh + self.BARB_H
-            new_cyl("ppin_head_d", z0, self.HEAD_H, p, name, f"{name}_head")
-            cyl("ppin_d", z_seat - 0.01, z_sh - z_seat + 0.02, p, "join", name, f"{name}_shank")
-            c("solid.cone", diameter="barb_d", top_diameter="barb_tip_d", height=f"{fx(self.BARB_H)} mm",
-              base=[fx(p[0]), fx(p[1]), fx(z_sh)], operation="join", targets=[name], name=f"{name}_barb")
+            z0 = z_seat - self.HEAD_H if not down else z_seat + self.HEAD_H     # head's outer face
+            top = z_sh + s_ * self.BARB_H                                         # barb tip
+            new_cyl("ppin_head_d", min(z0, z_seat), self.HEAD_H, p, name, f"{name}_head")
+            lo_, hi_ = sorted((z_seat - s_ * 0.01, z_sh + s_ * self.SHANK_OVER))
+            cyl("ppin_d", lo_, hi_ - lo_, p, "join", name, f"{name}_shank")
+            if not down:
+                c("solid.cone", diameter="barb_d", top_diameter="barb_tip_d", height=f"{fx(self.BARB_H)} mm",
+                  base=[fx(p[0]), fx(p[1]), fx(z_sh)], operation="join", targets=[name], name=f"{name}_barb")
+            else:
+                c("solid.cone", diameter="barb_tip_d", top_diameter="barb_d", height=f"{fx(self.BARB_H)} mm",
+                  base=[fx(p[0]), fx(p[1]), fx(top)], operation="join", targets=[name], name=f"{name}_barb")
+            zl, zh = sorted((z0, top))
             off = self.PIN_R - self.FLAT                # D-flat plane, -y side of the axis
-            c("solid.box", length="10 mm", width="5 mm", height=f"{fx(top - z0 + 2)} mm",
-              center=[fx(p[0]), fx(p[1] - off - 2.5), fx((z0 + top) / 2)],
+            c("solid.box", length="10 mm", width="5 mm", height=f"{fx(zh - zl + 2)} mm",
+              center=[fx(p[0]), fx(p[1] - off - 2.5), fx((zl + zh) / 2)],
               operation="cut", targets=[name], name=f"{name}_flat")
             # split along x: the slot plane (y-z) stands upright when the pin lies on its flat
             slot_len = self.BARB_H + self.BARB_UP + self.SLOT_DOWN
             c("solid.box", length="snap_slot", width="10 mm", height=f"{fx(slot_len + 1)} mm",
-              center=[fx(p[0]), fx(p[1]), fx(top - slot_len / 2 + 0.5)],
+              center=[fx(p[0]), fx(p[1]), fx(top - s_ * (slot_len / 2 - 0.5))],
               operation="cut", targets=[name], name=f"{name}_slot")
             parts.append((key, count[key]))
             self.attach.append((att, g.occ(key, count[key])))
-        for f in (1, 2):                                # J1: v4a's shoulder pin, unchanged
-            name = g.comp_name('pin_j1', f)
+        return parts
+
+    def j1_pins(self, spots):
+        """v4a's shoulder pin: head on top of k, press tip into the crank gear. spots: (index, xy, crank occ)."""
+        parts = []
+        for i, p, crank in spots:
+            name = g.comp_name('pin_j1', i)
             new_component(name)
             gear_top = g.HORN_TOP + g.GEAR_T
             top = g.zt(max(g.LAYER[o] for o in PINS['J1'] if o != 'crank'))
-            new_cyl("j1_tip_d", g.HORN_TOP + 0.5, gear_top - g.HORN_TOP - 0.5 + 0.01, J[f]['J1'], name, f"{name}_tip")
-            cyl("j1_shoulder", gear_top, top - gear_top + 0.01, J[f]['J1'], "join", name, f"{name}_shoulder")
-            cyl("j1_head_d", top, self.HEAD_H, J[f]['J1'], "join", name, f"{name}_head")
-            parts.append(('pin_j1', f))
-            self.attach.append((occ(f'crank{f}', 1), g.occ('pin_j1', f)))
+            new_cyl("j1_tip_d", g.HORN_TOP + 0.5, gear_top - g.HORN_TOP - 0.5 + 0.01, p, name, f"{name}_tip")
+            cyl("j1_shoulder", gear_top, top - gear_top + 0.01, p, "join", name, f"{name}_shoulder")
+            cyl("j1_head_d", top, self.HEAD_H, p, "join", name, f"{name}_head")
+            parts.append(('pin_j1', i))
+            self.attach.append((crank, g.occ('pin_j1', i)))
         return parts
 
 
-VARIANTS = {'a': Pivot, 'b': Twin, 'c': Tip, 'h': Thumb, 'p': PrintedPins, 's': SnapPins}
+# ---------------------------------------------------------------------------- v5 parallel jaws, fully printed
+LABELLED = ['GRIP-0013', 'GRIP-0014', 'GRIP-0015', 'GRIP-0016', 'GRIP-0017', 'GRIP-0018',   # b-d-e already marked UP1/UP2
+            'GRIP-0023', 'GRIP-0024', 'GRIP-0029', 'GRIP-0030', 'GRIP-0031', 'GRIP-0032', 'GRIP-0034']
+LABEL_D = 0.6                        # deboss depth (CLAUDE.md part marking)
+
+
+def deboss(comp, body, text, center, angle, h, z_top, name):
+    """Debossed text centred on `center` (world xy) on the top face at z_top, reading along `angle` (deg)."""
+    a = ((angle + 90.0) % 180.0) - 90.0          # always readable (never upside down)
+    r = math.radians(a)
+    at = (center[0] + math.sin(r) * h / 2, center[1] - math.cos(r) * h / 2)
+    c("component.activate", component=comp)
+    c("sketch.create", plane="XY", offset=f"{fx(z_top - LABEL_D)} mm", name=f"{name}_sk")
+    c("sketch.text", text=text, at=[fx(at[0]), fx(at[1])], height=h, angle=fx(a), align="center")
+    c("sketch.finish")
+    c("solid.extrude", distance=f"{LABEL_D + 0.1} mm", operation="cut", targets=[body], name=name)
+
+
+class V5(SnapPins):
+    """v5: v4b (thumb wheel, snap pins, fully printed) + v3b's twin legs, so the 91 mm jaws translate
+    without turning and stay parallel (the v4b pivot jaws were loose on their pins). Every part
+    except the pins is labelled (debossed), so labelled parts go to revision X2 (same fit)."""
+    assy_pn = "GRIP-9011"
+    assy_desc = "ASSY, GRIPPER, TWIN LEG PARALLEL JAWS, THUMB WHEEL, SNAP PINS, STRANDBEEST V5"
+    vdir = 'strandbeest_gripper/v5_parallel-jaws'
+    SHANK_OVER = 0.3                 # 0.01 left a sliver that broke the slot cut at one J3 pin; 0.3 is still
+                                     # inside the cone (D3.76 there > D3.1), so the pin shape is unchanged
+    WHEEL_A = 15.0                   # 40 deg (v4) hits the leg-B idler; 15 deg clears everything by 6.4 mm
+    OVERHANG = Twin.OVERHANG
+    pn = {**{k: v for k, v in SnapPins.pn.items() if k != 'jawp'}, **Twin.pn, 'frame': 'GRIP-0060'}
+    desc = {**{k: v for k, v in SnapPins.desc.items() if k != 'jawp'}, **Twin.desc,
+            'frame': 'FRAME, TWIN LEG, HAND DRIVE, STRANDBEEST V5'}
+    revs = {p: 'X2' for p in LABELLED}
+    # leg A's J3 pin head (under f, in the gear layer) would hit the z60 idler: J3 pins go in from the top
+    # (head on b-d-e, barb under f) and the z60 idler is 1.2 mm thinner, so the barb clears it by 0.5 mm
+    IDLER_X_T = 4.3
+    SHANK = dict(SnapPins.SHANK, pin_gearx=20.2)
+    pn['pin_gearx'] = 'GRIP-0061'
+    desc['pin_gearx'] = 'PIN, SNAP, PRINTED, D3, SHANK 20.2, Z60 IDLER AXLE'
+
+    def __init__(self):
+        Thumb.__init__(self)
+        Twin.__init__(self)
+
+    def frame_discs(self):
+        return Thumb.frame_discs(self) + Twin.frame_discs(self)
+
+    def frame_extra(self, fb):
+        Thumb.frame_extra(self, fb)
+        for f in (1, 2):
+            g.frame_post_and_axles(fb, {'G': self.JB[f]['G'], 'I': self.X[f], 'O': self.JB[f]['O']}, f"B{f}", self.plate_z)
+        # "V5" on the plate top, where it is furthest from every axle and post
+        discs = [(JL[f][k], r) for f in (1, 2) for k, r in (('O', 13), ('G', 7), ('I', 8))] + self.frame_discs()
+        cloud = [(p[0] + r * math.cos(t * math.pi / 18), p[1] + r * math.sin(t * math.pi / 18)) for p, r in discs for t in range(36)]
+        hl = g.hull(cloud)
+        axes = [p for p, _ in discs]
+        xs, ys = [p[0] for p in hl], [p[1] for p in hl]
+
+        def inside(q):
+            return all((b[0] - a[0]) * (q[1] - a[1]) - (b[1] - a[1]) * (q[0] - a[0]) >= 0 for a, b in zip(hl, hl[1:] + hl[:1]))
+
+        def edge_d(q):
+            out = 1e9
+            for a, b in zip(hl, hl[1:] + hl[:1]):
+                L2 = (b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2
+                t = max(0, min(1, ((q[0] - a[0]) * (b[0] - a[0]) + (q[1] - a[1]) * (b[1] - a[1])) / L2))
+                out = min(out, math.hypot(q[0] - a[0] - t * (b[0] - a[0]), q[1] - a[1] - t * (b[1] - a[1])))
+            return out
+        best = None
+        for i in range(81):
+            for j in range(81):
+                q = (min(xs) + (max(xs) - min(xs)) * i / 80, min(ys) + (max(ys) - min(ys)) * j / 80)
+                if not inside(q) or edge_d(q) < 7:
+                    continue
+                d = min(math.hypot(q[0] - p[0], q[1] - p[1]) for p in axes)
+                if best is None or d > best[0]:
+                    best = (d, q)
+        assert best and best[0] >= 10, best
+        self.frame_label = (W(best[1]), best[0])
+
+    def ghi_tip(self, f, body, z0):
+        ghi_hub(f, body, z0, J[f], f"ghi{f}")
+
+    def locations(self):
+        L, zb, zt = g.LAYER, g.zb, g.zt
+        seat = self.plate_z[0] - 0.5 + 3.5
+        frame = occ('frame', 1)
+        locs = PrintedPins.locations(self)
+        for f in (1, 2):
+            JB = self.JB[f]
+            ob = lambda k, f=f: f"{g.parts.fname(g.pn(k, f))}_F{f}B:1"  # noqa: E731
+            locs += [('pin_crank', JB['O'], seat, g.HORN_TOP + g.GEAR_T - 2.2, frame),
+                     ('pin_gearx', self.X[f], seat, g.HORN_TOP + self.IDLER_X_T, frame),
+                     ('pin_g', JB['G'], seat, zt(max(L[o] for o in PINS['G'])), frame),
+                     ('pin_jaw', JB['F'], zb(L['ghi']), JAW_Z0 + JAW_H, ob('ghi'))]
+            for n, key in (('J2', 'pin_j25'), ('J3', 'pin_j3'), ('J4', 'pin_j4'), ('J5', 'pin_j25')):
+                own = PINS[n]
+                low = min(own, key=lambda o: L[o])
+                locs.append((key, JB[n], zb(L[low]), zt(max(L[o] for o in own)), ob(low)))
+        # J3 (f below b-d-e): flip every J3 pin, head on top of b-d-e, barb under f
+        out = []
+        for loc in locs:
+            if loc[0] == 'pin_j3':
+                key, p, z_seat, z_cap, att = loc
+                out.append((key, p, zt(L['bde']), zb(L['f']), att, True))
+            else:
+                out.append(loc)
+        return out
+
+    def extra_parts(self):
+        self.attach = []
+        parts = Twin.extra_parts(self)              # crank B gears, z60 idlers, legs B, twin jaws
+        parts += self.wheel_part()
+        parts += self.snap_pins(self.locations(), {})
+        parts += self.j1_pins([(f, J[f]['J1'], occ(f'crank{f}', 1)) for f in (1, 2)] +
+                              [(f + 2, self.JB[f]['J1'], occ('crankB', f)) for f in (1, 2)])
+        self.labels()
+        return parts
+
+    def labels(self):
+        """Deboss a name on every part but the pins (the pins are told apart by length)."""
+        letters = {'j': 'J', 'k': 'K', 'c': 'C', 'f': 'F'}
+        legs = [(f, J[f], lambda k, f=f: g.comp_name(k, f)) for f in (1, 2)] + \
+               [(f, self.JB[f], lambda k, f=f: f"{g.parts.fname(g.pn(k, f))}_F{f}B") for f in (1, 2)]
+        for f, Jf, nm in legs:
+            for key, txt in letters.items():
+                p, q = g.BARS[key]
+                mid = ((Jf[p][0] + Jf[q][0]) / 2, (Jf[p][1] + Jf[q][1]) / 2)
+                ang = math.degrees(math.atan2(Jf[q][1] - Jf[p][1], Jf[q][0] - Jf[p][0]))
+                deboss(nm(key), nm(key), txt, mid, ang, 4.0, g.zt(LAYER[key]), f"label_{nm(key)}")
+            pts = g.TRIS['ghi']
+            cx, cy = sum(Jf[n][0] for n in pts) / 3, sum(Jf[n][1] for n in pts) / 3
+            deboss(nm('ghi'), nm('ghi'), f"UP{f}", (cx, cy), 0.0, 3.2, g.zt(LAYER['ghi']), f"label_{nm('ghi')}")
+        gears = [('crank1', 1, J[1], 'A1'), ('crank2', 1, J[2], 'A2'), ('crankB', 1, self.JB[1], 'B1'),
+                 ('crankB', 2, self.JB[2], 'B2')]
+        for key, i, Jf, txt in gears:
+            o, j1 = Jf['O'], Jf['J1']
+            u = (j1[0] - o[0], j1[1] - o[1])
+            n = math.hypot(*u)
+            pos = (o[0] - u[0] / n * 6.1, o[1] - u[1] / n * 6.1)       # opposite J1, between the nut recess and the roots
+            ang = math.degrees(math.atan2(u[1], u[0])) + 90.0
+            deboss(g.comp_name(key, i), g.comp_name(key, i), txt, pos, ang, 3.0, g.HORN_TOP + g.GEAR_T, f"label_{key}{i}")
+        for f in (1, 2):
+            for key, ctr, txt, top in (('idler', J[f]['I'], 'Z33', g.HORN_TOP + g.IDLE_T),
+                                       ('idlerX', self.X[f], 'Z60', g.HORN_TOP + self.IDLER_X_T)):
+                nmg = g.comp_name(key, f)
+                deboss(nmg, nmg, txt, (ctr[0], ctr[1] - 8.0), 0.0, 4.0, top, f"label_{nmg}")
+            jn = g.comp_name('jawt', f)
+            a, b = J[f]['F'], self.JB[f]['F']
+            deboss(jn, jn, "JAW", ((a[0] + b[0]) / 2, (a[1] + b[1]) / 2),
+                   math.degrees(math.atan2(b[1] - a[1], b[0] - a[0])), 4.0, JAW_Z0 + JAW_H, f"label_{jn}")
+        fr = g.comp_name('frame', 1)
+        deboss(fr, fr, "V5", self.frame_label[0], 0.0, 6.0, self.plate_z[1], "label_frame")
+        c("component.activate", component=0)
+
+    def extra_joints(self):
+        Twin.extra_joints(self)
+        rev("W_wheel", occ('frame', 1), occ('wheel', 1), self.Wc, g.HORN_TOP)
+        c("joint.gear", a="W_wheel", b="O1_crank", ra=RW, rb=g.RC)
+        for a, b in self.attach:
+            c("joint.as_built", type="rigid", a=a, b=b, name=f"fix_{b.split(':')[0]}")
+
+
+VARIANTS = {'a': Pivot, 'b': Twin, 'c': Tip, 'h': Thumb, 'p': PrintedPins, 's': SnapPins, '5': V5}
 
 if __name__ == '__main__':
     g.check_reference()

@@ -15,6 +15,7 @@ puts links, gears and plates on their flat side, D-flat pins on their flat, and 
 without a flat on its head. Check each part in the slicer before printing: this is a heuristic.
 """
 import glob
+import json
 import os
 import re
 import struct
@@ -156,9 +157,10 @@ def write_3mf(path, parts):
             'package/2006/relationships"><Relationship Target="/3D/3dmodel.model" Id="rel0" '
             'Type="http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodel"/></Relationships>')
     with zipfile.ZipFile(path, 'w', zipfile.ZIP_DEFLATED) as z:
-        z.writestr('[Content_Types].xml', ct)
-        z.writestr('_rels/.rels', rels)
-        z.writestr('3D/3dmodel.model', model)
+        for name, data in (('[Content_Types].xml', ct), ('_rels/.rels', rels), ('3D/3dmodel.model', model)):
+            info = zipfile.ZipInfo(name, date_time=(2026, 1, 1, 0, 0, 0))   # fixed: same plate -> same bytes
+            info.compress_type = zipfile.ZIP_DEFLATED
+            z.writestr(info, data)
 
 
 def preview(path, parts, bed, title):
@@ -206,7 +208,10 @@ def main(argv):
             continue
         if assy:
             src, n = assy
-            stem, rev = src[:-5], re.search(r'_([A-Z0-9]+)\.stl$', next(iter(stls.values()))).group(1)
+            stem = src[:-5]
+            cmds = json.load(open(os.path.join(ROOT, folder, 'cad', src), encoding='utf-8'))
+            meta = next((c['params'].get('values', {}) for c in cmds if c.get('command') == 'document.metadata.set'), {})
+            rev = meta.get('revision', 'X1')            # the assembly's revision, not one part's
         else:
             n = {pn: 1 for pn in stls}
             stem, rev = os.path.basename(folder), 'X1'

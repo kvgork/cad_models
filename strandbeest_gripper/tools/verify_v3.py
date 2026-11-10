@@ -47,7 +47,7 @@ def run(key):
     gears = [g.comp_name('crank1', 1), g.comp_name('idler', 1), g.comp_name('idler', 2), g.comp_name('crank2', 1)]
     meshes = [(gears[0], gears[1]), (gears[1], gears[2]), (gears[2], gears[3])]
     DJ, DK = v.drive                            # joint you turn, its degrees per crank degree
-    if key in ('h', 'p', 's'):
+    if key in ('h', 'p', 's', '5'):
         gears.append(g.comp_name('wheel', 1))
         meshes.append((gears[0], gears[-1]))
     links = {f: [g.occ(k, f) for k in g.LINK_KEYS] for f in (1, 2)}
@@ -68,9 +68,11 @@ def run(key):
             tip = g.W(v3.lk(g.JL[f]['F'], v.JAW_L))
             jaw_pts[f] = [(o, list(g.J[f]['F']) + [v3.JAW_Z0 + 4]), (o, list(tip) + [v3.JAW_Z0 + 4])]
         sweeps.append(([g.occ('jawp', 1), g.occ('jawp', 2)], printed, 'jaws vs all parts'))
-    if key == 'b':
-        gears += [g.comp_name('idlerX', 1), g.comp_name('crankB', 1), g.comp_name('idlerX', 2), g.comp_name('crankB', 2)]
-        meshes += [(gears[0], gears[4]), (gears[4], gears[5]), (gears[3], gears[6]), (gears[6], gears[7])]
+    if key in ('b', '5'):
+        xb = [g.comp_name('idlerX', 1), g.comp_name('crankB', 1), g.comp_name('idlerX', 2), g.comp_name('crankB', 2)]
+        gears += xb
+        # by name: v5 has the thumb wheel in the list too, so positions would shift
+        meshes += [(g.comp_name('crank1', 1), xb[0]), (xb[0], xb[1]), (g.comp_name('crank2', 1), xb[2]), (xb[2], xb[3])]
         printed += [f"{g.parts.fname(g.pn(k, f))}_F{f}B:1" for f in (1, 2) for k in g.LINK_KEYS]
         for f in (1, 2):
             links[f'{f}B'] = [f"{g.parts.fname(g.pn(k, f))}_F{f}B:1" for k in g.LINK_KEYS]
@@ -164,7 +166,7 @@ def run(key):
     F1 = [link(q) for q in tr['F finger 1']]
     F2 = [link(q) for q in tr['F finger 2']]
 
-    if key in ('a', 'b', 'h', 'p', 's'):
+    if key in ('a', 'b', 'h', 'p', 's', '5'):
         for f in (1, 2):
             a0, a1 = jt[f'jaw{f}_0'], jt[f'jaw{f}_1']
             ang = [math.degrees(math.atan2(b[1] - a[1], b[0] - a[0])) for a, b in zip(a0, a1)]
@@ -192,7 +194,7 @@ def run(key):
             clamp_rel = [rel[k] for k in clamp]
             check('info: jaw-to-foot pivot angle needed', True,
                   f'clamp window {min(clamp_rel):+.1f}..{max(clamp_rel):+.1f} deg, full turn {min(rel):+.1f}..{max(rel):+.1f} deg')
-        if key == 'b':
+        if key in ('b', '5'):
             FB1 = [link(q) for q in tr['F leg B finger 1']]
             dd = [math.hypot(b[0] - a[0], b[1] - a[1]) for a, b in zip(F1, FB1)]
             check(f'leg B foot = leg A foot + {v3.TWIN_D:.0f} mm (slot travel <= 0.05 mm)',
@@ -237,12 +239,22 @@ def run(key):
     if pins:
         pc = rp[1::2]
         ov = [(o['a'], o['b'], o.get('volume_mm3', o.get('volume'))) for x in pc for o in x.get('overlaps', [])]
-        bad = [o for o in ov if (o[2] is None or o[2] > 0.001)]
+        # intended press fit: the J1 shoulder pin's tip in its crank gear (D2.7 tip in the D2.5 hole)
+        press = math.pi / 4 * (2.7 ** 2 - 2.5 ** 2) * (g.GEAR_T - 0.5) + 0.05
+        crank_names = ('gear-crank',)
+        def intended(o):
+            return ('pin-j1-shoulder' in o[0] + o[1] and any(k in o[0] + o[1] for k in crank_names)
+                    and o[2] is not None and o[2] <= press)
+        bad = [o for o in ov if (o[2] is None or o[2] > 0.001) and not intended(o)]
+        unchecked = [(u['a'], u['b']) for x in pc for u in (x.get('unchecked') or [])]
+        unchecked_bad = [u for u in unchecked if not ('pin-j1-shoulder' in u[0] + u[1] and 'gear-crank' in u[0] + u[1])]
         dists = [nb['distance_mm'] for x in pc for near in (x.get('nearest') or {}).values() for nb in near]
         check(f'{len(pins)} printed pins + caps vs all parts at {len(pin_angles)} crank angles: no overlap '
               '(touching the links they hold is expected: no washers)',
-              len(pc) == len(pin_angles) and all(x.get('pairs_checked', 0) > 0 for x in pc) and not bad,
-              f"{min(x.get('pairs_checked', 0) for x in pc)}+ pairs per angle, {len(bad)} overlaps" + (f' e.g. {bad[0]}' if bad else ''))
+              len(pc) == len(pin_angles) and all(x.get('pairs_checked', 0) > 0 for x in pc) and not bad and not unchecked_bad,
+              f"{min(x.get('pairs_checked', 0) for x in pc)}+ pairs per angle, {len(bad)} overlaps" + (f' e.g. {bad[0]}' if bad else '')
+              + f"; J1 press fits: {len([o for o in ov if intended(o)])} measured <= {press:.2f} mm3, "
+              f"{len(unchecked) - len(unchecked_bad)} unchecked by the kernel; other unchecked {len(unchecked_bad)}")
     print(f'== v3{key} {v.assy_pn}')
     w = max(len(n) for n, _, _ in res)
     for n, ok, val in res:
