@@ -100,6 +100,8 @@ About 1.5 hours. **Tools:** flat-nose pliers to take a pin out. **Parts:** the 7
 
 ### Before you start
 
+**Sorting sheet:** print `docs/GRIP-9012_assy-mirror-legs_sort-sheet_A4.pdf` on A4 at **100 %** (not "fit to page"; the 50 mm bar on each page checks the scale) and lay every printed part on its 1:1 outline. Each outline has the part number, name, revision and quantity next to it, and mirror parts (UP1/UP2) show as mirror images.
+
 1. Sort the links into **four legs**. Every leg has one each of J, K, C, F, b-d-e and g-h-i.
 
    | Leg | Triangles | Mark reads |

@@ -97,6 +97,8 @@ In the pictures, the parts added in each step are **orange** and the parts alrea
 
 ### Before you start
 
+**Sorting sheet:** print `docs/GRIP-9011_assy-parallel-jaws_sort-sheet_A4.pdf` on A4 at **100 %** (not "fit to page"; the 50 mm bar on each page checks the scale) and lay every printed part on its 1:1 outline. Each outline has the part number, name, revision and quantity next to it, and mirror parts (UP1/UP2) show as mirror images.
+
 1. Sort the links into **four legs**:
    - finger 1: leg A and leg B, from the UP1 triangles;
    - finger 2: leg A and leg B, from the UP2 triangles.

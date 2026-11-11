@@ -92,6 +92,8 @@ In the pictures, the parts added in each step are **orange** and the parts alrea
 **How every snap pin goes in.** Push it in **from the head side**, from below, through all the parts of the joint, until the barb clicks over the top part. Then turn the joint by hand: it must move freely. The tables below show which pin goes where; the length tells them apart. To take a pin out again, pinch the two prongs together with pliers and push the pin back down.
 
 **Before you start.**
+
+**Sorting sheet:** print `docs/GRIP-9009_assy-snap-pins_sort-sheet_A4.pdf` on A4 at **100 %** (not "fit to page"; the 50 mm bar on each page checks the scale) and lay every printed part on its 1:1 outline. Each outline has the part number, name, revision and quantity next to it, and mirror parts (UP1/UP2) show as mirror images.
 - Sort the parts into finger 1 (marked **UP1**) and finger 2 (**UP2**). The b-d-e and g-h-i triangles are mirror parts: UP1 and UP2 must face up.
 - Lay the pins out by length:
 
