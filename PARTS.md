@@ -6,7 +6,7 @@ Codes: `SO101` (SO-101 arm accessories), `JTNK` (JeTank), `GRIP` (gripper R&D), 
 
 Names: every part also has a short lower-case **name** (`a-z 0-9 -`). File and component names are `<PN>_<name>`, for example `GRIP-0015_link-j-hub.json`; exports are `<PN>_<name>_<REV>.<ext>`. This table is the single source of truth: the generators read the Name column.
 
-Revisions: unreleased print iterations are `X1`, `X2`, … (property `revision`, export name, embossed where room). Release = letter `A`, `B`, … (skip I O Q S X Z) + git tag `<PN>/<REV>`.
+Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…0018, 0023, 0024, 0029…0032, 0034 = X1 + debossed label, used in v5; earlier versions keep X1) (property `revision`, export name, embossed where room). Release = letter `A`, `B`, … (skip I O Q S X Z) + git tag `<PN>/<REV>`.
 
 | PN | Name | Rev | Description | Folder | Material / process |
 |---|---|---|---|---|---|
@@ -22,28 +22,28 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (property `revision`,
 | GRIP-0010 | triangle-ghi-fingertip | X1 | TRIANGLE, GHI, FINGERTIP, STRANDBEEST | strandbeest_gripper/v1_single-finger | PETG, FDM |
 | GRIP-0011 | frame-dual | X1 | FRAME, DUAL FINGER, STRANDBEEST | strandbeest_gripper/v2_dual-finger | PETG/ASA, FDM |
 | GRIP-0012 | gear-crank-servo | X1 | GEAR, CRANK, SERVO SIDE, Z20 M1 | strandbeest_gripper/v2_dual-finger | PETG, FDM |
-| GRIP-0013 | gear-crank-idle | X1 | GEAR, CRANK, IDLE SIDE, Z20 M1 | strandbeest_gripper/v2_dual-finger | PETG, FDM |
-| GRIP-0014 | gear-idler-z33 | X1 | GEAR, IDLER, Z33 M1 (qty 2) | strandbeest_gripper/v2_dual-finger | PETG, FDM |
-| GRIP-0015 | link-j-hub | X1 | LINK, J, HUB, STRANDBEEST V2 (qty 2) | strandbeest_gripper/v2_dual-finger | PETG, FDM |
-| GRIP-0016 | link-k | X1 | LINK, K, STRANDBEEST V2 (qty 2) | strandbeest_gripper/v2_dual-finger | PETG, FDM |
-| GRIP-0017 | link-c | X1 | LINK, C, STRANDBEEST V2 (qty 2) | strandbeest_gripper/v2_dual-finger | PETG, FDM |
-| GRIP-0018 | link-f-hub | X1 | LINK, F, HUB, STRANDBEEST V2 (qty 2) | strandbeest_gripper/v2_dual-finger | PETG, FDM |
+| GRIP-0013 | gear-crank-idle | X2 | GEAR, CRANK, IDLE SIDE, Z20 M1 | strandbeest_gripper/v2_dual-finger | PETG, FDM |
+| GRIP-0014 | gear-idler-z33 | X2 | GEAR, IDLER, Z33 M1 (qty 2) | strandbeest_gripper/v2_dual-finger | PETG, FDM |
+| GRIP-0015 | link-j-hub | X2 | LINK, J, HUB, STRANDBEEST V2 (qty 2) | strandbeest_gripper/v2_dual-finger | PETG, FDM |
+| GRIP-0016 | link-k | X2 | LINK, K, STRANDBEEST V2 (qty 2) | strandbeest_gripper/v2_dual-finger | PETG, FDM |
+| GRIP-0017 | link-c | X2 | LINK, C, STRANDBEEST V2 (qty 2) | strandbeest_gripper/v2_dual-finger | PETG, FDM |
+| GRIP-0018 | link-f-hub | X2 | LINK, F, HUB, STRANDBEEST V2 (qty 2) | strandbeest_gripper/v2_dual-finger | PETG, FDM |
 | GRIP-0019 | triangle-bde-finger1 | X1 | TRIANGLE, BDE, FINGER 1, STRANDBEEST V2 | strandbeest_gripper/v2_dual-finger | PETG, FDM |
 | GRIP-0020 | triangle-ghi-pad-finger1 | X1 | TRIANGLE, GHI, PAD, FINGER 1, STRANDBEEST V2 | strandbeest_gripper/v2_dual-finger | PETG, FDM |
 | GRIP-0021 | triangle-bde-finger2 | X1 | TRIANGLE, BDE, FINGER 2 (MIRROR), STRANDBEEST V2 | strandbeest_gripper/v2_dual-finger | PETG, FDM |
 | GRIP-0022 | triangle-ghi-pad-finger2 | X1 | TRIANGLE, GHI, PAD, FINGER 2 (MIRROR), STRANDBEEST V2 | strandbeest_gripper/v2_dual-finger | PETG, FDM |
-| GRIP-0023 | triangle-ghi-hub-finger1 | X1 | TRIANGLE, GHI, F HUB, FINGER 1, STRANDBEEST V3 (v3a/v3b; qty 1 in v3a, 2 in v3b) | strandbeest_gripper/v3a_pivot-jaws, v3b_twin-legs | PETG, FDM |
-| GRIP-0024 | triangle-ghi-hub-finger2 | X1 | TRIANGLE, GHI, F HUB, FINGER 2 (MIRROR), STRANDBEEST V3 | strandbeest_gripper/v3a_pivot-jaws, v3b_twin-legs | PETG, FDM |
+| GRIP-0023 | triangle-ghi-hub-finger1 | X2 | TRIANGLE, GHI, F HUB, FINGER 1, STRANDBEEST V3 (v3a/v3b; qty 1 in v3a, 2 in v3b) | strandbeest_gripper/v3a_pivot-jaws, v3b_twin-legs | PETG, FDM |
+| GRIP-0024 | triangle-ghi-hub-finger2 | X2 | TRIANGLE, GHI, F HUB, FINGER 2 (MIRROR), STRANDBEEST V3 | strandbeest_gripper/v3a_pivot-jaws, v3b_twin-legs | PETG, FDM |
 | GRIP-0025 | jaw-pivot | X1 | JAW, PIVOT, 25 MM, STRANDBEEST V3A (qty 2) | strandbeest_gripper/v3a_pivot-jaws | PETG, FDM |
 | GRIP-0026 | triangle-ghi-nose-finger1 | X1 | TRIANGLE, GHI, PAD + NOSE, FINGER 1, STRANDBEEST V3C | strandbeest_gripper/v3c_rigid-nose | PETG, FDM |
 | GRIP-0027 | triangle-ghi-nose-finger2 | X1 | TRIANGLE, GHI, PAD + NOSE, FINGER 2 (MIRROR), STRANDBEEST V3C | strandbeest_gripper/v3c_rigid-nose | PETG, FDM |
 | GRIP-0028 | frame-twin | X1 | FRAME, TWIN LEG, STRANDBEEST V3B | strandbeest_gripper/v3b_twin-legs | PETG/ASA, FDM |
-| GRIP-0029 | gear-crank-twin-finger1 | X1 | GEAR, CRANK, TWIN LEG, FINGER 1, Z20 M1 | strandbeest_gripper/v3b_twin-legs | PETG, FDM |
-| GRIP-0030 | gear-idler-z60 | X1 | GEAR, IDLER, Z60 M1 (qty 2) | strandbeest_gripper/v3b_twin-legs | PETG, FDM |
-| GRIP-0031 | jaw-twin | X1 | JAW, TWIN LEG, 91 MM, STRANDBEEST V3B (qty 2) | strandbeest_gripper/v3b_twin-legs | PETG, FDM |
-| GRIP-0032 | gear-crank-twin-finger2 | X1 | GEAR, CRANK, TWIN LEG, FINGER 2, Z20 M1 | strandbeest_gripper/v3b_twin-legs | PETG, FDM |
+| GRIP-0029 | gear-crank-twin-finger1 | X2 | GEAR, CRANK, TWIN LEG, FINGER 1, Z20 M1 | strandbeest_gripper/v3b_twin-legs | PETG, FDM |
+| GRIP-0030 | gear-idler-z60 | X2 | GEAR, IDLER, Z60 M1 (qty 2) | strandbeest_gripper/v3b_twin-legs | PETG, FDM |
+| GRIP-0031 | jaw-twin | X2 | JAW, TWIN LEG, 91 MM, STRANDBEEST V3B (qty 2) | strandbeest_gripper/v3b_twin-legs | PETG, FDM |
+| GRIP-0032 | gear-crank-twin-finger2 | X2 | GEAR, CRANK, TWIN LEG, FINGER 2, Z20 M1 | strandbeest_gripper/v3b_twin-legs | PETG, FDM |
 | GRIP-0033 | frame-hand | X1 | FRAME, DUAL FINGER, HAND DRIVE, STRANDBEEST V4 | strandbeest_gripper/v4_thumb-wheel | PETG, FDM |
-| GRIP-0034 | gear-crank-axle | X1 | GEAR, CRANK, ON AXLE, Z20 M1 (replaces the horn-mounted GRIP-0012) | strandbeest_gripper/v4_thumb-wheel | PETG, FDM |
+| GRIP-0034 | gear-crank-axle | X2 | GEAR, CRANK, ON AXLE, Z20 M1 (replaces the horn-mounted GRIP-0012) | strandbeest_gripper/v4_thumb-wheel | PETG, FDM |
 | GRIP-0035 | thumb-wheel | X1 | WHEEL, THUMB, KNURLED D50, GEAR Z40 M1 | strandbeest_gripper/v4_thumb-wheel | PETG, FDM |
 | GRIP-0036 | pin-j3 | X1 | PIN, PRINTED, D3, SHANK 8.5, J3 | strandbeest_gripper/v4a_printed-pins | PETG, FDM |
 | GRIP-0037 | pin-j4 | X1 | PIN, PRINTED, D3, SHANK 15.5, J4 | strandbeest_gripper/v4a_printed-pins | PETG, FDM |
@@ -61,6 +61,21 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (property `revision`,
 | GRIP-0049 | snap-pin-gear-axle | X1 | PIN, SNAP, PRINTED, D3, SHANK 21.4, IDLER + WHEEL AXLE | strandbeest_gripper/v4b_snap-pins | PETG, FDM |
 | GRIP-0050 | snap-pin-jaw | X1 | PIN, SNAP, PRINTED, D3, SHANK 23.2, JAW PIVOT | strandbeest_gripper/v4b_snap-pins | PETG, FDM |
 | GRIP-0051 | snap-pin-g | X1 | PIN, SNAP, PRINTED, D3, SHANK 35.9, G | strandbeest_gripper/v4b_snap-pins | PETG, FDM |
+| GRIP-0052 | base-plate | X1 | BASE, FINRAY GRIPPER, RAIL + SCREW WALL + PINION POST | finray_tests | PETG, FDM |
+| GRIP-0053 | carriage-a | X1 | CARRIAGE, JAW A, NUT TRAP + RACK, FINRAY GRIPPER | finray_tests | PETG, FDM |
+| GRIP-0054 | carriage-b | X1 | CARRIAGE, JAW B, RACK + ARM, FINRAY GRIPPER | finray_tests | PETG, FDM |
+| GRIP-0055 | pinion-z18 | X1 | GEAR, PINION, Z18 M1, FINRAY GRIPPER | finray_tests | PETG, FDM |
+| GRIP-0056 | knob | X1 | KNOB, THUMB, D32, M6 HEX HEAD | finray_tests | PETG, FDM |
+| GRIP-0057 | finray-a-baseline | X1 | FINGER, FIN RAY, A BASELINE, 6 RIBS 0 DEG | finray_tests | TPU 90A, FDM |
+| GRIP-0058 | finray-b-wrap | X1 | FINGER, FIN RAY, B WRAP, 5 RIBS +15 DEG THIN | finray_tests | TPU 90A, FDM |
+| GRIP-0059 | finray-c-stiff | X1 | FINGER, FIN RAY, C STIFF, 7 RIBS -15 DEG THICK | finray_tests | TPU 90A, FDM |
+| GRIP-0060 | frame-twin-hand | X1 | FRAME, TWIN LEG, HAND DRIVE, STRANDBEEST V5 | strandbeest_gripper/v5_parallel-jaws | PETG, FDM |
+| GRIP-0061 | snap-pin-idler-z60 | X1 | PIN, SNAP, PRINTED, D3, SHANK 20.2, Z60 IDLER AXLE | strandbeest_gripper/v5_parallel-jaws | PETG, FDM |
+| GRIP-0062 | frame-mirror-legs | X1 | FRAME, MIRRORED TWIN LEGS, HAND DRIVE, STRANDBEEST V6 | strandbeest_gripper/v6_mirror-legs | PETG, FDM |
+| GRIP-0063 | gear-crank-mirror-finger1 | X1 | GEAR, CRANK, MIRRORED LEG B, FINGER 1, Z20 M1 | strandbeest_gripper/v6_mirror-legs | PETG, FDM |
+| GRIP-0064 | gear-crank-mirror-finger2 | X1 | GEAR, CRANK, MIRRORED LEG B, FINGER 2, Z20 M1 | strandbeest_gripper/v6_mirror-legs | PETG, FDM |
+| GRIP-0065 | gear-idler-leg-b | X1 | GEAR, IDLER, LEG B DRIVE, 4.3 THICK, M1 | strandbeest_gripper/v6_mirror-legs | PETG, FDM |
+| GRIP-0066 | jaw-long-slot | X1 | JAW, LONG SLOT, MIRRORED TWIN LEGS, STRANDBEEST V6 | strandbeest_gripper/v6_mirror-legs | PETG, FDM |
 | GRIP-9001 | assy-tester-fit-check | X1 | ASSY, GRIPPER TESTER, FIT CHECK | gripper_tester | — |
 | GRIP-9002 | assy-single-finger | X1 | ASSY, FINGER, STRANDBEEST (v1: single finger + anvil) | strandbeest_gripper/v1_single-finger | — |
 | GRIP-9003 | assy-dual-finger | X1 | ASSY, GRIPPER, DUAL FINGER, STRANDBEEST V2 (feeder) | strandbeest_gripper/v2_dual-finger | — |
@@ -70,6 +85,9 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (property `revision`,
 | GRIP-9006 | assy-rigid-nose | X1 | ASSY, GRIPPER, DUAL FINGER, RIGID NOSE, STRANDBEEST V3C | strandbeest_gripper/v3c_rigid-nose | — |
 | GRIP-9008 | assy-printed-pins | X1 | ASSY, GRIPPER, THUMB WHEEL, PRINTED PINS, STRANDBEEST V4A | strandbeest_gripper/v4a_printed-pins | — |
 | GRIP-9009 | assy-snap-pins | X1 | ASSY, GRIPPER, THUMB WHEEL, SNAP PINS, STRANDBEEST V4B | strandbeest_gripper/v4b_snap-pins | — |
+| GRIP-9010 | assy-finray-gripper | X1 | ASSY, GRIPPER, THUMB SCREW, SLIDE-IN FIN RAY FINGERS | finray_tests | — |
+| GRIP-9011 | assy-parallel-jaws | X1 | ASSY, GRIPPER, TWIN LEG PARALLEL JAWS, THUMB WHEEL, SNAP PINS, STRANDBEEST V5 | strandbeest_gripper/v5_parallel-jaws | — |
+| GRIP-9012 | assy-mirror-legs | X1 | ASSY, GRIPPER, MIRRORED TWIN LEGS, LONG PARALLEL JAWS, STRANDBEEST V6 | strandbeest_gripper/v6_mirror-legs | — |
 | SO101-0001 | tip-moving-jaw | X1 | TIP, JAW, MOVING, CALIBRATION | gripper_tips | red PLA/PETG, FDM |
 | SO101-0002 | tip-fixed-jaw | X1 | TIP, JAW, FIXED, CALIBRATION | gripper_tips | red PLA/PETG, FDM |
 | JTNK-0001 | lidar-holder | X1 | HOLDER, LIDAR, RPLIDAR C1 | lidar_holder | PETG, FDM |
@@ -84,4 +102,4 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (property `revision`,
 | LIB-0008 | rplidar-c1 | — | LIDAR, RPLIDAR C1 (vendor STEP) | lib/rplidar_c1 | purchased |
 | LIB-0009 | servo-sts3215 | — | SERVO, STS3215 (vendor STEP) | lib/sts3215 | purchased |
 
-Next free: GRIP-0052, GRIP-9010, SO101-0003, JTNK-0002, JTNK-9002, LIB-0010.
+Next free: GRIP-0067, GRIP-9013, SO101-0003, JTNK-0002, JTNK-9002, LIB-0010.

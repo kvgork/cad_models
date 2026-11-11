@@ -59,7 +59,7 @@ X1, not printed yet. **NEEDS PRINT TEST.** This is [v4](../v4_thumb-wheel/README
 
 ## Print plate (Bambu Studio)
 
-**`exports/plates/GRIP-9009_assy-snap-pins_plate1_X1.3mf`** holds all 39 parts on one 256 × 256 mm plate (X1, P1, A1), each laid flat in its print orientation. Open it in Bambu Studio, choose PETG and your printer, then slice. The plate layout is in `exports/plates/…_plate1_X1.png`. For an A1 mini, run `python3 tools/plates.py strandbeest_gripper/v4b_snap-pins --bed 180`.
+**`exports/plates/GRIP-9009_assy-snap-pins_plate1-petg_X1.3mf`** holds all 39 parts on one 256 × 256 mm plate (X1, P1, A1), each laid flat in its print orientation. Open it in Bambu Studio, choose PETG and your printer, then slice. The plate layout is in `exports/plates/…_plate1-petg_X1.png`. For an A1 mini, run `python3 tools/plates.py strandbeest_gripper/v4b_snap-pins --bed 180`.
 
 Before slicing:
 - Add a brim to the two J1 pins (GRIP-0043). They stand 33 mm tall on a Ø7 head.
@@ -83,12 +83,110 @@ Before slicing:
 
 Change the values in `../tools/gen_v3.py` (class `SnapPins`), then regenerate with `gen_v3.py s` and rebuild. The D-flat and the shank lengths are computed there.
 
-## Assembly
+## Build plan
 
-The assembly order and gear timing are the same as for [v4](../v4_thumb-wheel/README.md#hardware-notes):
-1. Push each snap pin in from the head side, the same way the v4 screw went, until it clicks: axles and G from below the base, J2…J5 from under the lowest link, and jaw pins from under the g-h-i plate. Then check that the joint turns freely.
-2. Press the J1 pins in from the top, through k and j, into the crank gear.
-3. To take a pin out, pinch the two prongs together with pliers and push it back out.
+About 45 minutes. **Tools:** flat-nose pliers to take a pin out. **Parts:** the 39 prints of the [print list](#print-list); nothing to buy.
+
+In the pictures, the parts added in each step are **orange** and the parts already in place are grey. The pictures are rendered from the CAD assembly (`../tools/build_guide_v4b.py`).
+
+**How every snap pin goes in.** Push it in **from the head side**, from below, through all the parts of the joint, until the barb clicks over the top part. Then turn the joint by hand: it must move freely. The tables below show which pin goes where; the length tells them apart. To take a pin out again, pinch the two prongs together with pliers and push the pin back down.
+
+**Before you start.**
+
+**Sorting sheet:** print `docs/GRIP-9009_assy-snap-pins_sort-sheet_A4.pdf` on A4 at **100 %** (not "fit to page"; the 50 mm bar on each page checks the scale) and lay every printed part on its 1:1 outline. Each outline has the part number, name, revision and quantity next to it, and mirror parts (UP1/UP2) show as mirror images.
+- Sort the parts into finger 1 (marked **UP1**) and finger 2 (**UP2**). The b-d-e and g-h-i triangles are mirror parts: UP1 and UP2 must face up.
+- Lay the pins out by length:
+
+| Pin | Shank | Qty | Goes in |
+|---|---|---|---|
+| GRIP-0045 | 6.7 mm | 2 | J3 |
+| GRIP-0046 | 13.7 mm | 2 | J4 |
+| GRIP-0047 | 17.2 mm | 4 | J2 and J5 |
+| GRIP-0048 | 19.7 mm | 2 | crank axles |
+| GRIP-0049 | 21.4 mm | 3 | idler and thumb-wheel axles |
+| GRIP-0050 | 23.2 mm | 2 | jaw pivots |
+| GRIP-0051 | 35.9 mm | 2 | G |
+| GRIP-0043 | shoulder pin | 2 | J1 (pressed in, no snap) |
+
+**Links and their lengths.** Use these to tell the parts apart and to check a print.
+- **Hole spacing** is centre to centre: these are the Jansen "holy numbers" × 0.4, taken from the generator (`jansen.py`, `gen_v3.py`).
+- **Overall length** and **height** are measured on the exported STL files. A bar is its hole spacing + 7 mm long (a Ø7 rounded end at each hole).
+- **Holes:** Ø3.4 for the snap pins, Ø4.2 at J1 (shoulder pin).
+
+| Part | Qty | Holes | Hole spacing (mm) | Overall length × height (mm) |
+|---|---|---|---|---|
+| j link, GRIP-0015 | 2 | J1 – J2 | 20.00 | 27.0 × 3.0 |
+| k link, GRIP-0016 | 2 | J1 – J4 | 24.76 | 31.8 × 3.0 |
+| c link, GRIP-0017 | 2 | G – J4 | 15.72 | 22.7 × 3.0 |
+| f link with hub, GRIP-0018 | 2 | J3 – J5 | 15.76 | 22.8 × 13.5 (hub) |
+| b-d-e triangle, GRIP-0019 (UP1) / GRIP-0021 (UP2) | 1 + 1 | G – J2 / G – J3 / J2 – J3 | 16.60 / 16.04 / 22.32 | 29.3 along J2–J3 × 13.5 (hubs) |
+| g-h-i triangle, GRIP-0023 (UP1) / GRIP-0024 (UP2) | 1 + 1 | J4 – J5 / J5 – F / J4 – F | 14.68 / 26.28 / 19.60 | 35.3 along J5–F × 14.5 (hub) |
+| jaw, GRIP-0025 | 2 | F (pivot only) | 25 mm grip face | 35.5 × 16.0 × 8.0 |
+| crank (J1 on the crank gear) | 2 | O – J1 | 6.00 | on the crank gears 0034 / 0013 |
+| gear centres | | O – idler / idler – idler | 26.50 / 33.00 | z20 crank gears, z33 idlers, module 1 |
+
+### Step 1: gear train on the frame
+
+![step 1](docs/build/step1_gear-train.png)
+
+1. Put the frame (GRIP-0033) plate down. Place the five gears on their holes in the base:
+   - the **crank gear with the axle hub** (GRIP-0034) at the thumb-wheel end;
+   - the **other crank gear** (GRIP-0013) at the far end;
+   - the two **idlers** (GRIP-0014) between them;
+   - the **thumb wheel** (GRIP-0035) beside crank gear 0034.
+2. **Timing:** turn both crank gears so that their off-centre J1 holes point as in the top view below, then let the idlers drop into mesh. Leave this timing alone for now; you check it in step 8.
+3. Lift the frame a little and push the axle pins up from under the base:
+   - **GRIP-0048 (19.7 mm)** through each crank gear: the barb snaps into the recess on top of the gear;
+   - **GRIP-0049 (21.4 mm)** through each idler and through the thumb wheel.
+4. Turn the thumb wheel: all five gears must turn together without binding.
+
+![step 1, top view: crank timing](docs/build/step1_gear-train_top.png)
+
+### Steps 2–6: build each finger in your hand
+
+Build finger 1 from the UP1 parts, then finger 2 the same way from the UP2 parts (a mirror image). Stack the links from the bottom up, in the order below, and push each pin up from underneath as soon as all the parts of its joint are on.
+
+**Step 2: f and b-d-e, pin J3.** Lay the f link (GRIP-0018, hub up), then put the b-d-e triangle (GRIP-0019 UP1 / GRIP-0021 UP2, marking up) on top of it. Push **GRIP-0045 (6.7 mm)** up through both at J3.
+
+![step 2](docs/build/step2_finger.png)
+
+**Step 3: c and g-h-i, pin J5.**
+1. Lay the c link (GRIP-0017) over the b-d-e triangle at G. It is held only later, by J4 and G.
+2. Put the g-h-i triangle (GRIP-0023 UP1 / GRIP-0024 UP2) on the f hub and on c at J4.
+3. Push **GRIP-0047 (17.2 mm)** up through f and g-h-i at J5.
+
+![step 3](docs/build/step3_finger.png)
+
+**Step 4: jaw, jaw pin.** Put the jaw (GRIP-0025) on top of the g-h-i triangle at F. Push **GRIP-0050 (23.2 mm)** up from under the g-h-i plate through the jaw.
+
+![step 4](docs/build/step4_finger.png)
+
+**Step 5: j, pin J2.** Put the j link (GRIP-0015) on the b-d-e hub. Push **GRIP-0047 (17.2 mm)** up from under the b-d-e triangle through j at J2.
+
+![step 5](docs/build/step5_finger.png)
+
+**Step 6: k, pin J4.** Put the k link (GRIP-0016) on top at J4, over g-h-i and c. Push **GRIP-0046 (13.7 mm)** up from under c, through c, g-h-i and k. The finger is now one piece that folds freely. Leave the J1 ends of j and k and the G holes of b-d-e and c open.
+
+![step 6](docs/build/step6_finger.png)
+
+### Step 7: mount both fingers
+
+![step 7](docs/build/step7_mount.png)
+
+1. Put each finger on the frame:
+   - the **G holes** of b-d-e and c go over the G post;
+   - the **J1 holes** of j and k go over the J1 hole of their crank gear.
+2. Push **GRIP-0051 (35.9 mm)** up from under the base through the post, b-d-e and c at G.
+3. Press the **J1 shoulder pin GRIP-0043** in from the top, through k and j, into the crank gear's hole until the head sits on k. This is a press fit, not a snap: support the crank gear from below while you press.
+
+### Step 8: check
+
+![step 8](docs/build/step8_done_top.png)
+
+1. Turn the thumb wheel slowly through a full crank turn. Every joint must move without binding.
+2. **The two jaws must meet at the same moment**, with a gap of about 1.5 mm, and stay parallel.
+3. If one jaw arrives early, the timing is out by a tooth. Pull the idler axle pin (pinch the prongs) and lift one idler, turn it one tooth, then put it back and snap the pin in.
+4. Near 192° of crank turn, a leg can snap into its mirror branch (see [v2](../v2_dual-finger/README.md#assembly-notes)). If the jaws suddenly stop meeting, turn back, push the leg into shape and go on.
 
 ## Checks (`python3 strandbeest_gripper/tools/verify_v3.py s`)
 
@@ -112,4 +210,4 @@ Not checked: how much force the snap fit needs, how the prongs hold up, and wear
 
 - `cad/GRIP-9009_assy-snap-pins.json` is generated by `../tools/gen_v3.py s` (class `SnapPins`, built on v4a's `PrintedPins`). Build it with `tools/build.sh strandbeest_gripper/v4b_snap-pins`.
 - `exports/`: the complete print kit. `exports/plates/` holds the ready-to-slice plate.
-- `docs/`: pictures.
+- `docs/`: pictures. `docs/build/` holds the build-plan pictures, rendered by `../tools/build_guide_v4b.py`.

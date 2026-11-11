@@ -1,0 +1,9 @@
+{
+ "note": "The M6 screw is the lead screw: one knob turn = 1 mm per jaw. Lengths from the model: the M6x70 runs from the knob to 3 mm short of jaw B at full close; the M3x8 grips 7.5 mm into the Ø2.5 hole in the pinion post (thread-forming).",
+ "lines": [
+  {"qty": 1, "where": "lead screw: head pressed into the knob, through the end wall and jaw A", "items": ["M6×70 hex screw, full thread (ISO 4017)"]},
+  {"qty": 1, "where": "inside the end wall: holds the screw axially; snug, not tight, so it still turns", "items": ["M6 nyloc nut (DIN 985)"]},
+  {"qty": 1, "where": "jaw A nut trap (drop in from the top)", "items": ["M6 hex nut (ISO 4032)"]},
+  {"qty": 1, "where": "pinion retainer, on the post", "items": ["M3×8 socket head screw (ISO 4762)", "M3 washer (DIN 125)"]}
+ ]
+}

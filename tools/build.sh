@@ -58,4 +58,6 @@ done
 python3 tools/printlist.py "${PRODUCTS[@]}" || fail=1
 # ready-to-slice build plates (exports/plates/*.3mf, 256 mm bed) from the same quantities
 python3 tools/plates.py "${PRODUCTS[@]}" >/dev/null || fail=1
+# A4 sorting sheet: 1:1 outline of every part with its part number (docs/*_sort-sheet_A4.pdf)
+python3 tools/sortsheet.py "${PRODUCTS[@]}" >/dev/null || fail=1
 exit $fail

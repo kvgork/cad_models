@@ -6,7 +6,8 @@ which you open directly in Bambu Studio / OrcaSlicer / PrusaSlicer.
     python3 tools/plates.py strandbeest_gripper/v4b_snap-pins            # 256 x 256 bed (X1, P1, A1)
     python3 tools/plates.py strandbeest_gripper/v4b_snap-pins --bed 180  # A1 mini
 
-Output: <folder>/exports/plates/<ASSY-PN>_<name>_plate<N>_<REV>.3mf plus a top-view PNG per plate.
+Output: <folder>/exports/plates/<ASSY-PN>_<name>_plate<N>-<material>_<REV>.3mf plus a top-view PNG per plate.
+Normal (rigid) prints and TPU prints always go on separate plates (material from PARTS.md).
 Quantities come from tools/printlist.py (the assembly's components, purchased parts left out).
 
 Orientation: the part rests on the largest flat face of its convex hull ("lay on face"). That
@@ -14,6 +15,7 @@ puts links, gears and plates on their flat side, D-flat pins on their flat, and 
 without a flat on its head. Check each part in the slicer before printing: this is a heuristic.
 """
 import glob
+import json
 import os
 import re
 import struct
@@ -155,9 +157,10 @@ def write_3mf(path, parts):
             'package/2006/relationships"><Relationship Target="/3D/3dmodel.model" Id="rel0" '
             'Type="http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodel"/></Relationships>')
     with zipfile.ZipFile(path, 'w', zipfile.ZIP_DEFLATED) as z:
-        z.writestr('[Content_Types].xml', ct)
-        z.writestr('_rels/.rels', rels)
-        z.writestr('3D/3dmodel.model', model)
+        for name, data in (('[Content_Types].xml', ct), ('_rels/.rels', rels), ('3D/3dmodel.model', model)):
+            info = zipfile.ZipInfo(name, date_time=(2026, 1, 1, 0, 0, 0))   # fixed: same plate -> same bytes
+            info.compress_type = zipfile.ZIP_DEFLATED
+            z.writestr(info, data)
 
 
 def preview(path, parts, bed, title):
@@ -181,6 +184,15 @@ def preview(path, parts, bed, title):
     plt.close(fig)
 
 
+def plate_material(m):
+    """Plate group: flexible filament (TPU/TPE) always on its own plate; rigid parts share one.
+    'PETG/ASA' and 'PLA/PETG' mean either is fine, so they print with the PETG parts."""
+    m = m.split(',')[0].strip()
+    if 'TPU' in m or 'TPE' in m:
+        return m
+    return 'PETG' if 'PETG' in m else m
+
+
 def main(argv):
     bed = 256.0
     if '--bed' in argv:
@@ -196,26 +208,35 @@ def main(argv):
             continue
         if assy:
             src, n = assy
-            stem, rev = src[:-5], re.search(r'_([A-Z0-9]+)\.stl$', next(iter(stls.values()))).group(1)
+            stem = src[:-5]
+            cmds = json.load(open(os.path.join(ROOT, folder, 'cad', src), encoding='utf-8'))
+            meta = next((c['params'].get('values', {}) for c in cmds if c.get('command') == 'document.metadata.set'), {})
+            rev = meta.get('revision', 'X1')            # the assembly's revision, not one part's
         else:
             n = {pn: 1 for pn in stls}
             stem, rev = os.path.basename(folder), 'X1'
-        items = []
+        reg = printlist.parts.register()
+        groups = {}                               # material -> items: one material per plate
         for pn in sorted(stls):
+            mat = plate_material(reg.get(pn, {}).get('Material / process', '?'))
             flat = lay_flat(read_stl(stls[pn]))
             base = os.path.basename(stls[pn])[:-4]
-            items += [(f'{base}#{k + 1}', flat) for k in range(n[pn])]
-        plates = pack(items, bed)
+            groups.setdefault(mat, []).extend((f'{base}#{k + 1}', flat) for k in range(n[pn]))
         out = os.path.join(exports, 'plates')
         os.makedirs(out, exist_ok=True)
         for old in glob.glob(os.path.join(out, f'{stem}_plate*')):
             os.remove(old)
-        for k, parts in enumerate(plates, 1):
-            path = os.path.join(out, f'{stem}_plate{k}_{rev}.3mf')
-            write_3mf(path, parts)
-            preview(path[:-4] + '.png', parts, bed, f'{stem} plate {k}/{len(plates)}: {len(parts)} parts')
-            print(f'{os.path.relpath(path, ROOT)}: {len(parts)} parts')
-        print(f'{folder}: {len(items)} parts on {len(plates)} plate(s) of {bed:.0f} x {bed:.0f} mm')
+        k = 0
+        for mat, items in groups.items():
+            slug = re.sub(r'[^a-z0-9]+', '-', mat.lower()).strip('-')
+            plates = pack(items, bed)
+            for i, parts in enumerate(plates, 1):
+                k += 1
+                path = os.path.join(out, f'{stem}_plate{k}-{slug}_{rev}.3mf')
+                write_3mf(path, parts)
+                preview(path[:-4] + '.png', parts, bed, f'{stem} plate {k} ({mat}, {i}/{len(plates)}): {len(parts)} parts')
+                print(f'{os.path.relpath(path, ROOT)}: {len(parts)} parts, {mat}')
+        print(f'{folder}: {sum(len(v) for v in groups.values())} parts on {k} plate(s) of {bed:.0f} x {bed:.0f} mm')
     return 0
 
 

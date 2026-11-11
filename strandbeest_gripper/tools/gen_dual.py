@@ -370,6 +370,11 @@ PARTS = []
 BASE_PN, BASE_DESC = dict(PN), dict(DESC)
 
 
+def rev_of(v, p):
+    """Revision of part p in variant v (X1 unless the variant raises it, e.g. v5's labelled parts)."""
+    return getattr(v, 'revs', {}).get(p, 'X1')
+
+
 def build(variant=None):
     v = variant or Variant()
     cmds.clear()
@@ -462,7 +467,8 @@ def build(variant=None):
         [(k, f) for f in (1, 2) for k in LINK_KEYS] + extra
     for key, f in PARTS:
         c("component.metadata.set", component=comp_name(key, f), part_number=pn(key, f),
-          description=DESC[(key, f)] if (key, f) in DESC else DESC[key], revision="X1", bom_type="normal")
+          description=DESC[(key, f)] if (key, f) in DESC else DESC[key], revision=rev_of(v, pn(key, f)),
+          bom_type="normal")
     if v.has_servo:
         c("component.metadata.set", component=SERVO, part_number="LIB-0009", description="SERVO, STS3215",
           bom_type="purchased")
@@ -473,7 +479,7 @@ def build(variant=None):
             continue
         exported.add(p)
         for ext, cmd in (('step', 'file.export_step'), ('stl', 'file.export_stl'), ('3mf', 'file.export_3mf')):
-            params = dict(path=f"{v.vdir}/exports/{parts.export(p, 'X1', ext)}", bodies=[comp_name(key, f)])
+            params = dict(path=f"{v.vdir}/exports/{parts.export(p, rev_of(v, p), ext)}", bodies=[comp_name(key, f)])
             if ext != 'step':
                 params["quality"] = "fine"
             c(cmd, **params)
