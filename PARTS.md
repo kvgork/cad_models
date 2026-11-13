@@ -100,7 +100,7 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | LIB-0006 | so101-wrist-roll-pitch | — | WRIST ROLL PITCH, SO-101 (vendor STEP) | lib/so101 | purchased/vendor |
 | LIB-0007 | so101-wrist-roll | — | WRIST ROLL, SO-101 (vendor STEP) | lib/so101 | purchased/vendor |
 | LIB-0008 | rplidar-c1 | — | LIDAR, RPLIDAR C1 (vendor STEP) | lib/rplidar_c1 | purchased |
-| LIB-0009 | servo-sts3215 | — | SERVO, STS3215 (vendor STEP) | lib/sts3215 | purchased |
+| LIB-0009 | servo-sts3215 | — | SERVO, STS3215 (vendor STEP) | lib/sts3215, base/feetech_sts3215 (identical copy) | purchased |
 | LIB-0010 | servo-scs0009 | — | SERVO, SCS0009, MICRO SERIAL BUS (vendor STEP) | base/feetech_scs0009 | purchased |
 
 Next free: GRIP-0067, GRIP-9013, SO101-0003, JTNK-0002, JTNK-9002, LIB-0011.

@@ -8,7 +8,7 @@
 
 | Product | What it is | Status |
 |---|---|---|
-| [base](base/README.md) | General CAD files reused across projects. First item: the Feetech SCS0009 micro bus servo (vendor STEP, measured interfaces, Z-up placement) | reference |
+| [base](base/README.md) | General CAD files reused across projects. Feetech SCS0009 micro servo and STS3215 (the SO-101 servo): models with measured interfaces, datasheet cross-checks and placement matrices | reference |
 | [finray_tests](finray_tests/README.md) | Hand-driven parallel test gripper (thumb screw, rack and pinion) with slide-in fin-ray fingers, plus 3 finger designs to compare: baseline, wrap and stiff (TPU 90A) | X1, CAD-checked, not printed yet |
 | [gripper_tester](gripper_tester/README.md) | Bench baseplate with a dovetail slide for swapping SO-101 grippers, plus a mount for the Waveshare servo board | X1, CAD-checked |
 | [gripper_tips](gripper_tips/README.md) | Snap-on calibration caps for the two SO-101 gripper jaws (print in red) | X1, CAD-checked |
