@@ -24,7 +24,8 @@ If a rule here conflicts with those notes, the notes win; update this file to ma
 <product>/exports/<PN>_<name>_<REV>.{step,stl,3mf}   generated only; never hand-edit
 <product>/exports/_superseded/         replaced exports are moved here, never deleted
 <product>/tools/                       generator / analysis scripts (python), repo-relative paths
-lib/<group>/<LIB-NNNN>_<name>.<ext> + SOURCE.md   vendor parts, READ-ONLY
+lib/<group>/<LIB-NNNN>_<name>.<ext> + SOURCE.md   vendor parts, READ-ONLY (older ones; new ones go in base/)
+base/<maker>_<model>/                  general reusable CAD: vendor STEP (LIB-NNNN, READ-ONLY) + SOURCE.md with measured interfaces + Z-up matrix; see base/README.md
 tools/build.sh                         rebuild all (`--assemblies` runs overlays, ~10 min), then refresh print lists; tools/parts.py reads PARTS.md
 tools/printlist.py                     writes each README's print list (qty per STL) + fastener BOM; `--check` fails if stale
 tools/sortsheet.py                     A4 sorting sheet <folder>/docs/*_sort-sheet_A4.pdf: 1:1 part outlines + PN/qty
@@ -191,7 +192,7 @@ PARTS.md                               part register (PN, name, folder); TOOLS.m
 
 ## Hard limits
 
-- Never modify anything under `lib/`, `exports/_superseded/` or a released (tagged) revision.
+- Never modify anything under `lib/`, a vendor file in `base/`, `exports/_superseded/` or a released (tagged) revision.
 - Never call `new_design` over an existing file, and never use `--allow-any-path`.
 - Never upload CAD files to external services.
 - Never start a print. Uploads to a printer use auto-start off; a human starts every print.
