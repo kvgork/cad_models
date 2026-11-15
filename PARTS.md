@@ -23,7 +23,7 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | GRIP-0011 | frame-dual | X1 | FRAME, DUAL FINGER, STRANDBEEST | strandbeest_gripper/v2_dual-finger | PETG/ASA, FDM |
 | GRIP-0012 | gear-crank-servo | X1 | GEAR, CRANK, SERVO SIDE, Z20 M1 | strandbeest_gripper/v2_dual-finger | PETG, FDM |
 | GRIP-0013 | gear-crank-idle | X2 | GEAR, CRANK, IDLE SIDE, Z20 M1 | strandbeest_gripper/v2_dual-finger | PETG, FDM |
-| GRIP-0014 | gear-idler-z33 | X2 | GEAR, IDLER, Z33 M1 (qty 2) | strandbeest_gripper/v2_dual-finger | PETG, FDM |
+| GRIP-0014 | gear-idler-z33 | X2 | GEAR, IDLER, Z33 M1 (qty 2) | strandbeest_gripper/v2_dual-finger, strandbeest_gripper/v7_sandwich | PETG, FDM |
 | GRIP-0015 | link-j-hub | X2 | LINK, J, HUB, STRANDBEEST V2 (qty 2) | strandbeest_gripper/v2_dual-finger | PETG, FDM |
 | GRIP-0016 | link-k | X2 | LINK, K, STRANDBEEST V2 (qty 2) | strandbeest_gripper/v2_dual-finger | PETG, FDM |
 | GRIP-0017 | link-c | X2 | LINK, C, STRANDBEEST V2 (qty 2) | strandbeest_gripper/v2_dual-finger | PETG, FDM |
@@ -74,11 +74,39 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | GRIP-0062 | frame-mirror-legs | X1 | FRAME, MIRRORED TWIN LEGS, HAND DRIVE, STRANDBEEST V6 | strandbeest_gripper/v6_mirror-legs | PETG, FDM |
 | GRIP-0063 | gear-crank-mirror-finger1 | X1 | GEAR, CRANK, MIRRORED LEG B, FINGER 1, Z20 M1 | strandbeest_gripper/v6_mirror-legs | PETG, FDM |
 | GRIP-0064 | gear-crank-mirror-finger2 | X1 | GEAR, CRANK, MIRRORED LEG B, FINGER 2, Z20 M1 | strandbeest_gripper/v6_mirror-legs | PETG, FDM |
-| GRIP-0065 | gear-idler-leg-b | X1 | GEAR, IDLER, LEG B DRIVE, 4.3 THICK, M1 | strandbeest_gripper/v6_mirror-legs | PETG, FDM |
-| GRIP-0066 | jaw-long-slot | X1 | JAW, LONG SLOT, MIRRORED TWIN LEGS, STRANDBEEST V6 | strandbeest_gripper/v6_mirror-legs | PETG, FDM |
+| GRIP-0065 | gear-idler-leg-b | X1 | GEAR, IDLER, LEG B DRIVE, 4.3 THICK, M1 | strandbeest_gripper/v6_mirror-legs, strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0066 | jaw-long-slot | X1 | JAW, LONG SLOT, MIRRORED TWIN LEGS, STRANDBEEST V6 | strandbeest_gripper/v6_mirror-legs, strandbeest_gripper/v7_sandwich | PETG, FDM |
 | GRIP-0067 | finray-a-plus15 | X1 | FINGER, FIN RAY, A ANGLE-ONLY, 6 RIBS +15 DEG | finray_tests | TPU 90A, FDM |
 | GRIP-0068 | finray-a-minus15 | X1 | FINGER, FIN RAY, A ANGLE-ONLY, 6 RIBS -15 DEG | finray_tests | TPU 90A, FDM |
 | GRIP-0069 | baseplate-fe-urt2 | X1 | BASEPLATE, GRIPPER TESTER, FE-URT-2 | gripper_tester/v2_fe-urt2 | PETG, FDM |
+| GRIP-0070 | frame-sandwich | X1 | FRAME, SANDWICH, 8 PILLARS, HAND DRIVE, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0071 | top-plate | X1 | PLATE, TOP, CRANK ARM + G + HUB BEARINGS, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0072 | arm-crank-top | X1 | ARM, CRANK, TOP, J1 PRESS HOLE, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0073 | knob-thumb-hex | X1 | KNOB, THUMB, KNURLED D50, HEX SOCKET, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0074 | gear-wheel-hub | X1 | GEAR, THUMB WHEEL, Z40 M1, HUB + HEX KEY THROUGH TOP PLATE | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0075 | pin-j1-shoulder-double-press | X1 | PIN, PRINTED, SHOULDER D4, PRESS TIPS BOTH ENDS, 2 FLATS, J1 | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0076 | gear-crank-a1-sandwich | X1 | GEAR, CRANK, A1, Z20 M1, SHORT J1 HUB, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0077 | gear-crank-a2-sandwich | X1 | GEAR, CRANK, A2, Z20 M1, SHORT J1 HUB, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0078 | gear-crank-b1-sandwich | X1 | GEAR, CRANK, B1, MIRRORED LEG B, Z20 M1, SHORT J1 HUB, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0079 | gear-crank-b2-sandwich | X1 | GEAR, CRANK, B2, MIRRORED LEG B, Z20 M1, SHORT J1 HUB, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0080 | link-j-v7 | X1 | LINK, J, HUB, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0081 | link-k-v7 | X1 | LINK, K, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0082 | link-c-v7 | X1 | LINK, C, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0083 | link-f-hub-v7 | X1 | LINK, F, HUB, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0084 | triangle-bde-finger1-v7 | X1 | TRIANGLE, BDE, FINGER 1, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0085 | triangle-bde-finger2-v7 | X1 | TRIANGLE, BDE, FINGER 2 (MIRROR), STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0086 | triangle-ghi-hub-finger1-v7 | X1 | TRIANGLE, GHI, F HUB, FINGER 1, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0087 | triangle-ghi-hub-finger2-v7 | X1 | TRIANGLE, GHI, F HUB, FINGER 2 (MIRROR), STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0088 | snap-pin-2f-crank-axle | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, SHANK 6.0, CRANK AXLE | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0089 | snap-pin-2f-idler-z20 | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, SHANK 6.5, Z20 IDLER AXLE | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0090 | snap-pin-2f-j2-j3 | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, SHANK 6.7, J2 + J3 | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0091 | snap-pin-2f-z33-arm | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, SHANK 7.7, Z33 IDLER + CRANK ARM | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0092 | snap-pin-2f-j4 | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, SHANK 10.2, J4 | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0093 | snap-pin-2f-g-top | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, SHANK 11.2, G UPPER (C) | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0094 | snap-pin-2f-j5-g-low | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, SHANK 13.7, J5 + G LOWER (BDE) | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0095 | snap-pin-2f-jaw | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, SHANK 15.2, JAW | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0096 | snap-pin-2f-pillar | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, SHANK 39.2, PILLAR + TOP PLATE | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0097 | snap-pin-2f-wheel | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, SHANK 47.7, THUMB WHEEL AXLE | strandbeest_gripper/v7_sandwich | PETG, FDM |
 | GRIP-9001 | assy-tester-fit-check | X1 | ASSY, GRIPPER TESTER, FIT CHECK | gripper_tester | — |
 | GRIP-9002 | assy-single-finger | X1 | ASSY, FINGER, STRANDBEEST (v1: single finger + anvil) | strandbeest_gripper/v1_single-finger | — |
 | GRIP-9003 | assy-dual-finger | X1 | ASSY, GRIPPER, DUAL FINGER, STRANDBEEST V2 (feeder) | strandbeest_gripper/v2_dual-finger | — |
@@ -92,6 +120,7 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | GRIP-9011 | assy-parallel-jaws | X1 | ASSY, GRIPPER, TWIN LEG PARALLEL JAWS, THUMB WHEEL, SNAP PINS, STRANDBEEST V5 | strandbeest_gripper/v5_parallel-jaws | — |
 | GRIP-9012 | assy-mirror-legs | X1 | ASSY, GRIPPER, MIRRORED TWIN LEGS, LONG PARALLEL JAWS, STRANDBEEST V6 | strandbeest_gripper/v6_mirror-legs | — |
 | GRIP-9013 | assy-tester-fe-urt2-fit-check | X1 | ASSY, GRIPPER TESTER, FE-URT-2, FIT CHECK | gripper_tester/v2_fe-urt2 | — |
+| GRIP-9014 | assy-sandwich | X1 | ASSY, GRIPPER, SANDWICH FRAME, MIRRORED TWIN LEGS, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | — |
 | SO101-0001 | tip-moving-jaw | X1 | TIP, JAW, MOVING, CALIBRATION | gripper_tips/v1_full-cap | red PLA/PETG, FDM |
 | SO101-0002 | tip-fixed-jaw | X1 | TIP, JAW, FIXED, CALIBRATION | gripper_tips/v1_full-cap | red PLA/PETG, FDM |
 | SO101-0003 | tip-moving-jaw-open | X1 | TIP, JAW, MOVING, CALIBRATION, OPEN GRIP FACE | gripper_tips/v2_open-inside | red PLA/PETG, FDM |
@@ -109,4 +138,4 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | LIB-0009 | servo-sts3215 | — | SERVO, STS3215 (vendor STEP) | lib/sts3215, base/feetech_sts3215 (identical copy) | purchased |
 | LIB-0010 | servo-scs0009 | — | SERVO, SCS0009, MICRO SERIAL BUS (vendor STEP) | base/feetech_scs0009 | purchased |
 
-Next free: GRIP-0067, GRIP-9013, SO101-0003, JTNK-0002, JTNK-9002, LIB-0011.
+Next free: GRIP-0098, GRIP-9015, SO101-0005, JTNK-0002, JTNK-9002, LIB-0011.

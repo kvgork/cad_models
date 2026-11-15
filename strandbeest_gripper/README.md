@@ -18,6 +18,7 @@ Each version folder holds its own `cad/` (generated command script + built `.sc`
 | [v4b_snap-pins](v4b_snap-pins/README.md) | GRIP-9009 assy-snap-pins | v4 fully printed with the **fewest parts**: one-piece snap pins (split barbed tip, no caps), printed J1 shoulder pin; 39 prints, nothing to buy, one ready-to-slice plate | `tools/gen_v3.py s` / `tools/verify_v3.py s` |
 | [v5_parallel-jaws](v5_parallel-jaws/README.md) | GRIP-9011 assy-parallel-jaws | v4b + v3b twin legs: **jaws stay parallel** (v4b jaws were loose on one pin; v4b built and working, 2026-11-10); fully printed, every part but the pins labelled; 73 prints, full illustrated manual | `tools/gen_v3.py 5` / `tools/verify_v3.py 5` |
 | [v6_mirror-legs](v6_mirror-legs/README.md) | GRIP-9012 assy-mirror-legs | v5 made compact: **leg B mirrored**, back to back with leg A (Z20 idler instead of Z60), 135 mm jaws on a pin + 54 mm slot, still parallel; whole assembly −37 % area, one print plate | `tools/gen_v3.py 6` / `tools/verify_v3.py 6` |
+| [v7_sandwich](v7_sandwich/README.md) | GRIP-9014 assy-sandwich | v6 with **every fixed axis held top and bottom** (v6's axes bent): two top plates on pillars, crank arms on top (J1 pressed into gear and arm), G split into a base post (b-d-e) and a top-plate stub (C), knob on the top plate; links re-layered (6 + arm layer), all pins with 2 flats; 96 prints, 2 plates | `tools/gen_v7.py` / `tools/verify_v3.py 7` |
 
 **File names.** Files are `<part number>_<name>`, for example `exports/GRIP-0015_link-j-hub_X1.stl`, and the names come from `PARTS.md`. Components in the GUI browser carry the same name plus `_F1`/`_F2` for the finger (and `B` for v3b's second leg).
 
@@ -42,7 +43,7 @@ Here S is the link scale, D the crank-to-crank distance and w the jaw width. The
 - `layers.py`: works out the layer stack.
 - `gen_*.py` / `verify_*.py`: one generator and one check script per version.
 
-**Moving it in SolidCraft.** Open the version's `cad/*.sc`, then drive `O_crank` (v1), `O1_crank` (v2/v3) or `W_wheel` (v4, v4a, v4b, v5, v6), or drag the crank or wheel.
+**Moving it in SolidCraft.** Open the version's `cad/*.sc`, then drive `O_crank` (v1), `O1_crank` (v2/v3) or `W_wheel` (v4, v4a, v4b, v5, v6, v7), or drag the crank or wheel.
 
 ## v3: long jaws in +x (three variants). X1, not printed yet — NEEDS PRINT TEST
 
