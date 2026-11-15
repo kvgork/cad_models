@@ -76,6 +76,8 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | GRIP-0064 | gear-crank-mirror-finger2 | X1 | GEAR, CRANK, MIRRORED LEG B, FINGER 2, Z20 M1 | strandbeest_gripper/v6_mirror-legs | PETG, FDM |
 | GRIP-0065 | gear-idler-leg-b | X1 | GEAR, IDLER, LEG B DRIVE, 4.3 THICK, M1 | strandbeest_gripper/v6_mirror-legs | PETG, FDM |
 | GRIP-0066 | jaw-long-slot | X1 | JAW, LONG SLOT, MIRRORED TWIN LEGS, STRANDBEEST V6 | strandbeest_gripper/v6_mirror-legs | PETG, FDM |
+| GRIP-0067 | finray-a-plus15 | X1 | FINGER, FIN RAY, A ANGLE-ONLY, 6 RIBS +15 DEG | finray_tests | TPU 90A, FDM |
+| GRIP-0068 | finray-a-minus15 | X1 | FINGER, FIN RAY, A ANGLE-ONLY, 6 RIBS -15 DEG | finray_tests | TPU 90A, FDM |
 | GRIP-9001 | assy-tester-fit-check | X1 | ASSY, GRIPPER TESTER, FIT CHECK | gripper_tester | — |
 | GRIP-9002 | assy-single-finger | X1 | ASSY, FINGER, STRANDBEEST (v1: single finger + anvil) | strandbeest_gripper/v1_single-finger | — |
 | GRIP-9003 | assy-dual-finger | X1 | ASSY, GRIPPER, DUAL FINGER, STRANDBEEST V2 (feeder) | strandbeest_gripper/v2_dual-finger | — |

@@ -28,7 +28,7 @@ import parts  # noqa: E402
 OUT = 'finray_tests/cad/GRIP-9010_assy-finray-gripper.json'
 VDIR = 'finray_tests'
 PN = {'base': 'GRIP-0052', 'car_a': 'GRIP-0053', 'car_b': 'GRIP-0054', 'pinion': 'GRIP-0055', 'knob': 'GRIP-0056',
-      'fa': 'GRIP-0057', 'fb': 'GRIP-0058', 'fc': 'GRIP-0059'}
+      'fa': 'GRIP-0057', 'fb': 'GRIP-0058', 'fc': 'GRIP-0059', 'fap': 'GRIP-0067', 'fam': 'GRIP-0068'}
 
 # ----------------------------------------------------------------------------- layout (mm)
 BASE_X = (-72.0, 62.0)
@@ -73,6 +73,11 @@ DESIGNS = {
     'fa': (6, 0.0, 0.9, 1.35, 1.35),
     'fb': (5, 15.0, 0.9, 0.9, 0.9),
     'fc': (7, -15.0, 1.35, 1.8, 1.8),
+    # angle-only pair (2026-11-14): A with ONLY the rib angle changed, to settle the sign question in this
+    # profile. Published rib-angle signs are defined only in figures and do not transfer (vault research
+    # 2026-11-14-fin-ray-grasping, sec. 5.1 and 9.2); B and C change 3-4 factors at once.
+    'fap': (6, 15.0, 0.9, 1.35, 1.35),
+    'fam': (6, -15.0, 0.9, 1.35, 1.35),
 }
 
 cmds = []
@@ -371,10 +376,10 @@ def build():
     cyl("6 mm", (xm - NUT_M / 2 - 1, SCREW_Y, SCREW_Z), NUT_M + 2, "X", "cut", nt, "nut_bore")
     purchased.append((nt, "ISO 4032 M6", "NUT, HEX, M6"))
 
-    # ---------------------------------------------------------------- fingers: A mounted, B and C parked in front
+    # ---------------------------------------------------------------- fingers: A mounted, the others parked in front
     mounted = (build_finger('fa', 1, -1, XG0), build_finger('fa', 2, 1, XG0))
     parked = []
-    for key, dy in (('fb', 75.0), ('fc', 150.0)):
+    for key, dy in (('fb', 75.0), ('fc', 150.0), ('fap', 225.0), ('fam', 300.0)):
         parked += [build_finger(key, 1, -1, XG0, dy), build_finger(key, 2, 1, XG0, dy)]
 
     # ---------------------------------------------------------------- joints
