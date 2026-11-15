@@ -103,7 +103,10 @@ def run(key):
         sweeps.append((occs, printed, f'links {lk} vs all parts'))
     if key == '7':                              # crank arms on top, thumb wheel hub through the top plates + knob
         sweeps.append(([g.occ('arm', i) for i in range(1, 5)], printed, 'crank arms vs all parts'))
-        sweeps.append(([g.occ('wheel', 1), g.occ('knob', 1)], printed, 'thumb wheel + knob vs all parts'))
+        # the wheel hub turns in the top plate with 0.2 mm per side by design (exact: 0.200 mm, inspect.clearance);
+        # the sweep's tessellated gap under-reports that bearing (0.045 mm), so the plates are left out here
+        sweeps.append(([g.occ('wheel', 1), g.occ('knob', 1)], [o for o in printed if 'top-plate' not in o],
+                       'thumb wheel + knob vs all parts except the top plates (hub bearing 0.2 mm)'))
     gear_occ = [x + ':1' for x in gears]
     sweeps = [(gear_occ if o == ['gears'] else o, a, lab) for o, a, lab in sweeps]
     # joint.sweep's gap report has a work budget: gears (dense tooth meshes) go in chunks of 2,

@@ -43,7 +43,7 @@ A straight axle from the base to a top plate doesn't work for v6's layout. The K
 | 2 | `GRIP-0014_gear-idler-z33_X2.stl` | GEAR, IDLER, Z33 M1 | PETG, FDM |
 | 2 | `GRIP-0065_gear-idler-leg-b_X1.stl` | GEAR, IDLER, LEG B DRIVE, 4.3 THICK, M1 | PETG, FDM |
 | 2 | `GRIP-0066_jaw-long-slot_X1.stl` | JAW, LONG SLOT, MIRRORED TWIN LEGS, STRANDBEEST V6 | PETG, FDM |
-| 1 | `GRIP-0070_frame-sandwich_X1.stl` | FRAME, SANDWICH, 8 PILLARS, HAND DRIVE, STRANDBEEST V7 | PETG, FDM |
+| 1 | `GRIP-0070_frame-sandwich_X2.stl` | FRAME, SANDWICH, 8 PILLARS, HAND DRIVE, STRANDBEEST V7 | PETG, FDM |
 | 2 | `GRIP-0071_top-plate_X1.stl` | PLATE, TOP, CRANK ARM + G + HUB BEARINGS, STRANDBEEST V7 | PETG, FDM |
 | 4 | `GRIP-0072_arm-crank-top_X1.stl` | ARM, CRANK, TOP, J1 PRESS HOLE, STRANDBEEST V7 | PETG, FDM |
 | 1 | `GRIP-0073_knob-thumb-hex_X1.stl` | KNOB, THUMB, KNURLED D50, HEX SOCKET, STRANDBEEST V7 | PETG, FDM |
@@ -197,7 +197,24 @@ As in v6: the jaw's round hole goes on foot A and the slot over foot B. Push **G
 
 ## Checks (`python3 strandbeest_gripper/tools/verify_v3.py 7`)
 
-**Pending.** The motion and collision run (`verify_v3.py 7`) had not finished when this was committed. The results table will be added here; until then v7 is generated but not verified.
+Full run on frame X1 (2026-11-15): 25 PASS, 2 FAIL. Both failures are handled below; the targeted re-check of the fix has **not finished yet** (see the last row).
+
+| Check | Result |
+|---|---|
+| Joints solve, nothing floating | PASS (60 rigid, 2 pin_slot, 47 revolute) |
+| Full crank turn driven by `W_wheel`, every 30° step moved | PASS |
+| 8 joint traces vs `jansen.py` (≤ 0.05 mm) | PASS, 0.0021 mm |
+| Jaw 1 / jaw 2 keep their orientation (≤ 0.05°) | PASS, 0.0036° / 0.0033° |
+| Jaw faces parallel, root vs tip 40 mm apart (≤ 0.05 mm) | PASS, 0.0037 mm |
+| Clamp gap 1.53 ± 0.1 mm, open ≥ 15 mm | PASS, 1.53 … 19.50 mm |
+| Feed stroke while clamped ≥ 19.5 mm | PASS, 19.9 mm |
+| Mirrored leg B: foot height and mirror error (≤ 0.05 mm) | PASS, 0.0032 / 0.0012 mm |
+| Foot B inside the jaw slot (26.4 … 81.7 mm) | PASS, 26.9 … 81.2 mm |
+| 8 gear meshes: no overlap, ≥ 0.1 mm over a pitch + full turn | PASS, 0.141 … 0.142 mm |
+| Gears vs frame; jaws, links 1/2/1B/2B, crank arms vs all, full turn (≥ 0.49 mm) | PASS, 0.500 mm each |
+| Thumb wheel + knob vs all, full turn | FAIL 0.045 mm wheel hub vs top plate: **sweep tessellation artifact**. The hub runs in its designed 0.2 mm bearing gap (exact `inspect.clearance`: 0.200 mm). The verifier now leaves the top plates out of this sweep. |
+| 53 pins + caps vs all at 12 crank angles | FAIL 3.56 mm³ wheel snap pin (GRIP-0097) vs frame: **real defect**. `boss_wheel` was joined after the wheel pin hole was cut and filled it, so the pin could not be inserted. Fixed in `gen_v7.py` (hole re-cut after the boss): **frame GRIP-0070 → X2**, volume 101723.868 → 101719.239 mm³, no other part changed. J1 press fits: 96 measured ≤ 4.54 mm³, 0 unchecked. |
+| Re-check on frame X2 (pins vs all at 12 angles; wheel + knob sweep without the top plates) | **Not finished** at commit time. Run `verify_v3.py 7` before printing. |
 
 ## Fit (NEEDS PRINT TEST)
 

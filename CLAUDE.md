@@ -147,6 +147,7 @@ PARTS.md                               part register (PN, name, folder); TOOLS.m
 - **`inspect.clearance` "unchecked" pairs are not "clear".** Pins in holes often come back unchecked (kernel intersect failed). The verifier must count them and fail on any it doesn't expect (v4b's J1 press fits were silently unchecked).
 - **A new gear in the gear layer:** re-check every pin head / barb that sits under the lowest link; pin-vs-all clearance at 12 angles catches it (v5: J3 heads vs the z60 idler; v3b's screws were never checked).
 - **Kernel boolean failures that depend on position:** overlap joined features generously (0.3 mm into a wider feature, same final shape), not by 0.01 mm.
+- **A join after a hole fills it (v7 GRIP-0070, 2026-11-15):** a boss joined after a bore closed the wheel pin hole; the pin-vs-all check at 12 angles found 3.6 mm³ overlap. Re-cut every bore after any later join over it. Also: `joint.sweep` tessellation under-reports tight bearing gaps (0.045 vs exact 0.200); confirm with `inspect.clearance` before calling it a collision.
 - **`joint.sweep` has work budgets.**
   - Leave vendor STEPs and dense gear meshes out of big sweeps.
   - Split `occurrences`/`against` into chunks (gears 2 at a time, other parts 8).

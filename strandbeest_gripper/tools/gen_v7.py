@@ -101,7 +101,8 @@ class V7(v3.V6):
           ('crankB', 1): 'GRIP-0078', ('crankB', 2): 'GRIP-0079', 'j': 'GRIP-0080', 'k': 'GRIP-0081',
           'c': 'GRIP-0082', 'f': 'GRIP-0083', ('bde', 1): 'GRIP-0084', ('bde', 2): 'GRIP-0085',
           ('ghi', 1): 'GRIP-0086', ('ghi', 2): 'GRIP-0087', **PIN_PN}
-    revs = {'GRIP-0014': 'X2'}                     # Z33 idler: v5's labelled revision, unchanged
+    revs = {'GRIP-0014': 'X2',                     # Z33 idler: v5's labelled revision, unchanged
+            'GRIP-0070': 'X2'}                     # frame: wheel pin hole drilled through the boss (verify 2026-11-15)
     SHANK = {k: s for s, k in PIN_TABLE.items()}
 
     def __init__(self):
@@ -131,6 +132,8 @@ class V7(v3.V6):
         super().frame_extra(fb)
         z0, z1 = self.plate_z
         cyl(7, z1 - 0.01, g.HORN_TOP - g.GAP - z1 + 0.01, self.Wc, "join", fb, "boss_wheel")
+        # the boss is joined after v6's axle bore: drill it again (X1 had the wheel pin hole closed by 0.5 mm)
+        cyl("pin_d", z0 - 0.5, g.HORN_TOP - z0 + 0.5, self.Wc, "cut", fb, "axle_wheel_boss")
         x0, x1, y0, y1 = NOTCH
         lab = self._link(self.frame_label[0])
         assert not (x0 <= lab[0] <= x1 and y1 <= lab[1] <= y0), ('frame label in the notch', lab)
