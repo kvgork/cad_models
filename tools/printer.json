@@ -1,0 +1,21 @@
+{
+ "_note": "Printer used by tools/plates.py. Profiles are Bambu Studio system presets (names as in the Bambu Studio GUI). printable = [x0, y0, x1, y1] the area BOTH nozzles reach (X2D: right nozzle starts at x 20.5, from the machine profile's extruder_printable_area). Change here when the printer, plate or filament changes. gap = mm between parts; brim_room = extra mm around tall, slender parts (height > 2 x smallest footprint side), which get a brim: with gap 4 a 5 mm brim still clears its neighbour by 2 mm.",
+ "machine": "Bambu Lab X2D 0.4 nozzle",
+ "process": "0.20mm Standard @BBL X2D",
+ "bed_type": "Textured PEI Plate",
+ "printable": [
+  20.5,
+  0,
+  256,
+  256
+ ],
+ "edge_margin": 5,
+ "gap": 4,
+ "filaments": {
+  "PETG": "Bambu PETG HF @BBL X2D 0.4 nozzle",
+  "PLA": "Bambu PLA Basic @BBL X2D 0.4 nozzle",
+  "TPU 90A": "Bambu TPU 90A @BBL X2D 0.4 nozzle",
+  "TPU 95A": "Bambu TPU 95A @BBL X2D 0.4 nozzle"
+ },
+ "brim_room": 3
+}

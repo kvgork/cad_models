@@ -79,10 +79,11 @@ def part_items(folder):
     n = assy[1] if assy else {pn: 1 for pn in stls}
     stem = assy[0][:-5] if assy else os.path.basename(folder)
     reg = printlist.parts.register()
+    orient = plates.orient_overrides(folder)
     items = []
     for pn, path in stls.items():
-        t = plates.lay_flat(plates.read_stl(path))
-        if t[..., 2].max() > 1.5 * max(t[..., 0].max(), t[..., 1].max()):    # printed standing: show it lying
+        t = plates.lay_flat(plates.read_stl(path), orient.get(pn))
+        if pn not in orient and t[..., 2].max() > 1.5 * max(t[..., 0].max(), t[..., 1].max()):    # printed standing: show it lying
             t = lay_low(plates.read_stl(path))
         r = reg.get(pn, {})
         rev = re.search(r'_([A-Z0-9]+)\.stl$', path).group(1)
