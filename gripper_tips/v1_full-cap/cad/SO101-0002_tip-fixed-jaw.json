@@ -33,7 +33,7 @@
  {"command":"solid.cylinder","params":{"diameter":"bump_d","height":"bump_h + 0.5 mm","axis":"Y","base":[-13.69,"-(bump_hy + clr) - 0.5 mm",88.33],"operation":"join","targets":["tip_fixed"],"name":"BumpRight"}},
  {"command":"solid.box","params":{"length":5,"width":"slit_w","height":"slit_len + 1 mm","center":[-6.5,0,"85.8 mm + slit_len/2 - 0.5 mm"],"operation":"cut","targets":["tip_fixed"],"name":"SlitFront"}},
  {"command":"solid.box","params":{"length":12,"width":"slit_w","height":"slit_len + 1 mm","center":[-18,0,"85.8 mm + slit_len/2 - 0.5 mm"],"operation":"cut","targets":["tip_fixed"],"name":"SlitBack"}},
- {"command":"file.export_step","params":{"path":"gripper_tips/exports/SO101-0002_tip-fixed-jaw_X1.step","bodies":["tip_fixed"]}},
- {"command":"file.export_stl","params":{"path":"gripper_tips/exports/SO101-0002_tip-fixed-jaw_X1.stl","bodies":["tip_fixed"],"quality":"fine"}},
- {"command":"file.export_3mf","params":{"path":"gripper_tips/exports/SO101-0002_tip-fixed-jaw_X1.3mf","bodies":["tip_fixed"],"quality":"fine"}}
+ {"command":"file.export_step","params":{"path":"gripper_tips/v1_full-cap/exports/SO101-0002_tip-fixed-jaw_X1.step","bodies":["tip_fixed"]}},
+ {"command":"file.export_stl","params":{"path":"gripper_tips/v1_full-cap/exports/SO101-0002_tip-fixed-jaw_X1.stl","bodies":["tip_fixed"],"quality":"fine"}},
+ {"command":"file.export_3mf","params":{"path":"gripper_tips/v1_full-cap/exports/SO101-0002_tip-fixed-jaw_X1.3mf","bodies":["tip_fixed"],"quality":"fine"}}
 ]

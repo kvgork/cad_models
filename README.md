@@ -11,7 +11,7 @@
 | [base](base/README.md) | General CAD files reused across projects. Feetech SCS0009 micro servo and STS3215 (the SO-101 servo): models with measured interfaces, datasheet cross-checks and placement matrices | reference |
 | [finray_tests](finray_tests/README.md) | Hand-driven parallel test gripper (thumb screw, rack and pinion) with slide-in fin-ray fingers, plus 3 finger designs to compare: baseline, wrap and stiff (TPU 90A) | X1, CAD-checked, not printed yet |
 | [gripper_tester](gripper_tester/README.md) | Bench baseplate with a dovetail slide for swapping SO-101 grippers, plus a mount for the servo board: v1 Waveshare, [v2](gripper_tester/v2_fe-urt2/README.md) Feetech FE-URT-2 | X1, CAD-checked |
-| [gripper_tips](gripper_tips/README.md) | Snap-on calibration caps for the two SO-101 gripper jaws (print in red) | X1, CAD-checked |
+| [gripper_tips](gripper_tips/README.md) | Red snap-on calibration tips for the two SO-101 gripper jaws: [v1](gripper_tips/v1_full-cap/README.md) full cap, [v2](gripper_tips/v2_open-inside/README.md) outside only | X1, CAD-checked |
 | [lidar_holder](lidar_holder/README.md) | Riser that mounts an RPLIDAR C1 on the JeTank | X1, CAD-checked |
 | [strandbeest_gripper](strandbeest_gripper/README.md) | Gripper built from Theo Jansen's Strandbeest leg. Ten versions: one finger (v1), a two-finger feeder (v2), three long-jaw variants (v3a/b/c), a hand-operated thumb-wheel version (v4), v4a with all pins printed, v4b, fully printed with one-piece snap pins (39 parts, built and working), v5 with parallel jaws on twin legs, labelled parts and an illustrated manual, and v6, the same made compact with mirrored legs and long jaws | X1, CAD-checked, not printed yet |
 
@@ -50,7 +50,7 @@ Requires SolidCraft **0.30.1** (`solidcraft-cli`); see [TOOLS.md](TOOLS.md).
 
 ```bash
 tools/build.sh                                   # rebuild every part and its exports
-tools/build.sh gripper_tips                      # one product
+tools/build.sh finray_tests                      # one product
 tools/build.sh strandbeest_gripper/v2_dual-finger  # one version of a product
 tools/build.sh --assemblies                      # also run the fit-check overlays (slow)
 ```
