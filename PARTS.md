@@ -79,7 +79,7 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | GRIP-0067 | finray-a-plus15 | X1 | FINGER, FIN RAY, A ANGLE-ONLY, 6 RIBS +15 DEG | finray_tests | TPU 90A, FDM |
 | GRIP-0068 | finray-a-minus15 | X1 | FINGER, FIN RAY, A ANGLE-ONLY, 6 RIBS -15 DEG | finray_tests | TPU 90A, FDM |
 | GRIP-0069 | baseplate-fe-urt2 | X1 | BASEPLATE, GRIPPER TESTER, FE-URT-2 | gripper_tester/v2_fe-urt2 | PETG, FDM |
-| GRIP-0070 | frame-sandwich | X1 | FRAME, SANDWICH, 8 PILLARS, HAND DRIVE, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0070 | frame-sandwich | X2 | FRAME, SANDWICH, 8 PILLARS, HAND DRIVE, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | PETG, FDM |
 | GRIP-0071 | top-plate | X1 | PLATE, TOP, CRANK ARM + G + HUB BEARINGS, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | PETG, FDM |
 | GRIP-0072 | arm-crank-top | X1 | ARM, CRANK, TOP, J1 PRESS HOLE, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | PETG, FDM |
 | GRIP-0073 | knob-thumb-hex | X1 | KNOB, THUMB, KNURLED D50, HEX SOCKET, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | PETG, FDM |
