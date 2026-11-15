@@ -2,6 +2,13 @@
 
 A bench baseplate for testing SO-101 style grippers. Grippers swap tool-free on a dovetail slide, and the plate also holds the Waveshare bus-servo control board.
 
+| Version | Folder | Controller board | Baseplate |
+|---|---|---|---|
+| v1 | this folder | Waveshare Bus Servo Adapter (A) | GRIP-0001 |
+| v2 | [`v2_fe-urt2/`](v2_fe-urt2/README.md) | Feetech FE-URT-2 (M3 inserts) | GRIP-0069 |
+
+Both use the same gripper adapter GRIP-0002 (STS3215 horn interface, also fits the SO-101 wrist). The rest of this README is v1.
+
 ## Parts
 
 | PN | Source | Qty | Print |

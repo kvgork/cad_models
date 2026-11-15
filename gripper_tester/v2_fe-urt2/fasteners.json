@@ -1,0 +1,9 @@
+{
+ "note": "Adapter quantities are per gripper adapter. The stock M3×6 horn screws reach only about 2.9 mm into the inserts, so use M3×8. Board screws: M3×6 through the 1.6 mm PCB leaves about 4.4 mm in the insert; the board hole size comes from shop listings (Ø3), NEEDS CHECK on your board.",
+ "lines": [
+  {"qty": 4, "where": "adapter: gripper horn holes (Ø4 × 6 insert holes)", "items": ["M3 heat-set insert", "M3×8 socket head screw (ISO 4762)"]},
+  {"qty": 1, "where": "baseplate lock: +Y rail, wedges the adapter down", "items": ["M3 heat-set insert", "M3×10 thumb or wing screw"]},
+  {"qty": 4, "where": "FE-URT-2 board on the 8 mm bosses (Ø4.0 × 7 blind insert holes, 48.8 × 28.8 pitch)", "items": ["M3 heat-set insert", "M3×6 socket head screw (ISO 4762)"]},
+  {"qty": 4, "where": "optional: Ø4.5 corner holes to a table, or rubber feet instead", "items": ["M4 screw, length to suit table"]}
+ ]
+}
