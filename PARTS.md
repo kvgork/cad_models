@@ -92,8 +92,10 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | GRIP-9011 | assy-parallel-jaws | X1 | ASSY, GRIPPER, TWIN LEG PARALLEL JAWS, THUMB WHEEL, SNAP PINS, STRANDBEEST V5 | strandbeest_gripper/v5_parallel-jaws | — |
 | GRIP-9012 | assy-mirror-legs | X1 | ASSY, GRIPPER, MIRRORED TWIN LEGS, LONG PARALLEL JAWS, STRANDBEEST V6 | strandbeest_gripper/v6_mirror-legs | — |
 | GRIP-9013 | assy-tester-fe-urt2-fit-check | X1 | ASSY, GRIPPER TESTER, FE-URT-2, FIT CHECK | gripper_tester/v2_fe-urt2 | — |
-| SO101-0001 | tip-moving-jaw | X1 | TIP, JAW, MOVING, CALIBRATION | gripper_tips | red PLA/PETG, FDM |
-| SO101-0002 | tip-fixed-jaw | X1 | TIP, JAW, FIXED, CALIBRATION | gripper_tips | red PLA/PETG, FDM |
+| SO101-0001 | tip-moving-jaw | X1 | TIP, JAW, MOVING, CALIBRATION | gripper_tips/v1_full-cap | red PLA/PETG, FDM |
+| SO101-0002 | tip-fixed-jaw | X1 | TIP, JAW, FIXED, CALIBRATION | gripper_tips/v1_full-cap | red PLA/PETG, FDM |
+| SO101-0003 | tip-moving-jaw-open | X1 | TIP, JAW, MOVING, CALIBRATION, OPEN GRIP FACE | gripper_tips/v2_open-inside | red PLA/PETG, FDM |
+| SO101-0004 | tip-fixed-jaw-open | X1 | TIP, JAW, FIXED, CALIBRATION, OPEN GRIP FACE | gripper_tips/v2_open-inside | red PLA/PETG, FDM |
 | JTNK-0001 | lidar-holder | X1 | HOLDER, LIDAR, RPLIDAR C1 | lidar_holder | PETG, FDM |
 | JTNK-9001 | assy-lidar-fit-check | X1 | ASSY, LIDAR HOLDER, FIT CHECK | lidar_holder | — |
 | LIB-0001 | so101-base | — | BASE, SO-101 (vendor STEP) | lib/so101 | purchased/vendor |

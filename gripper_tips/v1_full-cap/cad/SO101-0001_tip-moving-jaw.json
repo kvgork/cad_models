@@ -33,7 +33,7 @@
  {"command":"solid.cylinder","params":{"diameter":"bump_d","height":"bump_h + 0.5 mm","base":[-1.19,-58.66,"-(bump_hz + clr) - 0.5 mm"],"operation":"join","targets":["tip_moving"],"name":"BumpBottom"}},
  {"command":"solid.box","params":{"length":5,"width":"slit_len + 1 mm","height":"slit_w","center":[-14.5,"-55.8 mm - slit_len/2 + 0.5 mm",0],"operation":"cut","targets":["tip_moving"],"name":"SlitFront"}},
  {"command":"solid.box","params":{"length":9,"width":"slit_len + 1 mm","height":"slit_w","center":[4.5,"-55.8 mm - slit_len/2 + 0.5 mm",0],"operation":"cut","targets":["tip_moving"],"name":"SlitBack"}},
- {"command":"file.export_step","params":{"path":"gripper_tips/exports/SO101-0001_tip-moving-jaw_X1.step","bodies":["tip_moving"]}},
- {"command":"file.export_stl","params":{"path":"gripper_tips/exports/SO101-0001_tip-moving-jaw_X1.stl","bodies":["tip_moving"],"quality":"fine"}},
- {"command":"file.export_3mf","params":{"path":"gripper_tips/exports/SO101-0001_tip-moving-jaw_X1.3mf","bodies":["tip_moving"],"quality":"fine"}}
+ {"command":"file.export_step","params":{"path":"gripper_tips/v1_full-cap/exports/SO101-0001_tip-moving-jaw_X1.step","bodies":["tip_moving"]}},
+ {"command":"file.export_stl","params":{"path":"gripper_tips/v1_full-cap/exports/SO101-0001_tip-moving-jaw_X1.stl","bodies":["tip_moving"],"quality":"fine"}},
+ {"command":"file.export_3mf","params":{"path":"gripper_tips/v1_full-cap/exports/SO101-0001_tip-moving-jaw_X1.3mf","bodies":["tip_moving"],"quality":"fine"}}
 ]

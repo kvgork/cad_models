@@ -1,0 +1,5 @@
+{
+ "_note": "model direction that faces the bed (tools/plates.py, tools/sortsheet.py): both caps print open mouth down",
+ "SO101-0003": [0, 1, 0],
+ "SO101-0004": [0, 0, -1]
+}
