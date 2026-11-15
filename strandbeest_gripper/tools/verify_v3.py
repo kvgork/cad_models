@@ -1,4 +1,5 @@
-"""Check the v3 variants (GRIP-9004 pivot jaws, GRIP-9005 twin-leg jaws, GRIP-9006 rigid nose).
+"""Check the v3 variants (GRIP-9004 pivot jaws, GRIP-9005 twin-leg jaws, GRIP-9006 rigid nose) and their
+successors up to v7 (GRIP-9014, keys h p s 5 6 7; run 7 on its own).
 
     python3 strandbeest_gripper/tools/verify_v3.py [a|b|c ...]     (from the repo root; default all)
 
@@ -35,7 +36,11 @@ def theta(k):
 
 
 def run(key):
-    v = v3.VARIANTS[key]()
+    if key == '7':                              # v7 patches gen_dual's layer plan: run it in its own process
+        import gen_v7
+        v = gen_v7.V7()
+    else:
+        v = v3.VARIANTS[key]()
     g.build(v)                                  # sets PN / PARTS for this variant
     sc = os.path.join(ROOT, v.out.replace('.json', '.sc'))
     script = os.path.join(ROOT, v.out.replace('.json', '.verify.json'))
@@ -47,7 +52,7 @@ def run(key):
     gears = [g.comp_name('crank1', 1), g.comp_name('idler', 1), g.comp_name('idler', 2), g.comp_name('crank2', 1)]
     meshes = [(gears[0], gears[1]), (gears[1], gears[2]), (gears[2], gears[3])]
     DJ, DK = v.drive                            # joint you turn, its degrees per crank degree
-    if key in ('h', 'p', 's', '5', '6'):
+    if key in ('h', 'p', 's', '5', '6', '7'):
         gears.append(g.comp_name('wheel', 1))
         meshes.append((gears[0], gears[-1]))
     links = {f: [g.occ(k, f) for k in g.LINK_KEYS] for f in (1, 2)}
@@ -68,11 +73,11 @@ def run(key):
             tip = g.W(v3.lk(g.JL[f]['F'], v.JAW_L))
             jaw_pts[f] = [(o, list(g.J[f]['F']) + [v3.JAW_Z0 + 4]), (o, list(tip) + [v3.JAW_Z0 + 4])]
         sweeps.append(([g.occ('jawp', 1), g.occ('jawp', 2)], printed, 'jaws vs all parts'))
-    if key in ('b', '5', '6'):
+    if key in ('b', '5', '6', '7'):
         xb = [g.comp_name('idlerX', 1), g.comp_name('crankB', 1), g.comp_name('idlerX', 2), g.comp_name('crankB', 2)]
         gears += xb
         # by name: v5 has the thumb wheel in the list too, so positions would shift
-        if key == '6':      # mirrored leg B: driven from the Z33 idler through idler X
+        if key in ('6', '7'):      # mirrored leg B: driven from the Z33 idler through idler X
             meshes += [(g.comp_name('idler', 1), xb[0]), (xb[0], xb[1]), (g.comp_name('idler', 2), xb[2]), (xb[2], xb[3])]
         else:
             meshes += [(g.comp_name('crank1', 1), xb[0]), (xb[0], xb[1]), (g.comp_name('crank2', 1), xb[2]), (xb[2], xb[3])]
@@ -81,7 +86,7 @@ def run(key):
         for f in (1, 2):
             links[f'{f}B'] = [f"{nameB(k, f)}:1" for k in g.LINK_KEYS]
             o = g.occ('jawt', f)
-            if key == '6':
+            if key in ('6', '7'):
                 tip = (g.J[f]['F'][0] + v.UW[0] * v.JAW_OVER, g.J[f]['F'][1] + v.UW[1] * v.JAW_OVER)
             else:
                 tip = g.W(v3.lk(v.JBL[f]['F'], v.OVERHANG))
@@ -89,13 +94,16 @@ def run(key):
 
             def refB(t, f=f):
                 p = pose(math.radians(t), g.S)['F']
-                p = (2 * v.XM - p[0], p[1]) if key == '6' else v3.lk(p, v3.TWIN_D)
+                p = (2 * v.XM - p[0], p[1]) if key in ('6', '7') else v3.lk(p, v3.TWIN_D)
                 return p if f == 1 else g.mir(p)
             traces.append((f"F leg B finger {f}", f"{nameB('ghi', f)}:1",
                            list(v.JB[f]['F']) + [g.zb(g.LAYER['ghi']) + 1], refB))
         sweeps.append(([g.occ('jawt', 1), g.occ('jawt', 2)], printed, 'jaws vs all parts'))
     for lk, occs in links.items():
         sweeps.append((occs, printed, f'links {lk} vs all parts'))
+    if key == '7':                              # crank arms on top, thumb wheel hub through the top plates + knob
+        sweeps.append(([g.occ('arm', i) for i in range(1, 5)], printed, 'crank arms vs all parts'))
+        sweeps.append(([g.occ('wheel', 1), g.occ('knob', 1)], printed, 'thumb wheel + knob vs all parts'))
     gear_occ = [x + ':1' for x in gears]
     sweeps = [(gear_occ if o == ['gears'] else o, a, lab) for o, a, lab in sweeps]
     # joint.sweep's gap report has a work budget: gears (dense tooth meshes) go in chunks of 2,
@@ -174,7 +182,7 @@ def run(key):
     F1 = [link(q) for q in tr['F finger 1']]
     F2 = [link(q) for q in tr['F finger 2']]
 
-    if key in ('a', 'b', 'h', 'p', 's', '5', '6'):
+    if key in ('a', 'b', 'h', 'p', 's', '5', '6', '7'):
         for f in (1, 2):
             a0, a1 = jt[f'jaw{f}_0'], jt[f'jaw{f}_1']
             ang = [math.degrees(math.atan2(b[1] - a[1], b[0] - a[0])) for a, b in zip(a0, a1)]
@@ -202,7 +210,7 @@ def run(key):
             clamp_rel = [rel[k] for k in clamp]
             check('info: jaw-to-foot pivot angle needed', True,
                   f'clamp window {min(clamp_rel):+.1f}..{max(clamp_rel):+.1f} deg, full turn {min(rel):+.1f}..{max(rel):+.1f} deg')
-        if key == '6':
+        if key in ('6', '7'):
             FB1 = [link(q) for q in tr['F leg B finger 1']]
             dy = max(abs(b[1] - a[1]) for a, b in zip(F1, FB1))
             dx = max(abs(a[0] + b[0] - 2 * v.XM) for a, b in zip(F1, FB1))
@@ -259,13 +267,13 @@ def run(key):
         ov = [(o['a'], o['b'], o.get('volume_mm3', o.get('volume'))) for x in pc for o in x.get('overlaps', [])]
         # intended press fit: the J1 shoulder pin's tip in its crank gear (D2.7 tip in the D2.5 hole)
         press = math.pi / 4 * (2.7 ** 2 - 2.5 ** 2) * (g.GEAR_T - 0.5) + 0.05
-        crank_names = ('gear-crank',)
+        crank_names = ('gear-crank', 'arm-crank')   # v7: the J1 pin is pressed into the crank arm too
         def intended(o):
             return ('pin-j1-shoulder' in o[0] + o[1] and any(k in o[0] + o[1] for k in crank_names)
                     and o[2] is not None and o[2] <= press)
         bad = [o for o in ov if (o[2] is None or o[2] > 0.001) and not intended(o)]
         unchecked = [(u['a'], u['b']) for x in pc for u in (x.get('unchecked') or [])]
-        unchecked_bad = [u for u in unchecked if not ('pin-j1-shoulder' in u[0] + u[1] and 'gear-crank' in u[0] + u[1])]
+        unchecked_bad = [u for u in unchecked if not ('pin-j1-shoulder' in u[0] + u[1] and any(k in u[0] + u[1] for k in crank_names))]
         dists = [nb['distance_mm'] for x in pc for near in (x.get('nearest') or {}).values() for nb in near]
         check(f'{len(pins)} printed pins + caps vs all parts at {len(pin_angles)} crank angles: no overlap '
               '(touching the links they hold is expected: no washers)',
@@ -282,5 +290,7 @@ def run(key):
 
 if __name__ == '__main__':
     check_reference()
-    oks = [run(k) for k in (sys.argv[1:] or ['a', 'b', 'c', 'h'])]
+    keys = sys.argv[1:] or ['a', 'b', 'c', 'h']
+    assert '7' not in keys or keys == ['7'], 'run v7 on its own: gen_v7 patches the shared layer plan'
+    oks = [run(k) for k in keys]
     sys.exit(0 if all(oks) else 1)
