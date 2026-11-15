@@ -107,6 +107,23 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | GRIP-0095 | snap-pin-2f-jaw | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, SHANK 15.2, JAW | strandbeest_gripper/v7_sandwich | PETG, FDM |
 | GRIP-0096 | snap-pin-2f-pillar | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, SHANK 39.2, PILLAR + TOP PLATE | strandbeest_gripper/v7_sandwich | PETG, FDM |
 | GRIP-0097 | snap-pin-2f-wheel | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, SHANK 47.7, THUMB WHEEL AXLE | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0107 | frame-four-bar | X1 | FRAME, FOUR-BAR, 4 Q COLUMNS, STRANDBEEST V8 | strandbeest_gripper/v8_four-bar | PETG, FDM |
+| GRIP-0108 | top-plate-four-bar | X1 | PLATE, TOP, CRANK + ROCKER BEARINGS, SLOT WINDOW, STRANDBEEST V8 | strandbeest_gripper/v8_four-bar | PETG, FDM |
+| GRIP-0109 | knob-double-d | X1 | KNOB, THUMB, KNURLED D40, DOUBLE-D BORE, STRANDBEEST V8 | strandbeest_gripper/v8_four-bar | PETG, FDM |
+| GRIP-0110 | gear-crank-a1-eccentric | X1 | GEAR, CRANK, A1, Z46 M1, ECCENTRIC BOSS, STRANDBEEST V8 | strandbeest_gripper/v8_four-bar | PETG, FDM |
+| GRIP-0111 | gear-crank-b1-eccentric | X1 | GEAR, CRANK, B1, Z46 M1, ECCENTRIC BOSS, STRANDBEEST V8 | strandbeest_gripper/v8_four-bar | PETG, FDM |
+| GRIP-0112 | gear-crank-a2-eccentric | X1 | GEAR, CRANK, A2, Z46 M1, ECCENTRIC BOSS, STRANDBEEST V8 | strandbeest_gripper/v8_four-bar | PETG, FDM |
+| GRIP-0113 | gear-crank-b2-eccentric | X1 | GEAR, CRANK, B2, Z46 M1, ECCENTRIC BOSS, STRANDBEEST V8 | strandbeest_gripper/v8_four-bar | PETG, FDM |
+| GRIP-0114 | gear-idler-z24 | X1 | GEAR, IDLER, Z24 M1, FINGER SYNC | strandbeest_gripper/v8_four-bar | PETG, FDM |
+| GRIP-0115 | coupler-eccentric | X1 | COUPLER, ECCENTRIC RING, FOUR-BAR (FINGER 2 FLIPPED) | strandbeest_gripper/v8_four-bar | PETG, FDM |
+| GRIP-0116 | rocker-q-b | X1 | ROCKER, Q-B, FOUR-BAR | strandbeest_gripper/v8_four-bar | PETG, FDM |
+| GRIP-0117 | jaw-four-bar | X1 | JAW, PARALLEL, HOLE + SHORT SLOT, STRANDBEEST V8 | strandbeest_gripper/v8_four-bar | PETG, FDM |
+| GRIP-0118 | shaft-crank-double-d | X1 | SHAFT, CRANK, D5, DOUBLE-D, SNAP, STRANDBEEST V8 | strandbeest_gripper/v8_four-bar | PETG, FDM |
+| GRIP-0119 | shaft-crank-knob | X1 | SHAFT, CRANK, D5, DOUBLE-D, SNAP, KNOB LENGTH, STRANDBEEST V8 | strandbeest_gripper/v8_four-bar | PETG, FDM |
+| GRIP-0120 | snap-pin-2f-q-column | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, Q COLUMN + TOP PLATE | strandbeest_gripper/v8_four-bar | PETG, FDM |
+| GRIP-0121 | pin-press-head-b | X1 | PIN, PRESS, HEADED, D3, 2 FLATS, B (COUPLER-ROCKER) | strandbeest_gripper/v8_four-bar | PETG, FDM |
+| GRIP-0122 | pin-press-head-p | X1 | PIN, PRESS, HEADED, D3, 2 FLATS, P (COUPLER-JAW) | strandbeest_gripper/v8_four-bar | PETG, FDM |
+| GRIP-0123 | snap-pin-2f-idler-down | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, Z24 IDLER, HEAD IN GEAR | strandbeest_gripper/v8_four-bar | PETG, FDM |
 | GRIP-9001 | assy-tester-fit-check | X1 | ASSY, GRIPPER TESTER, FIT CHECK | gripper_tester | — |
 | GRIP-9002 | assy-single-finger | X1 | ASSY, FINGER, STRANDBEEST (v1: single finger + anvil) | strandbeest_gripper/v1_single-finger | — |
 | GRIP-9003 | assy-dual-finger | X1 | ASSY, GRIPPER, DUAL FINGER, STRANDBEEST V2 (feeder) | strandbeest_gripper/v2_dual-finger | — |
@@ -121,6 +138,7 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | GRIP-9012 | assy-mirror-legs | X1 | ASSY, GRIPPER, MIRRORED TWIN LEGS, LONG PARALLEL JAWS, STRANDBEEST V6 | strandbeest_gripper/v6_mirror-legs | — |
 | GRIP-9013 | assy-tester-fe-urt2-fit-check | X1 | ASSY, GRIPPER TESTER, FE-URT-2, FIT CHECK | gripper_tester/v2_fe-urt2 | — |
 | GRIP-9014 | assy-sandwich | X1 | ASSY, GRIPPER, SANDWICH FRAME, MIRRORED TWIN LEGS, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | — |
+| GRIP-9016 | assy-four-bar | X1 | ASSY, GRIPPER, FOUR-BAR LEGS, ECCENTRIC CRANKS, STRANDBEEST V8 | strandbeest_gripper/v8_four-bar | — |
 | SO101-0001 | tip-moving-jaw | X1 | TIP, JAW, MOVING, CALIBRATION | gripper_tips/v1_full-cap | red PLA/PETG, FDM |
 | SO101-0002 | tip-fixed-jaw | X1 | TIP, JAW, FIXED, CALIBRATION | gripper_tips/v1_full-cap | red PLA/PETG, FDM |
 | SO101-0003 | tip-moving-jaw-open | X1 | TIP, JAW, MOVING, CALIBRATION, OPEN GRIP FACE | gripper_tips/v2_open-inside | red PLA/PETG, FDM |
@@ -138,4 +156,4 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | LIB-0009 | servo-sts3215 | — | SERVO, STS3215 (vendor STEP) | lib/sts3215, base/feetech_sts3215 (identical copy) | purchased |
 | LIB-0010 | servo-scs0009 | — | SERVO, SCS0009, MICRO SERIAL BUS (vendor STEP) | base/feetech_scs0009 | purchased |
 
-Next free: GRIP-0098, GRIP-9015, SO101-0005, JTNK-0002, JTNK-9002, LIB-0011.
+Next free: GRIP-0124, GRIP-9017, SO101-0005, JTNK-0002, JTNK-9002, LIB-0011.
