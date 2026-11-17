@@ -11,7 +11,8 @@ If a rule here conflicts with those notes, the notes win; update this file to ma
 
 ## Tools (pinned, see TOOLS.md; never upgrade without asking)
 
-- SolidCraft 0.30.1 (`solidcraft-cli` in `~/.local/bin`). Format 48 files do not open in older builds. No nightly or RC builds for committed files.
+- SolidCraft 0.41.0 (user Flatpak; `solidcraft-cli` in `~/.local/bin` runs its native binary, see TOOLS.md). It writes format 55 (0.30.1 can't open those); format-48 files from 0.30.1 still open. No nightly or RC builds for committed files.
+  - **Probe a new CLI only with `eval` or on a copy:** `run` executes the script's export steps and overwrote committed exports (2026-11-17, restored with `git restore`).
 - git with git-lfs (patterns in `.gitattributes`).
 
 ## Layout
