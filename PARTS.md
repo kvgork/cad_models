@@ -61,14 +61,14 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | GRIP-0049 | snap-pin-gear-axle | X1 | PIN, SNAP, PRINTED, D3, SHANK 21.4, IDLER + WHEEL AXLE | strandbeest_gripper/v4b_snap-pins | PETG, FDM |
 | GRIP-0050 | snap-pin-jaw | X1 | PIN, SNAP, PRINTED, D3, SHANK 23.2, JAW PIVOT | strandbeest_gripper/v4b_snap-pins | PETG, FDM |
 | GRIP-0051 | snap-pin-g | X1 | PIN, SNAP, PRINTED, D3, SHANK 35.9, G | strandbeest_gripper/v4b_snap-pins | PETG, FDM |
-| GRIP-0052 | base-plate | X1 | BASE, FINRAY GRIPPER, RAIL + SCREW WALL + PINION POST | finray_tests | PETG, FDM |
-| GRIP-0053 | carriage-a | X1 | CARRIAGE, JAW A, NUT TRAP + RACK, FINRAY GRIPPER | finray_tests | PETG, FDM |
-| GRIP-0054 | carriage-b | X1 | CARRIAGE, JAW B, RACK + ARM, FINRAY GRIPPER | finray_tests | PETG, FDM |
-| GRIP-0055 | pinion-z18 | X1 | GEAR, PINION, Z18 M1, FINRAY GRIPPER | finray_tests | PETG, FDM |
-| GRIP-0056 | knob | X1 | KNOB, THUMB, D32, M6 HEX HEAD | finray_tests | PETG, FDM |
-| GRIP-0057 | finray-a-baseline | X1 | FINGER, FIN RAY, A BASELINE, 6 RIBS 0 DEG | finray_tests | TPU 90A, FDM |
-| GRIP-0058 | finray-b-wrap | X1 | FINGER, FIN RAY, B WRAP, 5 RIBS +15 DEG THIN | finray_tests | TPU 90A, FDM |
-| GRIP-0059 | finray-c-stiff | X1 | FINGER, FIN RAY, C STIFF, 7 RIBS -15 DEG THICK | finray_tests | TPU 90A, FDM |
+| GRIP-0052 | base-plate | X1 | BASE, FINRAY GRIPPER, RAIL + SCREW WALL + PINION POST | finray_tests/v1_parallel | PETG, FDM |
+| GRIP-0053 | carriage-a | X1 | CARRIAGE, JAW A, NUT TRAP + RACK, FINRAY GRIPPER | finray_tests/v1_parallel | PETG, FDM |
+| GRIP-0054 | carriage-b | X1 | CARRIAGE, JAW B, RACK + ARM, FINRAY GRIPPER | finray_tests/v1_parallel | PETG, FDM |
+| GRIP-0055 | pinion-z18 | X1 | GEAR, PINION, Z18 M1, FINRAY GRIPPER | finray_tests/v1_parallel | PETG, FDM |
+| GRIP-0056 | knob | X1 | KNOB, THUMB, D32, M6 HEX HEAD | finray_tests/v1_parallel | PETG, FDM |
+| GRIP-0057 | finray-a-baseline | X1 | FINGER, FIN RAY, A BASELINE, 6 RIBS 0 DEG | finray_tests/v1_parallel | TPU 90A, FDM |
+| GRIP-0058 | finray-b-wrap | X1 | FINGER, FIN RAY, B WRAP, 5 RIBS +15 DEG THIN | finray_tests/v1_parallel | TPU 90A, FDM |
+| GRIP-0059 | finray-c-stiff | X1 | FINGER, FIN RAY, C STIFF, 7 RIBS -15 DEG THICK | finray_tests/v1_parallel | TPU 90A, FDM |
 | GRIP-0060 | frame-twin-hand | X1 | FRAME, TWIN LEG, HAND DRIVE, STRANDBEEST V5 | strandbeest_gripper/v5_parallel-jaws | PETG, FDM |
 | GRIP-0061 | snap-pin-idler-z60 | X1 | PIN, SNAP, PRINTED, D3, SHANK 20.2, Z60 IDLER AXLE | strandbeest_gripper/v5_parallel-jaws | PETG, FDM |
 | GRIP-0062 | frame-mirror-legs | X1 | FRAME, MIRRORED TWIN LEGS, HAND DRIVE, STRANDBEEST V6 | strandbeest_gripper/v6_mirror-legs | PETG, FDM |
@@ -76,8 +76,8 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | GRIP-0064 | gear-crank-mirror-finger2 | X1 | GEAR, CRANK, MIRRORED LEG B, FINGER 2, Z20 M1 | strandbeest_gripper/v6_mirror-legs | PETG, FDM |
 | GRIP-0065 | gear-idler-leg-b | X1 | GEAR, IDLER, LEG B DRIVE, 4.3 THICK, M1 | strandbeest_gripper/v6_mirror-legs, strandbeest_gripper/v7_sandwich | PETG, FDM |
 | GRIP-0066 | jaw-long-slot | X1 | JAW, LONG SLOT, MIRRORED TWIN LEGS, STRANDBEEST V6 | strandbeest_gripper/v6_mirror-legs, strandbeest_gripper/v7_sandwich | PETG, FDM |
-| GRIP-0067 | finray-a-plus15 | X1 | FINGER, FIN RAY, A ANGLE-ONLY, 6 RIBS +15 DEG | finray_tests | TPU 90A, FDM |
-| GRIP-0068 | finray-a-minus15 | X1 | FINGER, FIN RAY, A ANGLE-ONLY, 6 RIBS -15 DEG | finray_tests | TPU 90A, FDM |
+| GRIP-0067 | finray-a-plus15 | X1 | FINGER, FIN RAY, A ANGLE-ONLY, 6 RIBS +15 DEG | finray_tests/v1_parallel | TPU 90A, FDM |
+| GRIP-0068 | finray-a-minus15 | X1 | FINGER, FIN RAY, A ANGLE-ONLY, 6 RIBS -15 DEG | finray_tests/v1_parallel | TPU 90A, FDM |
 | GRIP-0069 | baseplate-fe-urt2 | X1 | BASEPLATE, GRIPPER TESTER, FE-URT-2 | gripper_tester/v2_fe-urt2 | PETG, FDM |
 | GRIP-0070 | frame-sandwich | X2 | FRAME, SANDWICH, 8 PILLARS, HAND DRIVE, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | PETG, FDM |
 | GRIP-0071 | top-plate | X1 | PLATE, TOP, CRANK ARM + G + HUB BEARINGS, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | PETG, FDM |
@@ -133,7 +133,7 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | GRIP-9006 | assy-rigid-nose | X1 | ASSY, GRIPPER, DUAL FINGER, RIGID NOSE, STRANDBEEST V3C | strandbeest_gripper/v3c_rigid-nose | — |
 | GRIP-9008 | assy-printed-pins | X1 | ASSY, GRIPPER, THUMB WHEEL, PRINTED PINS, STRANDBEEST V4A | strandbeest_gripper/v4a_printed-pins | — |
 | GRIP-9009 | assy-snap-pins | X1 | ASSY, GRIPPER, THUMB WHEEL, SNAP PINS, STRANDBEEST V4B | strandbeest_gripper/v4b_snap-pins | — |
-| GRIP-9010 | assy-finray-gripper | X1 | ASSY, GRIPPER, THUMB SCREW, SLIDE-IN FIN RAY FINGERS | finray_tests | — |
+| GRIP-9010 | assy-finray-gripper | X1 | ASSY, GRIPPER, THUMB SCREW, SLIDE-IN FIN RAY FINGERS | finray_tests/v1_parallel | — |
 | GRIP-9011 | assy-parallel-jaws | X1 | ASSY, GRIPPER, TWIN LEG PARALLEL JAWS, THUMB WHEEL, SNAP PINS, STRANDBEEST V5 | strandbeest_gripper/v5_parallel-jaws | — |
 | GRIP-9012 | assy-mirror-legs | X1 | ASSY, GRIPPER, MIRRORED TWIN LEGS, LONG PARALLEL JAWS, STRANDBEEST V6 | strandbeest_gripper/v6_mirror-legs | — |
 | GRIP-9013 | assy-tester-fe-urt2-fit-check | X1 | ASSY, GRIPPER TESTER, FE-URT-2, FIT CHECK | gripper_tester/v2_fe-urt2 | — |

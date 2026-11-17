@@ -129,7 +129,7 @@ def main():
     dmin = min(nb['distance_mm'] for x in hwr for near in (x.get('nearest') or {}).values() for nb in near)
     check("screw, nyloc, nut and knob vs carriages and base at both stroke ends: no overlap",
           not ov and all(x.get('pairs_checked', 0) > 0 for x in hwr), f"{len(ov)} overlaps {ov[:2]}, closest {dmin:.2f} mm")
-    print('== finray_tests GRIP-9010')
+    print('== finray_tests/v1_parallel GRIP-9010')
     for s, n, val in rows:
         print(f"{s}  {n:95s} {val}")
     return 1 if fails else 0
