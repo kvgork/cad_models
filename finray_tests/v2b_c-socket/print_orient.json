@@ -1,0 +1,13 @@
+{
+ "_note": "model direction that faces the bed (tools/plates.py, tools/sortsheet.py). The C-socket holder prints cap down (socket block flush with the cap top), so its socket bores print vertical. Fingers lie flat on their profile (every rib a vertical wall).",
+ "GRIP-0136": [
+  0,
+  0,
+  1
+ ],
+ "GRIP-0135": [
+  0,
+  0,
+  -1
+ ]
+}

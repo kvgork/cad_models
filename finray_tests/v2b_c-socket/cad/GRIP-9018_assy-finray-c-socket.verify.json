@@ -1,0 +1,460 @@
+[
+{
+"command": "joint.list",
+"params": {}
+},
+{
+"command": "motion.trace",
+"params": {
+"occurrence": "GRIP-0125_carriage-a-modules_F1:1",
+"point": [
+-31.0,
+4.0,
+25.0
+],
+"joint": "R_knob",
+"from": -5400.0,
+"to": 5400.0,
+"samples": 35
+}
+},
+{
+"command": "motion.trace",
+"params": {
+"occurrence": "GRIP-0126_carriage-b-modules_F1:1",
+"point": [
+31.0,
+4.0,
+25.0
+],
+"joint": "R_knob",
+"from": -5400.0,
+"to": 5400.0,
+"samples": 35
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": 360
+}
+},
+{
+"command": "joint.list",
+"params": {}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": 0
+}
+},
+{
+"command": "joint.sweep",
+"params": {
+"joint": "R_knob",
+"from": -5400.0,
+"to": 5400.0,
+"step": 360.0,
+"occurrences": [
+"GRIP-0125_carriage-a-modules_F1:1",
+"GRIP-0136_holder-c-socket_F1:1",
+"GRIP-0135_finray-a-c-socket_F1:1",
+"M3x8-ISO4762_hold10:1",
+"M3x8-ISO4762_hold11:1"
+],
+"against": [
+"GRIP-0124_base-plate-modules_F1:1",
+"GRIP-0126_carriage-b-modules_F1:1",
+"GRIP-0136_holder-c-socket_F2:1",
+"GRIP-0135_finray-a-c-socket_F2:1",
+"M3x8-ISO4762_hold20:1",
+"M3x8-ISO4762_hold21:1"
+],
+"report_gaps": true
+}
+},
+{
+"command": "joint.sweep",
+"params": {
+"joint": "R_knob",
+"from": -5400.0,
+"to": 5400.0,
+"step": 360.0,
+"occurrences": [
+"GRIP-0126_carriage-b-modules_F1:1",
+"GRIP-0136_holder-c-socket_F2:1",
+"GRIP-0135_finray-a-c-socket_F2:1",
+"M3x8-ISO4762_hold20:1",
+"M3x8-ISO4762_hold21:1"
+],
+"against": [
+"GRIP-0124_base-plate-modules_F1:1"
+],
+"report_gaps": true
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": -5400.0
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0055_pinion-z18_F1"
+],
+"against": [
+"GRIP-0125_carriage-a-modules_F1",
+"GRIP-0126_carriage-b-modules_F1"
+],
+"nearest": 2
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": -5211.504440784613
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0055_pinion-z18_F1"
+],
+"against": [
+"GRIP-0125_carriage-a-modules_F1",
+"GRIP-0126_carriage-b-modules_F1"
+],
+"nearest": 2
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": -5023.008881569224
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0055_pinion-z18_F1"
+],
+"against": [
+"GRIP-0125_carriage-a-modules_F1",
+"GRIP-0126_carriage-b-modules_F1"
+],
+"nearest": 2
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": -4834.513322353837
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0055_pinion-z18_F1"
+],
+"against": [
+"GRIP-0125_carriage-a-modules_F1",
+"GRIP-0126_carriage-b-modules_F1"
+],
+"nearest": 2
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": -4646.0177631384495
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0055_pinion-z18_F1"
+],
+"against": [
+"GRIP-0125_carriage-a-modules_F1",
+"GRIP-0126_carriage-b-modules_F1"
+],
+"nearest": 2
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": -4457.522203923062
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0055_pinion-z18_F1"
+],
+"against": [
+"GRIP-0125_carriage-a-modules_F1",
+"GRIP-0126_carriage-b-modules_F1"
+],
+"nearest": 2
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": -4269.026644707675
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0055_pinion-z18_F1"
+],
+"against": [
+"GRIP-0125_carriage-a-modules_F1",
+"GRIP-0126_carriage-b-modules_F1"
+],
+"nearest": 2
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": 0.0
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0055_pinion-z18_F1"
+],
+"against": [
+"GRIP-0125_carriage-a-modules_F1",
+"GRIP-0126_carriage-b-modules_F1"
+],
+"nearest": 2
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": 4834.513322353837
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0055_pinion-z18_F1"
+],
+"against": [
+"GRIP-0125_carriage-a-modules_F1",
+"GRIP-0126_carriage-b-modules_F1"
+],
+"nearest": 2
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": 5400.0
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0055_pinion-z18_F1"
+],
+"against": [
+"GRIP-0125_carriage-a-modules_F1",
+"GRIP-0126_carriage-b-modules_F1"
+],
+"nearest": 2
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": 5400.0
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0135_finray-a-c-socket_F1"
+],
+"against": [
+"GRIP-0135_finray-a-c-socket_F2"
+],
+"nearest": 1
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0136_holder-c-socket_F1"
+],
+"against": [
+"GRIP-0136_holder-c-socket_F2"
+],
+"nearest": 1
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": -5400.0
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0135_finray-a-c-socket_F1"
+],
+"against": [
+"GRIP-0135_finray-a-c-socket_F2"
+],
+"nearest": 1
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0136_holder-c-socket_F1"
+],
+"against": [
+"GRIP-0136_holder-c-socket_F2"
+],
+"nearest": 1
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": 0
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0135_finray-a-c-socket_F1",
+"GRIP-0135_finray-a-c-socket_F2"
+],
+"against": [
+"GRIP-0136_holder-c-socket_F1",
+"GRIP-0136_holder-c-socket_F2",
+"GRIP-0125_carriage-a-modules_F1",
+"GRIP-0126_carriage-b-modules_F1",
+"GRIP-0124_base-plate-modules_F1",
+"M3x8-ISO4762_hold10",
+"M3x8-ISO4762_hold11",
+"M3x8-ISO4762_hold20",
+"M3x8-ISO4762_hold21"
+],
+"nearest": 1
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0136_holder-c-socket_F1",
+"GRIP-0136_holder-c-socket_F2"
+],
+"against": [
+"GRIP-0125_carriage-a-modules_F1",
+"GRIP-0126_carriage-b-modules_F1",
+"GRIP-0124_base-plate-modules_F1",
+"M3x8-ISO4762_hold10",
+"M3x8-ISO4762_hold11",
+"M3x8-ISO4762_hold20",
+"M3x8-ISO4762_hold21"
+],
+"nearest": 1
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": 5400.0
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"M6x70-ISO4017_F1",
+"M6-nyloc-DIN985_F1",
+"M6-nut-ISO4032_F1",
+"GRIP-0056_knob_F1"
+],
+"against": [
+"GRIP-0125_carriage-a-modules_F1",
+"GRIP-0126_carriage-b-modules_F1",
+"GRIP-0124_base-plate-modules_F1",
+"GRIP-0136_holder-c-socket_F1",
+"GRIP-0136_holder-c-socket_F2"
+],
+"nearest": 1
+}
+},
+{
+"command": "joint.drive",
+"params": {
+"joint": "R_knob",
+"value": -5400.0
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"M6x70-ISO4017_F1",
+"M6-nyloc-DIN985_F1",
+"M6-nut-ISO4032_F1",
+"GRIP-0056_knob_F1"
+],
+"against": [
+"GRIP-0125_carriage-a-modules_F1",
+"GRIP-0126_carriage-b-modules_F1",
+"GRIP-0124_base-plate-modules_F1",
+"GRIP-0136_holder-c-socket_F1",
+"GRIP-0136_holder-c-socket_F2"
+],
+"nearest": 1
+}
+}
+]

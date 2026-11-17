@@ -1,0 +1,33 @@
+{
+ "_note": "model direction that faces the bed (tools/plates.py, tools/sortsheet.py). Holder and brackets lie on a side wall so floor, back and cap print as walls (no cantilevered cap); their pin holes then print horizontal. Cam plates print plate face down, standoff up. Fingers lie flat on their profile (every rib a vertical wall).",
+ "GRIP-0127": [
+  1,
+  0,
+  0
+ ],
+ "GRIP-0128": [
+  -1,
+  0,
+  0
+ ],
+ "GRIP-0129": [
+  1,
+  0,
+  0
+ ],
+ "GRIP-0131": [
+  0,
+  0,
+  1
+ ],
+ "GRIP-0132": [
+  0,
+  0,
+  1
+ ],
+ "GRIP-0133": [
+  0,
+  0,
+  -1
+ ]
+}
