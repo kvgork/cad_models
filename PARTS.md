@@ -124,6 +124,19 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | GRIP-0121 | pin-press-head-b | X1 | PIN, PRESS, HEADED, D3, 2 FLATS, B (COUPLER-ROCKER) | strandbeest_gripper/v8_four-bar | PETG, FDM |
 | GRIP-0122 | pin-press-head-p | X1 | PIN, PRESS, HEADED, D3, 2 FLATS, P (COUPLER-JAW) | strandbeest_gripper/v8_four-bar | PETG, FDM |
 | GRIP-0123 | snap-pin-2f-idler-down | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, Z24 IDLER, HEAD IN GEAR | strandbeest_gripper/v8_four-bar | PETG, FDM |
+| GRIP-0124 | base-plate-modules | X1 | BASE, FINRAY GRIPPER V2, RAIL + SCREW WALL + PINION POST + MODULE NUT POCKETS | finray_tests/v2_multi-actuation | PETG, FDM |
+| GRIP-0125 | carriage-a-modules | X1 | CARRIAGE, JAW A, NUT TRAP + RACK, 2 INSERTS FOR MODULES, FINRAY V2 | finray_tests/v2_multi-actuation | PETG, FDM |
+| GRIP-0126 | carriage-b-modules | X1 | CARRIAGE, JAW B, RACK + ARM, 2 INSERTS FOR MODULES, FINRAY V2 | finray_tests/v2_multi-actuation | PETG, FDM |
+| GRIP-0127 | holder-parallel | X1 | HOLDER, PARALLEL MODULE, PINNED FINGER ROOT, FINRAY V2 | finray_tests/v2_multi-actuation | PETG, FDM |
+| GRIP-0128 | bracket-pull-left | X1 | BRACKET, PULL MODULE, LEFT (JAW A SIDE), OUTER PIN + SLIDER GUIDE, FINRAY V2 | finray_tests/v2_multi-actuation | PETG, FDM |
+| GRIP-0129 | bracket-pull-right | X1 | BRACKET, PULL MODULE, RIGHT (JAW B SIDE), OUTER PIN + SLIDER GUIDE, FINRAY V2 | finray_tests/v2_multi-actuation | PETG, FDM |
+| GRIP-0130 | slider-pull | X1 | SLIDER, PULL MODULE, INNER PIN, DRIVE BOSS, FINRAY V2 | finray_tests/v2_multi-actuation | PETG, FDM |
+| GRIP-0131 | cam-plate-pull-left | X1 | PLATE, CAM, 45 DEG SLOT, PULL MODULE, LEFT (CARRIAGE A), FINRAY V2 | finray_tests/v2_multi-actuation | PETG, FDM |
+| GRIP-0132 | cam-plate-pull-right | X1 | PLATE, CAM, 45 DEG SLOT, PULL MODULE, RIGHT (CARRIAGE B), FINRAY V2 | finray_tests/v2_multi-actuation | PETG, FDM |
+| GRIP-0133 | finray-a-pinned | X1 | FINGER, FIN RAY, A BASELINE, OPEN ROOT, 2 PINNED CORNER BOSSES | finray_tests/v2_multi-actuation | TPU 90A, FDM |
+| GRIP-0134 | snap-pin-2f-finger | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, FINGER ROOT BOSS | finray_tests/v2_multi-actuation | PETG, FDM |
+| GRIP-0135 | finray-a-c-socket | X1 | FINGER, FIN RAY, A BASELINE, OPEN ROOT, 2 D5 CORNER CYLINDERS (C-SOCKET TEST) | finray_tests/v2b_c-socket | TPU 90A, FDM |
+| GRIP-0136 | holder-c-socket | X1 | HOLDER, PARALLEL, 2 C-SOCKETS, FINGER SLIDES IN FROM TOP (C-SOCKET TEST) | finray_tests/v2b_c-socket | PETG, FDM |
 | GRIP-9001 | assy-tester-fit-check | X1 | ASSY, GRIPPER TESTER, FIT CHECK | gripper_tester | — |
 | GRIP-9002 | assy-single-finger | X1 | ASSY, FINGER, STRANDBEEST (v1: single finger + anvil) | strandbeest_gripper/v1_single-finger | — |
 | GRIP-9003 | assy-dual-finger | X1 | ASSY, GRIPPER, DUAL FINGER, STRANDBEEST V2 (feeder) | strandbeest_gripper/v2_dual-finger | — |
@@ -139,6 +152,8 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | GRIP-9013 | assy-tester-fe-urt2-fit-check | X1 | ASSY, GRIPPER TESTER, FE-URT-2, FIT CHECK | gripper_tester/v2_fe-urt2 | — |
 | GRIP-9014 | assy-sandwich | X1 | ASSY, GRIPPER, SANDWICH FRAME, MIRRORED TWIN LEGS, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | — |
 | GRIP-9016 | assy-four-bar | X1 | ASSY, GRIPPER, FOUR-BAR LEGS, ECCENTRIC CRANKS, STRANDBEEST V8 | strandbeest_gripper/v8_four-bar | — |
+| GRIP-9017 | assy-finray-multi-actuation | X1 | ASSY, FINRAY TEST RIG V2, SWAPPABLE ACTUATION MODULES (PARALLEL MOUNTED, PULL PARKED) | finray_tests/v2_multi-actuation | — |
+| GRIP-9018 | assy-finray-c-socket | X1 | ASSY, FINRAY TEST RIG V2B, PARALLEL, C-SOCKET FINGER ROOTS | finray_tests/v2b_c-socket | — |
 | SO101-0001 | tip-moving-jaw | X1 | TIP, JAW, MOVING, CALIBRATION | gripper_tips/v1_full-cap | red PLA/PETG, FDM |
 | SO101-0002 | tip-fixed-jaw | X1 | TIP, JAW, FIXED, CALIBRATION | gripper_tips/v1_full-cap | red PLA/PETG, FDM |
 | SO101-0003 | tip-moving-jaw-open | X1 | TIP, JAW, MOVING, CALIBRATION, OPEN GRIP FACE | gripper_tips/v2_open-inside | red PLA/PETG, FDM |
@@ -156,4 +171,4 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | LIB-0009 | servo-sts3215 | — | SERVO, STS3215 (vendor STEP) | lib/sts3215, base/feetech_sts3215 (identical copy) | purchased |
 | LIB-0010 | servo-scs0009 | — | SERVO, SCS0009, MICRO SERIAL BUS (vendor STEP) | base/feetech_scs0009 | purchased |
 
-Next free: GRIP-0124, GRIP-9017, SO101-0005, JTNK-0002, JTNK-9002, LIB-0011.
+Next free: GRIP-0137, GRIP-9019, SO101-0005, JTNK-0002, JTNK-9002, LIB-0011.

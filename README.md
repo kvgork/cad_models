@@ -9,7 +9,7 @@
 | Product | What it is | Status |
 |---|---|---|
 | [base](base/README.md) | General CAD files reused across projects. Feetech SCS0009 micro servo and STS3215 (the SO-101 servo): models with measured interfaces, datasheet cross-checks and placement matrices | reference |
-| [finray_tests](finray_tests/README.md) | Hand-driven parallel test gripper (thumb screw, rack and pinion) with slide-in fin-ray fingers, plus 3 finger designs to compare: baseline, wrap and stiff (TPU 90A) | X1, CAD-checked, not printed yet |
+| [finray_tests](finray_tests/README.md) | Hand-driven test rigs for fin-ray fingers (TPU 90A): [v1](finray_tests/v1_parallel/README.md) parallel thumb-screw gripper with five finger designs; [v2](finray_tests/v2_multi-actuation/README.md) one base with swappable actuation modules (parallel, pull the inner root corner) sharing the same pinned-root fingers; [v2b](finray_tests/v2b_c-socket/README.md) C-socket root test | X1, CAD-checked, not printed yet |
 | [gripper_tester](gripper_tester/README.md) | Bench baseplate with a dovetail slide for swapping SO-101 grippers, plus a mount for the servo board: v1 Waveshare, [v2](gripper_tester/v2_fe-urt2/README.md) Feetech FE-URT-2 | X1, CAD-checked |
 | [gripper_tips](gripper_tips/README.md) | Red snap-on calibration tips for the two SO-101 gripper jaws: [v1](gripper_tips/v1_full-cap/README.md) full cap, [v2](gripper_tips/v2_open-inside/README.md) outside only | X1, CAD-checked |
 | [lidar_holder](lidar_holder/README.md) | Riser that mounts an RPLIDAR C1 on the JeTank | X1, CAD-checked |

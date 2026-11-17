@@ -1,0 +1,48 @@
+{
+ "note": "Same drive and carriages as v2 (inserts as there). The C-socket holders screw on like v2's parallel holders: the screws pass the 3 mm cap and grip 5 mm of the 6 mm insert hole.",
+ "lines": [
+  {
+   "qty": 1,
+   "where": "lead screw: head pressed into the knob, through the end wall and jaw A",
+   "items": [
+    "M6×70 hex screw, full thread (ISO 4017)"
+   ]
+  },
+  {
+   "qty": 1,
+   "where": "inside the end wall: holds the screw axially; snug, not tight, so it still turns",
+   "items": [
+    "M6 nyloc nut (DIN 985)"
+   ]
+  },
+  {
+   "qty": 1,
+   "where": "jaw A nut trap (drop in from the top)",
+   "items": [
+    "M6 hex nut (ISO 4032)"
+   ]
+  },
+  {
+   "qty": 1,
+   "where": "pinion retainer, on the post",
+   "items": [
+    "M3×8 socket head screw (ISO 4762)",
+    "M3 washer (DIN 125)"
+   ]
+  },
+  {
+   "qty": 4,
+   "where": "carriage tops, 2 per carriage: module mount (melt in with a soldering iron)",
+   "items": [
+    "M3 heat-set insert, 4 mm long, OD ≈ 4.5 mm (NEEDS CHECK against the Ø4.0 × 6 mm hole)"
+   ]
+  },
+  {
+   "qty": 4,
+   "where": "C-socket holder to carriage (2 per holder)",
+   "items": [
+    "M3×8 socket head screw (ISO 4762)"
+   ]
+  }
+ ]
+}

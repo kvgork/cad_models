@@ -1,0 +1,63 @@
+{
+ "note": "Same drive as v1. Modules screw onto two heat-set inserts in each carriage top. Lengths from the model: holder screws pass the 3 mm cap and grip 5 mm of the 6 mm insert hole; cam-plate screws sit in a 2 mm counterbore and pass 7.3 mm of plate + standoff (4.7 mm into the insert); bracket screws pass the 4.05 mm bracket block and the 4 mm base into an M3 nut in a pocket under the base (about 2.3 mm of thread, NEEDS CHECK). Only the module you use needs its screws.",
+ "lines": [
+  {
+   "qty": 1,
+   "where": "lead screw: head pressed into the knob, through the end wall and jaw A",
+   "items": [
+    "M6×70 hex screw, full thread (ISO 4017)"
+   ]
+  },
+  {
+   "qty": 1,
+   "where": "inside the end wall: holds the screw axially; snug, not tight, so it still turns",
+   "items": [
+    "M6 nyloc nut (DIN 985)"
+   ]
+  },
+  {
+   "qty": 1,
+   "where": "jaw A nut trap (drop in from the top)",
+   "items": [
+    "M6 hex nut (ISO 4032)"
+   ]
+  },
+  {
+   "qty": 1,
+   "where": "pinion retainer, on the post",
+   "items": [
+    "M3×8 socket head screw (ISO 4762)",
+    "M3 washer (DIN 125)"
+   ]
+  },
+  {
+   "qty": 4,
+   "where": "carriage tops, 2 per carriage: module mount (melt in with a soldering iron)",
+   "items": [
+    "M3 heat-set insert, 4 mm long, OD ≈ 4.5 mm (NEEDS CHECK against the Ø4.0 × 6 mm hole)"
+   ]
+  },
+  {
+   "qty": 4,
+   "where": "parallel module: holder to carriage (2 per holder)",
+   "items": [
+    "M3×8 socket head screw (ISO 4762)"
+   ]
+  },
+  {
+   "qty": 4,
+   "where": "pull module: cam plate to carriage (2 per plate)",
+   "items": [
+    "M3×12 socket head screw (ISO 4762)"
+   ]
+  },
+  {
+   "qty": 4,
+   "where": "pull module: bracket to base through its slots (2 per bracket)",
+   "items": [
+    "M3×8 socket head screw (ISO 4762)",
+    "M3 hex nut (ISO 4032), in the pocket under the base"
+   ]
+  }
+ ]
+}
