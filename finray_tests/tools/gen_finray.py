@@ -1,4 +1,4 @@
-"""Generate finray_tests/cad/GRIP-9010_assy-finray-gripper.json: a hand-driven parallel gripper
+"""Generate finray_tests/v1_parallel/cad/GRIP-9010_assy-finray-gripper.json: a hand-driven parallel gripper
 with slide-in fin-ray fingers, plus three finger designs to compare.
 
 Frame: X = jaw travel, Y = forward (fingers point +Y), Z = up. Base bottom at z = 0.
@@ -13,7 +13,7 @@ The left finger is the right one turned over (rotated 180 deg about Y): one STL 
 
 Run from the repo root:
     python3 finray_tests/tools/gen_finray.py
-    tools/build.sh finray_tests
+    tools/build.sh finray_tests/v1_parallel
     python3 finray_tests/tools/verify_finray.py
 """
 import json
@@ -25,8 +25,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, '..', '..', 'tools'))
 import parts  # noqa: E402
 
-OUT = 'finray_tests/cad/GRIP-9010_assy-finray-gripper.json'
-VDIR = 'finray_tests'
+OUT = 'finray_tests/v1_parallel/cad/GRIP-9010_assy-finray-gripper.json'
+VDIR = 'finray_tests/v1_parallel'
 PN = {'base': 'GRIP-0052', 'car_a': 'GRIP-0053', 'car_b': 'GRIP-0054', 'pinion': 'GRIP-0055', 'knob': 'GRIP-0056',
       'fa': 'GRIP-0057', 'fb': 'GRIP-0058', 'fc': 'GRIP-0059', 'fap': 'GRIP-0067', 'fam': 'GRIP-0068'}
 
