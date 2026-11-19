@@ -36,6 +36,8 @@ sys.path.insert(0, os.path.join(HERE, '..', '..', 'tools'))
 import parts  # noqa: E402
 import fourbar as fb  # noqa: E402
 
+REV = lambda pn: parts.register()[pn]['Rev']  # noqa: E731  revision from PARTS.md
+
 VDIR = 'strandbeest_gripper/v8_four-bar'
 ASSY = 'GRIP-9016'
 PN = {'frame': 'GRIP-0107', 'plate': 'GRIP-0108', 'knob': 'GRIP-0109',
@@ -84,6 +86,7 @@ KNOB_T = KNOB_Z0 + KNOB_H
 PIN_R = (3.4 - 2 * CLEAR) / 2
 FLAT = 0.25
 HEAD_H, BARB_H, BARB_UP, SLOT_W, SLOT_DOWN, SHANK_OVER = 3.0, 1.5, 0.2, 0.8, 4.0, 0.3
+PRESS_CH = 0.3                   # X2: lead-in chamfer on the coupler press holes
 PHEAD_H = 1.5                    # press-pin and idler-pin heads (thin: under the plate / inside the idler)
 SH_HEAD_D, SH_HEAD_H = 8.0, 2.0  # crank shaft head under the base
 SH_BARB_D, SH_BARB_TIP, SH_SLOT, SH_SLOT_DOWN = 5.9, 4.6, 1.0, 5.0
@@ -399,6 +402,11 @@ def coupler(leg):
     cyl("ring_bore", Z_L1 - 0.5, LINK_T + 1, j['J1'], "cut", name, f"bore_{leg}")
     for n in ('B', 'P'):
         cyl("press_d", Z_L1 - 0.5, LINK_T + 1, j[n], "cut", name, f"press_{n}_{leg}")
+        # X2: 45 deg lead-in on both ends (finger 2's couplers are flipped, so the pin can enter either side)
+        for z0, h, d0, d1, end in ((Z_L1 - 0.01, PRESS_CH + 0.01, f"press_d + {fx(2 * PRESS_CH + 0.02)} mm", "press_d", "bot"),
+                                   (Z_L1 + LINK_T - PRESS_CH, PRESS_CH + 0.01, "press_d", f"press_d + {fx(2 * PRESS_CH + 0.02)} mm", "top")):
+            c("solid.cone", diameter=d0, top_diameter=d1, height=f"{fx(h)} mm", base=[fx(j[n][0]), fx(j[n][1]), fx(z0)],
+              operation="cut", targets=[name], name=f"press_{n}_{leg}_leadin_{end}")
 
 
 def rocker(leg):
@@ -514,12 +522,12 @@ def build():
     ATTACH.clear()
     COMPS.clear()
     c("document.metadata.set", values={"part_number": ASSY, "description": parts.register()[ASSY]['Description'],
-                                       "revision": "X1", "project": "strandbeest_gripper"})
+                                       "revision": REV(ASSY), "project": "strandbeest_gripper"})
     for name, expr, why in [
         ("pin_clear", f"{CLEAR} mm", "printed pin in printed hole, play per side (user rule 0.10-0.15)"),
         ("pin_d", "3.4 mm", "hole for the D3 printed pins"),
         ("ppin_d", "pin_d - 2 * pin_clear", "printed pin shank"),
-        ("press_d", "ppin_d - 0.2 mm", "coupler bore: 0.2 mm interference on the pin (press fit, NEEDS PRINT TEST)"),
+        ("press_d", "ppin_d - 0.05 mm", "coupler bore, X2: 0.05 mm nominal interference; small vertical holes print ~0.1-0.2 small, so the printed fit is a press fit (X1 Ø2.9 was too tight, user 2026-11-18; NEEDS PRINT TEST)"),
         ("ppin_head_d", "5.5 mm", "printed pin head"),
         ("head_d", "6.5 mm", "counterbore for a pin head or barb"),
         ("barb_d", "4.0 mm", "snap barb: 0.3 mm catch per side over the D3.4 hole"),
@@ -553,7 +561,7 @@ def build():
     for key, i in COMPS:
         p = PN[key]
         c("component.metadata.set", component=cname(key, i), part_number=p,
-          description=parts.register()[p]['Description'], revision="X1", bom_type="normal")
+          description=parts.register()[p]['Description'], revision=REV(p), bom_type="normal")
     done = set()
     for key, i in COMPS:
         p = PN[key]
@@ -561,7 +569,7 @@ def build():
             continue
         done.add(p)
         for ext, cmd in (('step', 'file.export_step'), ('stl', 'file.export_stl'), ('3mf', 'file.export_3mf')):
-            pr = dict(path=f"{VDIR}/exports/{parts.export(p, 'X1', ext)}", bodies=[cname(key, i)])
+            pr = dict(path=f"{VDIR}/exports/{parts.export(p, REV(p), ext)}", bodies=[cname(key, i)])
             if ext != 'step':
                 pr["quality"] = "fine"
             c(cmd, **pr)

@@ -184,7 +184,7 @@ def main():
               f'{mg[0][0]:.3f} mm to {mg[0][2]}' if mg else a['stop'])
     pc = rs[1::3]
     cp = rs[2::3]
-    press = math.pi / 4 * (3.1 ** 2 - 2.9 ** 2) * (g.LINK_T + 0.01) + 0.05
+    press = math.pi / 4 * (3.1 ** 2 - 3.05 ** 2) * (g.LINK_T + 0.01) + 0.05   # X2 coupler: Ø3.1 pin in Ø3.05
 
     def intended(a, b, vol):
         ab = a + b
