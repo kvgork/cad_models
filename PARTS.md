@@ -115,7 +115,7 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | GRIP-0112 | gear-crank-a2-eccentric | X1 | GEAR, CRANK, A2, Z46 M1, ECCENTRIC BOSS, STRANDBEEST V8 | strandbeest_gripper/v8_four-bar | PETG, FDM |
 | GRIP-0113 | gear-crank-b2-eccentric | X1 | GEAR, CRANK, B2, Z46 M1, ECCENTRIC BOSS, STRANDBEEST V8 | strandbeest_gripper/v8_four-bar | PETG, FDM |
 | GRIP-0114 | gear-idler-z24 | X1 | GEAR, IDLER, Z24 M1, FINGER SYNC | strandbeest_gripper/v8_four-bar | PETG, FDM |
-| GRIP-0115 | coupler-eccentric | X1 | COUPLER, ECCENTRIC RING, FOUR-BAR (FINGER 2 FLIPPED) | strandbeest_gripper/v8_four-bar | PETG, FDM |
+| GRIP-0115 | coupler-eccentric | X2 | COUPLER, ECCENTRIC RING, FOUR-BAR (FINGER 2 FLIPPED) | strandbeest_gripper/v8_four-bar | PETG, FDM |
 | GRIP-0116 | rocker-q-b | X1 | ROCKER, Q-B, FOUR-BAR | strandbeest_gripper/v8_four-bar | PETG, FDM |
 | GRIP-0117 | jaw-four-bar | X1 | JAW, PARALLEL, HOLE + SHORT SLOT, STRANDBEEST V8 | strandbeest_gripper/v8_four-bar | PETG, FDM |
 | GRIP-0118 | shaft-crank-double-d | X1 | SHAFT, CRANK, D5, DOUBLE-D, SNAP, STRANDBEEST V8 | strandbeest_gripper/v8_four-bar | PETG, FDM |
@@ -151,7 +151,7 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | GRIP-9012 | assy-mirror-legs | X1 | ASSY, GRIPPER, MIRRORED TWIN LEGS, LONG PARALLEL JAWS, STRANDBEEST V6 | strandbeest_gripper/v6_mirror-legs | — |
 | GRIP-9013 | assy-tester-fe-urt2-fit-check | X1 | ASSY, GRIPPER TESTER, FE-URT-2, FIT CHECK | gripper_tester/v2_fe-urt2 | — |
 | GRIP-9014 | assy-sandwich | X1 | ASSY, GRIPPER, SANDWICH FRAME, MIRRORED TWIN LEGS, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | — |
-| GRIP-9016 | assy-four-bar | X1 | ASSY, GRIPPER, FOUR-BAR LEGS, ECCENTRIC CRANKS, STRANDBEEST V8 | strandbeest_gripper/v8_four-bar | — |
+| GRIP-9016 | assy-four-bar | X2 | ASSY, GRIPPER, FOUR-BAR LEGS, ECCENTRIC CRANKS, STRANDBEEST V8 | strandbeest_gripper/v8_four-bar | — |
 | GRIP-9017 | assy-finray-multi-actuation | X1 | ASSY, FINRAY TEST RIG V2, SWAPPABLE ACTUATION MODULES (PARALLEL MOUNTED, PULL PARKED) | finray_tests/v2_multi-actuation | — |
 | GRIP-9018 | assy-finray-c-socket | X1 | ASSY, FINRAY TEST RIG V2B, PARALLEL, C-SOCKET FINGER ROOTS | finray_tests/v2b_c-socket | — |
 | SO101-0001 | tip-moving-jaw | X1 | TIP, JAW, MOVING, CALIBRATION | gripper_tips/v1_full-cap | red PLA/PETG, FDM |
