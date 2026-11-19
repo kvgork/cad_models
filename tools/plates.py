@@ -6,6 +6,8 @@ quantity, laid flat in its print orientation and packed onto the bed. One Bambu 
     python3 tools/plates.py strandbeest_gripper/v4b_snap-pins            # printer.json printer (X2D)
     python3 tools/plates.py strandbeest_gripper/v4b_snap-pins --plain    # plain 3MF only, no Bambu Studio
     python3 tools/plates.py strandbeest_gripper/v4b_snap-pins --bed 180  # other square bed (implies no nozzle limits)
+    python3 tools/plates.py strandbeest_gripper/v8_four-bar --only GRIP-0107,GRIP-0115 --tag reprint
+                                     # only those parts (assembly qty): <ASSY>_<name>_reprint_plate<N>-..., full plates kept
 
 Output: <folder>/exports/plates/<ASSY-PN>_<name>_plate<N>-<material>_<REV>.3mf
 Normal (rigid) prints and TPU prints always go on separate plates (material from PARTS.md).
@@ -133,6 +135,10 @@ def pack(items, area):
         if z > 2 * min(w, h):                     # tall and slender: needs a brim, keep neighbours clear of it
             tris = tris + [BRIM, BRIM, 0]
             w, h = w + 2 * BRIM, h + 2 * BRIM
+        if (w > usable_w or h > usable_h) and h <= usable_w and w <= usable_h:   # fits only turned 90 deg
+            tris = tris[..., [1, 0, 2]] * [1, -1, 1]
+            tris = tris - tris.reshape(-1, 3).min(0)
+            w, h = h, w
         if w > usable_w or h > usable_h:
             raise SystemExit(f'{name}: {w:.0f} x {h:.0f} mm does not fit the {usable_w:.0f} x {usable_h:.0f} mm printable area')
         placed = False
@@ -340,6 +346,17 @@ def main(argv):
         b = float(argv[i + 1])
         area = [0.0, 0.0, b, b]
         argv = argv[:i] + argv[i + 2:]
+    only, tag = None, None
+    for flag in ('--only', '--tag'):
+        if flag in argv:
+            i = argv.index(flag)
+            if flag == '--only':
+                only = set(argv[i + 1].split(','))
+            else:
+                tag = argv[i + 1]
+            argv = argv[:i] + argv[i + 2:]
+    if only and not tag:
+        tag = 'partial'
     plain = '--plain' in argv                     # only the plain 3MF (no Bambu Studio conversion)
     argv = [a for a in argv if a != '--plain']
     env = None if plain else bambu_env()
@@ -351,6 +368,11 @@ def main(argv):
         assy = printlist.assembly_counts(os.path.join(ROOT, folder, 'cad'))
         stls = {printlist.STL_RE.match(os.path.basename(p)).group(1): p
                 for p in sorted(glob.glob(os.path.join(exports, '*.stl')))}
+        if only:
+            missing = only - set(stls)
+            if missing:
+                sys.exit(f'{folder}: --only parts without an STL in exports/: {sorted(missing)}')
+            stls = {pn: p for pn, p in stls.items() if pn in only}
         if not stls:
             continue
         if assy:
@@ -364,6 +386,8 @@ def main(argv):
             # no assembly: the newest part revision in the kit (X1 < X2 < ... < A < B), so a part bump renames the plate
             revs = [re.search(r'_([A-Z0-9]+)\.stl$', p).group(1) for p in stls.values()]
             stem, rev = os.path.basename(folder), max(revs, key=lambda r: (not r.startswith('X'), len(r), r))
+        if tag:
+            stem = f'{stem}_{tag}'                  # its own file names: the full-kit plates stay
         reg = printlist.parts.register()
         orient = orient_overrides(folder)
         groups = {}                               # material -> items: one material per plate

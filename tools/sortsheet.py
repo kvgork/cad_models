@@ -90,6 +90,9 @@ def part_items(folder):
         lines = [f"{pn}  {r.get('Name', '?')}  {rev}",
                  f"x{n[pn]}   {r.get('Material / process', '?').split(',')[0]}"]
         w, h = t[..., 0].max(), t[..., 1].max()
+        if w > PAGE_W - 2 * MARGIN or h + LABEL_H > PAGE_H - 2 * MARGIN - HEADER:   # bigger than the page: 1:2
+            t, w, h = t * 0.5, w * 0.5, h * 0.5
+            lines[0] += '  (drawn 1:2)'
         cw = max(w, max(len(s) for s in lines) * CHAR_W)
         items.append(dict(pn=pn, tris=t, w=w, h=h, cw=cw, ch=h + LABEL_H, lines=lines))
     return stem, items
