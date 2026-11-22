@@ -1,0 +1,350 @@
+[
+{
+"command": "solid.box",
+"params": {
+"length": "40.95 mm",
+"width": "12.7 mm",
+"height": "0.05 mm",
+"center": [
+7.025,
+0.0,
+-6.375
+],
+"operation": "new",
+"body_name": "probe_a_w"
+}
+},
+{
+"command": "solid.box",
+"params": {
+"length": "40.95 mm",
+"width": "12.7 mm",
+"height": "0.05 mm",
+"center": [
+-7.025,
+0.0,
+6.375
+],
+"operation": "new",
+"body_name": "probe_b_w"
+}
+},
+{
+"command": "solid.box",
+"params": {
+"length": "40.95 mm",
+"width": "12.7 mm",
+"height": "0.05 mm",
+"center": [
+7.025,
+90.0,
+-6.375
+],
+"operation": "new",
+"body_name": "probe_a_d"
+}
+},
+{
+"command": "solid.box",
+"params": {
+"length": "40.95 mm",
+"width": "12.7 mm",
+"height": "0.05 mm",
+"center": [
+-7.025,
+90.0,
+6.375
+],
+"operation": "new",
+"body_name": "probe_b_d"
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"load-cell-TAL220B-w30_F1"
+],
+"against": [
+"GRIP-0098_split-jaw-a-w30_F1",
+"GRIP-0099_split-jaw-b-w30_F1"
+],
+"nearest": 2
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"load-cell-TAL220B-d30_F1"
+],
+"against": [
+"GRIP-0100_split-jaw-a-d30_F1",
+"GRIP-0101_split-jaw-b-d30_F1"
+],
+"nearest": 2
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"probe_a_w",
+"probe_b_w"
+],
+"against": [
+"GRIP-0098_split-jaw-a-w30_F1",
+"GRIP-0099_split-jaw-b-w30_F1"
+],
+"nearest": 4
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"probe_a_d",
+"probe_b_d"
+],
+"against": [
+"GRIP-0100_split-jaw-a-d30_F1",
+"GRIP-0101_split-jaw-b-d30_F1"
+],
+"nearest": 4
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"dowel-4x28-ISO2338-w30_F1",
+"dowel-4x28-ISO2338-w30_F2"
+],
+"against": [
+"GRIP-0098_split-jaw-a-w30_F1",
+"GRIP-0099_split-jaw-b-w30_F1",
+"load-cell-TAL220B-w30_F1"
+],
+"nearest": 6
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"dowel-4x28-ISO2338-d30_F1",
+"dowel-4x28-ISO2338-d30_F2"
+],
+"against": [
+"GRIP-0100_split-jaw-a-d30_F1",
+"GRIP-0101_split-jaw-b-d30_F1",
+"load-cell-TAL220B-d30_F1"
+],
+"nearest": 6
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0103_cal-platform_F1"
+],
+"against": [
+"GRIP-0099_split-jaw-b-w30_F1",
+"GRIP-0098_split-jaw-a-w30_F1",
+"load-cell-TAL220B-w30_F1"
+],
+"nearest": 3
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"GRIP-0102_cal-cradle-v_F1"
+],
+"against": [
+"GRIP-0100_split-jaw-a-d30_F1",
+"GRIP-0101_split-jaw-b-d30_F1",
+"load-cell-TAL220B-d30_F1"
+],
+"nearest": 3
+}
+},
+{
+"command": "file.insert_step",
+"params": {
+"path": "gripper_tester/exports/GRIP-0002_gripper-adapter_X1.step",
+"name": "adapter_part"
+}
+},
+{
+"command": "occurrence.move",
+"params": {
+"occurrence": "adapter_part:1",
+"space": "world",
+"matrix": [
+[
+1,
+0,
+0,
+150.0
+],
+[
+0,
+1,
+0,
+0.0
+],
+[
+0,
+0,
+1,
+5.0
+]
+],
+"move_grounded": true
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"adapter"
+],
+"against": [
+"GRIP-0104_dovetail-receptacle-2020_F1"
+],
+"nearest": 2
+}
+},
+{
+"command": "solid.box",
+"params": {
+"length": "21.0 mm",
+"width": "40.0 mm",
+"height": "1.6 mm",
+"center": [
+-55.0,
+-184.0,
+8.200000000000001
+],
+"operation": "new",
+"body_name": "pcb_hx1"
+}
+},
+{
+"command": "solid.box",
+"params": {
+"length": "21.0 mm",
+"width": "40.0 mm",
+"height": "1.6 mm",
+"center": [
+-25.0,
+-184.0,
+8.200000000000001
+],
+"operation": "new",
+"body_name": "pcb_hx2"
+}
+},
+{
+"command": "solid.box",
+"params": {
+"length": "21.0 mm",
+"width": "40.0 mm",
+"height": "1.6 mm",
+"center": [
+5.0,
+-184.0,
+8.200000000000001
+],
+"operation": "new",
+"body_name": "pcb_hx3"
+}
+},
+{
+"command": "solid.box",
+"params": {
+"length": "21.0 mm",
+"width": "40.0 mm",
+"height": "1.6 mm",
+"center": [
+35.0,
+-184.0,
+8.200000000000001
+],
+"operation": "new",
+"body_name": "pcb_hx4"
+}
+},
+{
+"command": "solid.box",
+"params": {
+"length": "40.0 mm",
+"width": "28.0 mm",
+"height": "1.6 mm",
+"center": [
+-45.0,
+-138.0,
+13.200000000000001
+],
+"operation": "new",
+"body_name": "pcb_esp32"
+}
+},
+{
+"command": "solid.box",
+"params": {
+"length": "40.0 mm",
+"width": "20.5 mm",
+"height": "1.6 mm",
+"center": [
+40.0,
+-138.0,
+8.200000000000001
+],
+"operation": "new",
+"body_name": "pcb_ina219"
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"pcb_hx1",
+"pcb_hx2",
+"pcb_hx3",
+"pcb_hx4",
+"pcb_esp32",
+"pcb_ina219"
+],
+"against": [
+"GRIP-0105_hub-box_F1"
+],
+"nearest": 12
+}
+},
+{
+"command": "inspect.clearance",
+"params": {
+"bodies": [
+"pcb_hx1",
+"pcb_hx2",
+"pcb_hx3",
+"pcb_hx4",
+"pcb_esp32",
+"pcb_ina219"
+],
+"against": [
+"pcb_hx1",
+"pcb_hx2",
+"pcb_hx3",
+"pcb_hx4",
+"pcb_esp32",
+"pcb_ina219"
+],
+"nearest": 12
+}
+}
+]
