@@ -140,6 +140,26 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | GRIP-0137 | frame-four-bar-idler-posts | X1 | FRAME, FOUR-BAR, 4 Q COLUMNS, 2 D8 IDLER POSTS, STRANDBEEST V8B | strandbeest_gripper/v8b_idler-post | PETG, FDM |
 | GRIP-0138 | gear-idler-z24-post | X1 | GEAR, IDLER, Z24 M1, D8.3 BORE ON FRAME POST, FINGER SYNC | strandbeest_gripper/v8b_idler-post | PETG, FDM |
 | GRIP-0139 | snap-pin-2f-idler-cap | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, D10 CAP HEAD HOLDS Z24 IDLER ON POST | strandbeest_gripper/v8b_idler-post | PETG, FDM |
+| GRIP-0140 | base-finger-raptor | X1 | BASE, ARTICULATED FINGER, GRIP-0002 DOVETAIL, SCS0009 CRADLE, MCP FORK ON POSTS, CORD + ELASTIC BARS | articulated_finger/v1_raptor-cord | PETG, FDM |
+| GRIP-0141 | phalanx-proximal-raptor | X1 | PHALANX, PROXIMAL 45, KNUCKLE FORK, CORD + ELASTIC CHANNELS, ARTICULATED FINGER V1 | articulated_finger/v1_raptor-cord | PETG, FDM |
+| GRIP-0142 | phalanx-middle-raptor | X1 | PHALANX, MIDDLE 25, KNUCKLE TONGUE + FORK, CORD + ELASTIC CHANNELS, ARTICULATED FINGER V1 | articulated_finger/v1_raptor-cord | PETG, FDM |
+| GRIP-0143 | phalanx-distal-raptor | X1 | PHALANX, DISTAL 22, KNUCKLE TONGUE, ROUND TIP, ARTICULATED FINGER V1 | articulated_finger/v1_raptor-cord | PETG, FDM |
+| GRIP-0144 | snap-pin-2f-finger-mcp | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, MCP (BASE CHEEKS + PROXIMAL) | articulated_finger/v1_raptor-cord | PETG, FDM |
+| GRIP-0145 | snap-pin-2f-finger-knuckle | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, PIP / DIP KNUCKLE | articulated_finger/v1_raptor-cord | PETG, FDM |
+| GRIP-0146 | pull-ring-cord | X1 | RING, PULL, FLEXOR CORD, HAND OPERATION | articulated_finger/v1_raptor-cord | PETG, FDM |
+| GRIP-0147 | spool-cord-scs0009 | X1 | SPOOL, FLEXOR CORD, ON SCS0009 SPLINE (SERVO STAGE) | articulated_finger/v1_raptor-cord | PETG, FDM |
+| GRIP-0148 | base-finger-rod | X1 | BASE, ARTICULATED FINGER V2, CENTRED DOVETAIL, SCS0009 CRADLE (DEEP), MCP FORK, B0 LUG | articulated_finger/v2_rod-fourbar | PETG, FDM |
+| GRIP-0149 | phalanx-proximal-rod | X1 | PHALANX, PROXIMAL 45, KNUCKLE FORK, MCP LEVER ARM, P1 EAR, ARTICULATED FINGER V2 | articulated_finger/v2_rod-fourbar | PETG, FDM |
+| GRIP-0150 | phalanx-middle-rod | X1 | PHALANX, MIDDLE 25, KNUCKLE TONGUE + FORK, M1 EAR, ARTICULATED FINGER V2 | articulated_finger/v2_rod-fourbar | PETG, FDM |
+| GRIP-0151 | phalanx-distal-rod | X1 | PHALANX, DISTAL 22, KNUCKLE TONGUE, ROUND TIP, D1 EAR, ARTICULATED FINGER V2 | articulated_finger/v2_rod-fourbar | PETG, FDM |
+| GRIP-0152 | horn-rod-scs0009 | X1 | HORN, ROD DRIVE, ON SCS0009 SPLINE OR DUMMY STUB, HAND LEVER | articulated_finger/v2_rod-fourbar | PETG, FDM |
+| GRIP-0153 | rod-push-mcp | X1 | ROD, PUSH, HORN TO MCP LEVER, ARTICULATED FINGER V2 | articulated_finger/v2_rod-fourbar | PETG, FDM |
+| GRIP-0154 | link-pip-coupler | X1 | LINK, CROSSED, BASE B0 TO MIDDLE M1 (PIP FOLLOWS MCP) | articulated_finger/v2_rod-fourbar | PETG, FDM |
+| GRIP-0155 | link-dip-coupler | X1 | LINK, CROSSED, PROXIMAL P1 TO DISTAL D1 (DIP FOLLOWS PIP) | articulated_finger/v2_rod-fourbar | PETG, FDM |
+| GRIP-0156 | dummy-servo-scs0009 | X1 | DUMMY, SCS0009 ENVELOPE, D3.7 STUB, HAND OPERATION BEARING FOR THE HORN | articulated_finger/v2_rod-fourbar | PETG, FDM |
+| GRIP-0157 | snap-pin-2f-link-ear | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, SHANK 6.2, LINK EARS + HORN | articulated_finger/v2_rod-fourbar | PETG, FDM |
+| GRIP-0158 | snap-pin-2f-link-base | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, SHANK 8.1, PIP LINK ON BASE LUG | articulated_finger/v2_rod-fourbar | PETG, FDM |
+| GRIP-0159 | snap-pin-2f-lever | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, SHANK 14.7, ROD ON MCP LEVER | articulated_finger/v2_rod-fourbar | PETG, FDM |
 | GRIP-9001 | assy-tester-fit-check | X1 | ASSY, GRIPPER TESTER, FIT CHECK | gripper_tester | — |
 | GRIP-9002 | assy-single-finger | X1 | ASSY, FINGER, STRANDBEEST (v1: single finger + anvil) | strandbeest_gripper/v1_single-finger | — |
 | GRIP-9003 | assy-dual-finger | X1 | ASSY, GRIPPER, DUAL FINGER, STRANDBEEST V2 (feeder) | strandbeest_gripper/v2_dual-finger | — |
@@ -158,6 +178,8 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | GRIP-9017 | assy-finray-multi-actuation | X1 | ASSY, FINRAY TEST RIG V2, SWAPPABLE ACTUATION MODULES (PARALLEL MOUNTED, PULL PARKED) | finray_tests/v2_multi-actuation | — |
 | GRIP-9018 | assy-finray-c-socket | X1 | ASSY, FINRAY TEST RIG V2B, PARALLEL, C-SOCKET FINGER ROOTS | finray_tests/v2b_c-socket | — |
 | GRIP-9019 | assy-four-bar-idler-posts | X1 | ASSY, GRIPPER, FOUR-BAR LEGS, IDLERS ON FRAME POSTS, STRANDBEEST V8B | strandbeest_gripper/v8b_idler-post | — |
+| GRIP-9020 | assy-finger-raptor-cord | X1 | ASSY, ARTICULATED FINGER V1, RAPTOR CORD + ELASTIC, HAND PULL (SERVO-READY) | articulated_finger/v1_raptor-cord | — |
+| GRIP-9021 | assy-finger-rod-fourbar | X1 | ASSY, ARTICULATED FINGER V2, SERVO HORN ROD + CROSSED FOUR-BAR LINKS (COUPLED), HAND LEVER (SERVO-READY) | articulated_finger/v2_rod-fourbar | — |
 | SO101-0001 | tip-moving-jaw | X1 | TIP, JAW, MOVING, CALIBRATION | gripper_tips/v1_full-cap | red PLA/PETG, FDM |
 | SO101-0002 | tip-fixed-jaw | X1 | TIP, JAW, FIXED, CALIBRATION | gripper_tips/v1_full-cap | red PLA/PETG, FDM |
 | SO101-0003 | tip-moving-jaw-open | X1 | TIP, JAW, MOVING, CALIBRATION, OPEN GRIP FACE | gripper_tips/v2_open-inside | red PLA/PETG, FDM |
@@ -182,4 +204,4 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | LIB-0009 | servo-sts3215 | — | SERVO, STS3215 (vendor STEP) | lib/sts3215, base/feetech_sts3215 (identical copy) | purchased |
 | LIB-0010 | servo-scs0009 | — | SERVO, SCS0009, MICRO SERIAL BUS (vendor STEP) | base/feetech_scs0009 | purchased |
 
-Next free: GRIP-0140, GRIP-9020, SO101-0005, JTNK-0002, JTNK-9002, LIB-0011, STOR-0006, STOR-9003.
+Next free: GRIP-0160, GRIP-9022, SO101-0005, JTNK-0002, JTNK-9002, LIB-0011, STOR-0006, STOR-9003.

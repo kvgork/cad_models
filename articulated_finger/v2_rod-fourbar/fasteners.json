@@ -1,0 +1,19 @@
+{
+ "note": "No screws for the hand stage: every joint uses a printed snap pin, and the dummy servo is a 0.1-per-side slide fit in the cradle. Optional: one M2 screw holds the horn on the dummy's stub (pilot hole) or, at the servo stage, on the spline. Servo stage: the SCS0009 comes with its tab screws. Horn screw length from the model: head in a 1.6 counterbore, through the 1.0 plate, 0.35 gap, ~4 mm into the spline's 5 mm core hole, NEEDS CHECK.",
+ "lines": [
+  {
+   "qty": 1,
+   "where": "horn onto the dummy stub (hand) or the SCS0009 spline (servo), head in the horn's -Y counterbore",
+   "items": [
+    "M2×6 pan or socket head screw (NEEDS CHECK)"
+   ]
+  },
+  {
+   "qty": 2,
+   "where": "servo stage only: SCS0009 tabs into the cradle face (Ø1.6 pilot holes)",
+   "items": [
+    "M2×6 self-tapping screw (supplied with the SCS0009)"
+   ]
+  }
+ ]
+}

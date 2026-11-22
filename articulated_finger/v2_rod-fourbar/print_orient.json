@@ -1,0 +1,17 @@
+{
+ "_note": "model direction that faces the bed (tools/plates.py, tools/sortsheet.py). Base: dovetail down. Proximal on its palm (-X): its lever arm grows up from the back. Middle and distal on their back (+X): the palm ears grow up. Ears / lug pin holes and the knuckle holes are horizontal teardrops pointing up. Rod, links, horn flat (Y down: holes print vertical). Dummy servo on its back face, stub up. Pins on a flat (flat normals +-X).",
+ "GRIP-0148": [0, 0, -1],
+ "GRIP-0149": [-1, 0, 0],
+ "GRIP-0150": [1, 0, 0],
+ "GRIP-0151": [1, 0, 0],
+ "GRIP-0152": [0, -1, 0],
+ "GRIP-0153": [0, 1, 0],
+ "GRIP-0154": [0, 1, 0],
+ "GRIP-0155": [0, 1, 0],
+ "GRIP-0156": [0, 1, 0],
+ "GRIP-0157": [1, 0, 0],
+ "GRIP-0158": [1, 0, 0],
+ "GRIP-0159": [1, 0, 0],
+ "GRIP-0144": [1, 0, 0],
+ "GRIP-0145": [1, 0, 0]
+}
