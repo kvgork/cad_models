@@ -60,7 +60,9 @@ def main():
                    (jaw[f], [g.JP[f'B{f}']['P'][0] + g.L_FREE - 3, g.JP[f'B{f}']['P'][1], g.Z_L2 + 4])] for f in (1, 2)}
     # sweeps (moving part, against), chunked; designed close pairs left out (checked statically below):
     # coupler ring on its own crank's boss (0.15 per side), rocker eye on its frame journal (0.15 per side)
-    sweeps = [([x], [frame, plate], 'gears vs frame + top plate') for x in gears]
+    # v8b: the idler turns on a frame post (0.15 per side): a designed close pair, checked statically below
+    sweeps = [([x], [plate] if (g.VARIANT == 'b' and x in idl.values()) else [frame, plate], 'gears vs frame + top plate')
+              for x in gears]
     for leg in g.LEGS:
         sweeps.append(([coup[leg]], [o for o in big if o not in (coup[leg], crank[leg])], f'coupler {leg} vs all (not its crank)'))
         sweeps.append(([rock[leg]], [o for o in big if o not in (rock[leg], frame)], f'rocker {leg} vs all (not the frame)'))
@@ -96,7 +98,8 @@ def main():
     for a in small_angles:
         c.append({"command": "joint.drive", "params": {"joint": "O_A1", "value": a}})
         c.append({"command": "inspect.clearance", "params": {"bodies": names(small), "against": names(big + small), "nearest": 1}})
-        c.append({"command": "inspect.clearance", "params": {"bodies": names(list(coup.values()) + list(rock.values())),
+        c.append({"command": "inspect.clearance", "params": {"bodies": names(list(coup.values()) + list(rock.values())
+                                                                     + (list(idl.values()) if g.VARIANT == 'b' else [])),
                                                             "against": names(list(crank.values()) + [frame]), "nearest": 1}})
     with open(script, 'w') as fh:
         fh.write('[\n' + ',\n'.join(' ' + json.dumps(x, separators=(',', ':')) for x in c) + '\n]\n')
@@ -184,7 +187,7 @@ def main():
               f'{mg[0][0]:.3f} mm to {mg[0][2]}' if mg else a['stop'])
     pc = rs[1::3]
     cp = rs[2::3]
-    press = math.pi / 4 * (3.1 ** 2 - 3.05 ** 2) * (g.LINK_T + 0.01) + 0.05   # X2 coupler: Ø3.1 pin in Ø3.05
+    press = 0.0   # X3 coupler: Ø3.1 pin in a Ø3.2 hole, drawn loose, so no overlap is allowed (X2 had 0.05 interference)
 
     def intended(a, b, vol):
         ab = a + b
@@ -194,8 +197,8 @@ def main():
     bad = [o for o in ov if (o[2] is None or o[2] > 0.001) and not intended(*o)]
     unchecked = [(u['a'], u['b']) for x in pc for u in (x.get('unchecked') or [])]
     unchecked_bad = [u for u in unchecked if not ('pin-press-head' in u[0] + u[1] and 'coupler' in u[0] + u[1])]
-    check(f'{len(small)} pins / shafts / knob vs all parts at {len(small_angles)} crank angles: no overlap except '
-          'the B / P press fits in the couplers; no other pair unchecked',
+    check(f'{len(small)} pins / shafts / knob vs all parts at {len(small_angles)} crank angles: no overlap '
+          '(X3: B / P pins drawn loose in the couplers); only pin-in-coupler pairs may be unchecked',
           len(pc) == len(small_angles) and all(x.get('pairs_checked', 0) > 0 for x in pc) and not bad and not unchecked_bad,
           f"{min(x.get('pairs_checked', 0) for x in pc)}+ pairs per angle, {len(bad)} overlaps" + (f' e.g. {bad[0]}' if bad else '')
           + f"; press fits measured {len([o for o in ov if intended(*o)])} (<= {press:.2f} mm3), unchecked by the kernel "
@@ -204,7 +207,7 @@ def main():
     ovc = [o for o in ovc if o[2] is None or o[2] > 0.001]
     unc = [(u['a'], u['b']) for x in cp for u in (x.get('unchecked') or [])]
     gaps = [nb['distance_mm'] for x in cp for near in (x.get('nearest') or {}).values() for nb in near]
-    check('close pairs left out of the sweeps (coupler ring on its boss, rocker eye on its journal) at '
+    check('close pairs left out of the sweeps (coupler ring on its boss, rocker eye on its journal' + (', idler on its frame post' if g.VARIANT == 'b' else '') + ') at '
           f'{len(small_angles)} crank angles: no overlap, none unchecked',
           len(cp) == len(small_angles) and all(x.get('pairs_checked', 0) > 0 for x in cp) and not ovc and not unc,
           f"{min(x.get('pairs_checked', 0) for x in cp)}+ pairs per angle, {len(ovc)} overlaps, {len(unc)} unchecked, "

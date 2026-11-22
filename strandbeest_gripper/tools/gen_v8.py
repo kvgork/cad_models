@@ -38,6 +38,11 @@ import fourbar as fb  # noqa: E402
 
 REV = lambda pn: parts.register()[pn]['Rev']  # noqa: E731  revision from PARTS.md
 
+# Variant 'b' (v8b, 2026-11-22): the Z24 idlers lifted off their D3 snap pins and jumped teeth (pin held by 2 mm of
+# base, split by its snap slot, flats = up to 0.4 play). v8b: a solid D8 post on the frame carries each idler
+# (0.15 per side), a D10 cap-head snap pin through the post keeps the idler from lifting more than 0.2.
+# Select with `python3 gen_v8.py b` or V8_VARIANT=b (verify_v8 / build_guide_v8 take the same argument).
+VARIANT = os.environ.get('V8_VARIANT') or ('b' if 'b' in sys.argv[1:] else '')
 VDIR = 'strandbeest_gripper/v8_four-bar'
 ASSY = 'GRIP-9016'
 PN = {'frame': 'GRIP-0107', 'plate': 'GRIP-0108', 'knob': 'GRIP-0109',
@@ -45,6 +50,9 @@ PN = {'frame': 'GRIP-0107', 'plate': 'GRIP-0108', 'knob': 'GRIP-0109',
       'idler': 'GRIP-0114', 'coupler': 'GRIP-0115', 'rocker': 'GRIP-0116', 'jaw': 'GRIP-0117',
       'shaft': 'GRIP-0118', 'shaft_knob': 'GRIP-0119', 'pin_q': 'GRIP-0120', 'pin_b': 'GRIP-0121',
       'pin_p': 'GRIP-0122', 'pin_x': 'GRIP-0123'}
+if VARIANT == 'b':
+    VDIR, ASSY = 'strandbeest_gripper/v8b_idler-post', 'GRIP-9019'
+    PN.update({'frame': 'GRIP-0137', 'idler': 'GRIP-0138', 'pin_x': 'GRIP-0139'})
 LEGS = ('A1', 'B1', 'A2', 'B2')
 
 # ---------------------------------------------------------------------------- dimensions
@@ -70,6 +78,10 @@ O_STUB_D = 8.0
 KNOB_R, KNURLS = 20.0, 40
 
 BASE_T = 4.0
+# v8b idler post (frame) and cap pin
+XPOST_D = 8.0                    # solid frame post the idler turns on
+XCAP_D = 10.0                    # cap-pin head: covers the D8.3 idler bore by 0.85 per side
+XLIFT = 0.2                      # idler may lift this much before it meets the cap head
 Z_GEAR, GEAR_T, IDLE_T = 4.5, 5.0, 4.5
 Z_GTOP = Z_GEAR + GEAR_T                          # 9.5
 Z_L1, LINK_T, GAP = 10.0, 3.5, 0.5
@@ -88,6 +100,7 @@ FLAT = 0.25
 HEAD_H, BARB_H, BARB_UP, SLOT_W, SLOT_DOWN, SHANK_OVER = 3.0, 1.5, 0.2, 0.8, 4.0, 0.3
 PRESS_CH = 0.3                   # X2: lead-in chamfer on the coupler press holes
 PHEAD_H = 1.5                    # press-pin and idler-pin heads (thin: under the plate / inside the idler)
+XPOST_TOP = Z_GEAR + IDLE_T - PHEAD_H          # v8b: 7.5, cap head 7.5-9.0 flush with the idler top
 SH_HEAD_D, SH_HEAD_H = 8.0, 2.0  # crank shaft head under the base
 SH_BARB_D, SH_BARB_TIP, SH_SLOT, SH_SLOT_DOWN = 5.9, 4.6, 1.0, 5.0
 SH_SEAT = 2.5                    # shaft head top = base counterbore ceiling
@@ -335,9 +348,13 @@ def frame():
         cyl("pin_d", -0.5, Z_L2T + GAP + 1, q, "cut", name, f"fr_bore_Q{leg}")
         cyl("head_d", -0.5, 3.5, q, "cut", name, f"fr_cbore_Q{leg}")
     for f in (1, 2):
-        cyl("pin_d", -0.5, Z_GEAR + 1, XC[f], "cut", name, f"fr_bore_X{f}")
+        if VARIANT == 'b':
+            cyl("xpost_d", BASE_T - 0.3, XPOST_TOP - BASE_T + 0.3, XC[f], "join", name, f"fr_post_X{f}")
+            cyl("pin_d", -0.5, XPOST_TOP + 1, XC[f], "cut", name, f"fr_bore_X{f}")
+        else:
+            cyl("pin_d", -0.5, Z_GEAR + 1, XC[f], "cut", name, f"fr_bore_X{f}")
         cyl("head_d", -0.5, 2.5, XC[f], "cut", name, f"fr_barb_recess_X{f}")
-    deboss(name, "V8", (D / 2, 12.0), 5.0, BASE_T, "label_frame")
+    deboss(name, "V8B" if VARIANT == 'b' else "V8", (D / 2, 12.0), 5.0, BASE_T, "label_frame")
 
 
 def plate():
@@ -387,8 +404,12 @@ def idler(f):
     COMPS.append(('idler', f'X{f}'))
     x = XC[f]
     poly(f"gear_X{f}", gear_points(x, ZX, PH[f'X{f}']), Z_GEAR, IDLE_T, "new", name)
-    cyl("pin_d", Z_GEAR - 0.5, IDLE_T + 1, x, "cut", name, f"idler_bore_X{f}")
-    cyl("head_d", Z_GEAR + IDLE_T - 1.6, 2.0, x, "cut", name, f"idler_cbore_X{f}")
+    if VARIANT == 'b':
+        cyl("xpost_bore", Z_GEAR - 0.5, IDLE_T + 1, x, "cut", name, f"idler_bore_X{f}")
+        cyl("xcap_bore", XPOST_TOP - XLIFT, Z_GEAR + IDLE_T - (XPOST_TOP - XLIFT) + 0.5, x, "cut", name, f"idler_cbore_X{f}")
+    else:
+        cyl("pin_d", Z_GEAR - 0.5, IDLE_T + 1, x, "cut", name, f"idler_bore_X{f}")
+        cyl("head_d", Z_GEAR + IDLE_T - 1.6, 2.0, x, "cut", name, f"idler_cbore_X{f}")
 
 
 def coupler(leg):
@@ -485,7 +506,10 @@ def pins():
         n = cname('pin_x', f'X{f}')
         new_component(n)
         COMPS.append(('pin_x', f'X{f}'))
-        snap_pin(n, XC[f], Z_GEAR + IDLE_T - 1.6 + 0.2, 2.0, down=True, head_h=PHEAD_H)
+        if VARIANT == 'b':      # head face on the post top, head top flush with the idler top
+            snap_pin(n, XC[f], XPOST_TOP, 2.0, down=True, head_h=PHEAD_H, head_d="xcap_d")
+        else:
+            snap_pin(n, XC[f], Z_GEAR + IDLE_T - 1.6 + 0.2, 2.0, down=True, head_h=PHEAD_H)
         ATTACH.append((occ('frame', 'F'), occ('pin_x', f'X{f}')))
 
 
@@ -527,7 +551,7 @@ def build():
         ("pin_clear", f"{CLEAR} mm", "printed pin in printed hole, play per side (user rule 0.10-0.15)"),
         ("pin_d", "3.4 mm", "hole for the D3 printed pins"),
         ("ppin_d", "pin_d - 2 * pin_clear", "printed pin shank"),
-        ("press_d", "ppin_d - 0.05 mm", "coupler bore, X2: 0.05 mm nominal interference; small vertical holes print ~0.1-0.2 small, so the printed fit is a press fit (X1 Ø2.9 was too tight, user 2026-11-18; NEEDS PRINT TEST)"),
+        ("press_d", "ppin_d + 0.1 mm", "coupler bore, X3: drawn 0.05 mm per side loose; small vertical holes print ~0.1-0.2 small, so the printed hole (~Ø3.0-3.1) grips the Ø3.1 pin (X1 Ø2.9 and X2 Ø3.05 were too tight, user 2026-11-18 / 2026-11-22; NEEDS PRINT TEST)"),
         ("ppin_head_d", "5.5 mm", "printed pin head"),
         ("head_d", "6.5 mm", "counterbore for a pin head or barb"),
         ("barb_d", "4.0 mm", "snap barb: 0.3 mm catch per side over the D3.4 hole"),
@@ -540,7 +564,12 @@ def build():
         ("post_d", f"{POST_D} mm", "Q column post (frame) and stub (top plate)"),
         ("o_stub_d", f"{O_STUB_D} mm", "top-plate stub over the eccentric boss: second bearing of the crank shaft"),
         ("ring_bore", f"{fx(2 * RING_BORE_R)} mm", "coupler ring on the eccentric boss, 0.15 mm per side"),
-    ]:
+    ] + ([
+        ("xpost_d", f"{XPOST_D} mm", "v8b: solid frame post the Z24 idler turns on (replaces the D3 pin as bearing)"),
+        ("xpost_bore", "xpost_d + 2 * pin_clear", "v8b: idler bore on the post, 0.15 mm per side"),
+        ("xcap_d", f"{XCAP_D} mm", "v8b: cap-pin head, rests on the post top and covers the idler bore"),
+        ("xcap_bore", "xcap_d + 0.6 mm", "v8b: counterbore in the idler top for the cap head"),
+    ] if VARIANT == 'b' else []):
         c("parameters.add", name=name, expression=expr, comment=why)
     frame()
     plate()
