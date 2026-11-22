@@ -56,7 +56,7 @@ PARTS.md                               part register (PN, name, folder); TOOLS.m
   - Component and body names in assemblies use the same `<PN>_<name>` (+ `_F1`/`_F2` instance suffixes).
   - Generators get names from `tools/parts.py`, never typed by hand.
 - **Part numbers:** `<PROJ>-<NNNN>`.
-  - PROJ is `SO101`, `JTNK`, `GRIP` or `LIB`.
+  - PROJ is `SO101`, `JTNK`, `GRIP`, `STOR` or `LIB`.
   - 0001–8999 are parts and 9000–9999 are assemblies.
   - Never reuse or renumber a part number.
 - **New part number:** take the next free one from `PARTS.md`, add a row there **with a name and folder**, and tell the user it was allocated. **Re-read `PARTS.md` right before allocating** (2026-11-15: another session had taken GRIP-0098…0106 in the working tree while v8 was being designed).
@@ -192,6 +192,8 @@ PARTS.md                               part register (PN, name, folder); TOOLS.m
 - **Plate generator lessons:** pick the bed face by real mesh contact area, not convex-hull area (a hull face can span a recess); override with `<folder>/print_orient.json` when that face is wrong. (x, y) → (y, −x) is a 90° turn, not a mirror. Bambu CLI: flatten the `inherits` chain of system presets (else defaults, PETG came out PLA), add `<model_instance>` per object to the exported plate (else it reloads empty), set `curr_bed_type` (PETG fails on Cool Plate), retry its random heap-corruption aborts, stage files under `~/snap/bambu-studio/common` (snap can't read /mnt).
 - **Find slicer "floating regions" with `tools/islands.py <stl> [bed-facing dir]`** (voxel scan for layer islands). Typical causes (articulated_finger v1, 2026-11-22): a feature tip a hair (0.12) off the face that lies on the bed (make it flush), a post that stops 0.35 short of the foot under it (overlap joins generously).
 - **First print on a new printer or material:** print a coupon first.
+- **Long sliding parts (storage drawers, 2026-11-19):** 0.5 mm per side and 0.2 mm rail-to-gusset bound a 223 mm drawer printed on its floor. Use ≥ 1.0 mm on wide side walls (they bow), ≥ 0.4 mm next to a rail edge, ≥ 0.8 mm over the top. When only one part may change (a fixed shelf), freeze its numbers as constants of the version it was drawn around (`gen_storage.py` `*_V1`) and derive the new part from those.
+- **Handles:** a flat ledge with a 45° underside gives no grip (only friction). Put an upward lip on the tip (fingers hook over it); it still prints without supports.
 
 ## SolidCraft MCP server
 

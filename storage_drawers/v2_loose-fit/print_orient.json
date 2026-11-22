@@ -1,0 +1,23 @@
+{
+ "_note": "Model direction that faces the bed. Shelf and spacer print on their back face (rails, pads, snap ridges run along print Z; no supports); drawer and bin on their floor.",
+ "STOR-0001": [
+  0,
+  1,
+  0
+ ],
+ "STOR-0003": [
+  0,
+  1,
+  0
+ ],
+ "STOR-0004": [
+  0,
+  0,
+  -1
+ ],
+ "STOR-0005": [
+  0,
+  0,
+  -1
+ ]
+}

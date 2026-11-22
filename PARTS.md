@@ -2,7 +2,7 @@
 
 Scheme: `<PROJ>-<NNNN>`. Parts take 0001–8999 and assemblies 9000–9999. A number is never reused or renumbered. Change that breaks fit or function with the old part → new number. Change that keeps fit → next revision.
 
-Codes: `SO101` (SO-101 arm accessories), `JTNK` (JeTank), `GRIP` (gripper R&D), `LIB` (vendor/library parts, read-only).
+Codes: `SO101` (SO-101 arm accessories), `JTNK` (JeTank), `GRIP` (gripper R&D), `STOR` (workshop storage), `LIB` (vendor/library parts, read-only).
 
 Names: every part also has a short lower-case **name** (`a-z 0-9 -`). File and component names are `<PN>_<name>`, for example `GRIP-0015_link-j-hub.json`; exports are `<PN>_<name>_<REV>.<ext>`. This table is the single source of truth: the generators read the Name column.
 
@@ -164,6 +164,13 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | SO101-0004 | tip-fixed-jaw-open | X1 | TIP, JAW, FIXED, CALIBRATION, OPEN GRIP FACE | gripper_tips/v2_open-inside | red PLA/PETG, FDM |
 | JTNK-0001 | lidar-holder | X1 | HOLDER, LIDAR, RPLIDAR C1 | lidar_holder | PETG, FDM |
 | JTNK-9001 | assy-lidar-fit-check | X1 | ASSY, LIDAR HOLDER, FIT CHECK | lidar_holder | — |
+| STOR-0001 | shelf-lid | X1 | SHELF, STACKABLE, TOP = DRAWER LID, NO FLOOR, FLANGE RAILS + SNAP SKIRT | storage_drawers/v1_gridfinity | PETG, FDM |
+| STOR-0002 | drawer-grid-5x4 | X1 | DRAWER, GRIDFINITY 5X4 FLOOR, TOP FLANGES, CLICK DETENT, FITS MANTA CASE | storage_drawers/v1_gridfinity | PETG, FDM |
+| STOR-0003 | spacer-frame | X1 | FRAME, SPACER, NO TOP NO FLOOR, UNDER A SHELF FOR A TALL DRAWER | storage_drawers/v1_gridfinity | PETG, FDM |
+| STOR-0004 | bin-1x1x3-test | X1 | BIN, GRIDFINITY 1X1X3, PLAIN, FIT TEST | storage_drawers/v1_gridfinity | PETG, FDM |
+| STOR-0005 | drawer-grid-5x4-v2 | X1 | DRAWER, GRIDFINITY 5X4, MORE SLIDE CLEARANCE, HOOK HANDLE (FITS STOR-0001 SHELF) | storage_drawers/v2_loose-fit | PETG, FDM |
+| STOR-9001 | assy-drawer-stack | X1 | ASSY, STORAGE, 2 SHELVES + SPACER + DRAWER + TEST BIN | storage_drawers/v1_gridfinity | — |
+| STOR-9002 | assy-drawer-stack-v2 | X1 | ASSY, STORAGE V2, 2 SHELVES + SPACER + V2 DRAWER + TEST BIN | storage_drawers/v2_loose-fit | — |
 | LIB-0001 | so101-base | — | BASE, SO-101 (vendor STEP) | lib/so101 | purchased/vendor |
 | LIB-0002 | so101-handle | — | HANDLE, SO-101 LEADER (vendor STEP) | lib/so101 | purchased/vendor |
 | LIB-0003 | so101-moving-jaw | — | JAW, MOVING, SO-101 (vendor STEP) | lib/so101 | purchased/vendor |
@@ -175,4 +182,4 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | LIB-0009 | servo-sts3215 | — | SERVO, STS3215 (vendor STEP) | lib/sts3215, base/feetech_sts3215 (identical copy) | purchased |
 | LIB-0010 | servo-scs0009 | — | SERVO, SCS0009, MICRO SERIAL BUS (vendor STEP) | base/feetech_scs0009 | purchased |
 
-Next free: GRIP-0140, GRIP-9020, SO101-0005, JTNK-0002, JTNK-9002, LIB-0011.
+Next free: GRIP-0140, GRIP-9020, SO101-0005, JTNK-0002, JTNK-9002, LIB-0011, STOR-0006, STOR-9003.
