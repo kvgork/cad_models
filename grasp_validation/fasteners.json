@@ -1,0 +1,10 @@
+{
+ "note": "Split artifacts: one load cell moves between the W30 and D30 jaw pairs, so the cell screws are listed once. M5×12 button heads (ISO 7380): 5.45 mm through the jaw below the counterbore, 6.55 mm into the cell's M5 thread (cell 12.7 thick, so the tip stays inside it). Dowels: Ø4 × 28 steel, pressed through jaw A, sliding 6.65 mm into a blind hole in jaw B. DR-1a: M5 button heads sit in 3.2 mm counterbores in the channel floor; length depends on the T-nut or table, NEEDS CHECK. Hub lid: M3×8 through the 2.4 mm lid leaves about 5.6 mm in the insert.",
+ "lines": [
+  {"qty": 2, "where": "split artifact: jaw A to the cell's fixed end (-X, cable end) and jaw B to its load end, from the outer faces", "items": ["M5×12 button head screw (ISO 7380)"]},
+  {"qty": 4, "where": "split artifact dowels: 2 per jaw pair (W30 and D30), pressed through jaw A", "items": ["Ø4 × 28 dowel pin, steel (ISO 2338 m6)"]},
+  {"qty": 2, "where": "DR-1a receptacle to 2020 extrusion (one slot, 20 mm pitch) or a table", "items": ["M5×10 button head screw (ISO 7380)", "M5 T-nut for 2020 slot"]},
+  {"qty": 1, "where": "DR-1a thumb-screw lock: +Y rail, wedges the GRIP-0002 adapter down", "items": ["M3 heat-set insert", "M3×10 thumb or wing screw"]},
+  {"qty": 4, "where": "hub box corner bosses (Ø4.0 × 7 blind) + lid", "items": ["M3 heat-set insert", "M3×8 button head screw (ISO 7380)"]}
+ ]
+}

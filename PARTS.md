@@ -107,6 +107,15 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | GRIP-0095 | snap-pin-2f-jaw | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, SHANK 15.2, JAW | strandbeest_gripper/v7_sandwich | PETG, FDM |
 | GRIP-0096 | snap-pin-2f-pillar | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, SHANK 39.2, PILLAR + TOP PLATE | strandbeest_gripper/v7_sandwich | PETG, FDM |
 | GRIP-0097 | snap-pin-2f-wheel | X1 | PIN, SNAP, PRINTED, D3, 2 FLATS, SHANK 47.7, THUMB WHEEL AXLE | strandbeest_gripper/v7_sandwich | PETG, FDM |
+| GRIP-0098 | split-jaw-a-w30 | X1 | JAW, SPLIT ARTIFACT, A FIXED END, BLOCK W30 | grasp_validation | PETG, FDM |
+| GRIP-0099 | split-jaw-b-w30 | X1 | JAW, SPLIT ARTIFACT, B LOAD END, BLOCK W30 | grasp_validation | PETG, FDM |
+| GRIP-0100 | split-jaw-a-d30 | X1 | JAW, SPLIT ARTIFACT, A FIXED END, CYLINDER D30 | grasp_validation | PETG, FDM |
+| GRIP-0101 | split-jaw-b-d30 | X1 | JAW, SPLIT ARTIFACT, B LOAD END, CYLINDER D30 | grasp_validation | PETG, FDM |
+| GRIP-0102 | cal-cradle-v | X1 | CRADLE, V, CALIBRATION, SPLIT ARTIFACT D30 | grasp_validation | PETG, FDM |
+| GRIP-0103 | cal-platform | X1 | PLATFORM, MASS, CALIBRATION, SPLIT ARTIFACT | grasp_validation | PETG, FDM |
+| GRIP-0104 | dovetail-receptacle-2020 | X1 | RECEPTACLE, DOVETAIL, GRIPPER MOUNT, 2020 / TABLE (DR-1A) | grasp_validation | PETG, FDM |
+| GRIP-0105 | hub-box | X1 | BOX, SENSOR HUB, ESP32 + 4 HX711 + INA219 | grasp_validation | PETG, FDM |
+| GRIP-0106 | hub-lid | X1 | LID, SENSOR HUB | grasp_validation | PETG, FDM |
 | GRIP-0107 | frame-four-bar | X1 | FRAME, FOUR-BAR, 4 Q COLUMNS, STRANDBEEST V8 | strandbeest_gripper/v8_four-bar | PETG, FDM |
 | GRIP-0108 | top-plate-four-bar | X1 | PLATE, TOP, CRANK + ROCKER BEARINGS, SLOT WINDOW, STRANDBEEST V8 | strandbeest_gripper/v8_four-bar | PETG, FDM |
 | GRIP-0109 | knob-double-d | X1 | KNOB, THUMB, KNURLED D40, DOUBLE-D BORE, STRANDBEEST V8 | strandbeest_gripper/v8_four-bar | PETG, FDM |
@@ -174,6 +183,7 @@ Revisions: unreleased print iterations are `X1`, `X2`, … (X2 of GRIP-0013…00
 | GRIP-9012 | assy-mirror-legs | X1 | ASSY, GRIPPER, MIRRORED TWIN LEGS, LONG PARALLEL JAWS, STRANDBEEST V6 | strandbeest_gripper/v6_mirror-legs | — |
 | GRIP-9013 | assy-tester-fe-urt2-fit-check | X1 | ASSY, GRIPPER TESTER, FE-URT-2, FIT CHECK | gripper_tester/v2_fe-urt2 | — |
 | GRIP-9014 | assy-sandwich | X1 | ASSY, GRIPPER, SANDWICH FRAME, MIRRORED TWIN LEGS, STRANDBEEST V7 | strandbeest_gripper/v7_sandwich | — |
+| GRIP-9015 | assy-grasp-bench-stage1-2 | X1 | ASSY, GRASP VALIDATION BENCH, STAGES 1-2 (FORCE CHAIN, SPLIT ARTIFACTS, DR-1A) | grasp_validation | — |
 | GRIP-9016 | assy-four-bar | X3 | ASSY, GRIPPER, FOUR-BAR LEGS, ECCENTRIC CRANKS, STRANDBEEST V8 | strandbeest_gripper/v8_four-bar | — |
 | GRIP-9017 | assy-finray-multi-actuation | X1 | ASSY, FINRAY TEST RIG V2, SWAPPABLE ACTUATION MODULES (PARALLEL MOUNTED, PULL PARKED) | finray_tests/v2_multi-actuation | — |
 | GRIP-9018 | assy-finray-c-socket | X1 | ASSY, FINRAY TEST RIG V2B, PARALLEL, C-SOCKET FINGER ROOTS | finray_tests/v2b_c-socket | — |
