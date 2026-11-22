@@ -1,0 +1,35 @@
+{
+ "note": "No screws for the hand stage: the joints use printed snap pins. The cords and the elastic are tied with knots at the tip and at the base. Servo stage: the SCS0009 comes with its tab screws; the spool screw length is from the model (2.4 mm through the spool's counterbore floor to the spline, about 5 mm into the spline's 5 mm core hole), NEEDS CHECK.",
+ "lines": [
+  {
+   "qty": 1,
+   "where": "flexor cord: knot at the fingertip, down the palm channels, out under the cord-guide bar to the pull ring (hand) or onto the spool (servo)",
+   "items": [
+    "Dyneema / braided fishing line Ø0.8–1.0 mm, 0.5 m"
+   ],
+   "approx": true
+  },
+  {
+   "qty": 1,
+   "where": "extensor: knot at the fingertip, down the back channels, looped round the elastic-anchor bar under the fork cheeks and tied with light tension",
+   "items": [
+    "round elastic cord Ø1.0–1.5 mm, 0.25 m"
+   ],
+   "approx": true
+  },
+  {
+   "qty": 2,
+   "where": "servo stage only: SCS0009 tabs into the cradle face (Ø1.6 pilot holes)",
+   "items": [
+    "M2×6 self-tapping screw (supplied with the SCS0009)"
+   ]
+  },
+  {
+   "qty": 1,
+   "where": "servo stage only: spool onto the spline (head in the spool's counterbore)",
+   "items": [
+    "M2×10 socket or pan head screw (NEEDS CHECK)"
+   ]
+  }
+ ]
+}

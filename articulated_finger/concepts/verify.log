@@ -1,0 +1,65 @@
+== C1_geared-coupled
+   PASS no feature errors/warnings | none
+   PASS finger width 18-20 (Y, middle+distal; proximal carries hubs/levers) | 18.0
+   PASS finger length 90-110 incl. root wrap (Z) | 100.0
+   PASS dovetail params == GRIP-0002 | {'dt_len': 40.0, 'dt_bot': 34.0, 'dt_top': 28.0, 'dt_h': 6.0, 'head_h': 4.0}
+   PASS servo inserted (4 vendor bodies) | 4
+   PASS servo vs printed: seat 0.05 (lifted), else >= 0.3 | {'nearest': [(0.05, 'SJ-WK00-0038-TOPCASE-0716_41_1', 'base'), (0.49, 'SJ-WK00-0037-BOTTOMCASE-0716_9_', 'base'), (0.506, 'SJ-WK00-0039-COREMIDDLE-0716_65', 'base')], 'overlaps': [], 'unchecked': []}
+   PASS printed vs printed: no overlap or contact | {'nearest': [(0.6, 'distal', 'middle'), (0.6, 'middle', 'distal'), (0.6, 'middle', 'proximal')], 'overlaps': [], 'unchecked': []}
+== C2_push-pull-spine
+   PASS no feature errors/warnings | none
+   PASS finger width 18-20 (Y, middle+distal; proximal carries hubs/levers) | 18.0
+   PASS finger length 90-110 incl. root wrap (Z) | 100.0
+   PASS dovetail params == GRIP-0002 | {'dt_len': 40.0, 'dt_bot': 34.0, 'dt_top': 28.0, 'dt_h': 6.0, 'head_h': 4.0}
+   PASS servo inserted (4 vendor bodies) | 4
+   PASS servo vs printed: seat 0.05 (lifted), else >= 0.3 | {'nearest': [(0.05, 'SJ-CL00-0027-OUTPUTGEAR-0716_37', 'crank'), (0.05, 'SJ-WK00-0038-TOPCASE-0716_41_1', 'base'), (0.49, 'SJ-WK00-0037-BOTTOMCASE-0716_9_', 'base')], 'overlaps': [], 'unchecked': []}
+   PASS printed vs printed: no overlap or contact | {'nearest': [(0.3, 'base', 'proximal'), (0.3, 'proximal', 'base'), (0.308, 'crank', 'spine')], 'overlaps': [], 'unchecked': []}
+== C3_rolling-contact
+   PASS no feature errors/warnings | none
+   PASS finger width 18-20 (Y, middle+distal; proximal carries hubs/levers) | 18.0
+   PASS finger length 90-110 incl. root wrap (Z) | 99.9
+   PASS dovetail params == GRIP-0002 | {'dt_len': 40.0, 'dt_bot': 34.0, 'dt_top': 28.0, 'dt_h': 6.0, 'head_h': 4.0}
+   PASS servo inserted (4 vendor bodies) | 4
+   PASS servo vs printed: seat 0.05 (lifted), else >= 0.3 | {'nearest': [(0.05, 'SJ-CL00-0027-OUTPUTGEAR-0716_37', 'spool'), (0.05, 'SJ-WK00-0038-TOPCASE-0716_41_1', 'base'), (0.49, 'SJ-WK00-0037-BOTTOMCASE-0716_9_', 'base')], 'overlaps': [], 'unchecked': []}
+   PASS printed vs printed: no overlap or contact | {'nearest': [(0.2, 'middle', 'proximal'), (0.2, 'proximal', 'middle'), (0.2, 'distal', 'middle')], 'overlaps': [], 'unchecked': []}
+== C4_openhand-flexure
+   PASS no feature errors/warnings | none
+   PASS finger width 18-20 (Y, middle+distal; proximal carries hubs/levers) | 18.0
+   PASS finger length 90-110 incl. root wrap (Z) | 91.0
+   PASS dovetail params == GRIP-0002 | {'dt_len': 40.0, 'dt_bot': 34.0, 'dt_top': 28.0, 'dt_h': 6.0, 'head_h': 4.0}
+   PASS servo inserted (4 vendor bodies) | 4
+   PASS servo vs printed: seat 0.05 (lifted), else >= 0.3 | {'nearest': [(0.05, 'SJ-CL00-0027-OUTPUTGEAR-0716_37', 'spool'), (0.05, 'SJ-WK00-0038-TOPCASE-0716_41_1', 'base'), (0.49, 'SJ-WK00-0037-BOTTOMCASE-0716_9_', 'base')], 'overlaps': [], 'unchecked': []}
+   PASS printed vs printed: no overlap or contact | {'nearest': [(0.1, 'distal', 'flexure'), (0.1, 'flexure', 'distal'), (0.1, 'middle', 'flexure')], 'overlaps': [], 'unchecked': []}
+   PASS C4 base slot = flexure + 0.1 all round (1.7 x 16.2 x 5.1 = 140.45 mm3) | 140.45
+== C5_raptor-cord-elastic
+   PASS no feature errors/warnings | none
+   PASS finger width 18-20 (Y, middle+distal; proximal carries hubs/levers) | 18.0
+   PASS finger length 90-110 incl. root wrap (Z) | 100.0
+   PASS dovetail params == GRIP-0002 | {'dt_len': 40.0, 'dt_bot': 34.0, 'dt_top': 28.0, 'dt_h': 6.0, 'head_h': 4.0}
+   PASS servo inserted (4 vendor bodies) | 4
+   PASS servo vs printed: seat 0.05 (lifted), else >= 0.3 | {'nearest': [(0.05, 'SJ-CL00-0027-OUTPUTGEAR-0716_37', 'spool'), (0.05, 'SJ-WK00-0038-TOPCASE-0716_41_1', 'base'), (0.49, 'SJ-WK00-0037-BOTTOMCASE-0716_9_', 'base')], 'overlaps': [], 'unchecked': []}
+   PASS printed vs printed: no overlap or contact | {'nearest': [(0.3, 'base', 'proximal'), (0.3, 'proximal', 'base'), (0.6, 'distal', 'middle')], 'overlaps': [], 'unchecked': []}
+== C6_amazing-rod-fourbar
+   PASS no feature errors/warnings | none
+   PASS finger width 18-20 (Y, middle+distal; proximal carries hubs/levers) | 18.0
+   PASS finger length 90-110 incl. root wrap (Z) | 100.0
+   PASS dovetail params == GRIP-0002 | {'dt_len': 40.0, 'dt_bot': 34.0, 'dt_top': 28.0, 'dt_h': 6.0, 'head_h': 4.0}
+   PASS servo inserted (4 vendor bodies) | 4
+   PASS servo vs printed: seat 0.05 (lifted), else >= 0.3 | {'nearest': [(0.05, 'SJ-CL00-0027-OUTPUTGEAR-0716_37', 'horn'), (0.05, 'SJ-WK00-0038-TOPCASE-0716_41_1', 'base'), (0.49, 'SJ-WK00-0037-BOTTOMCASE-0716_9_', 'base')], 'overlaps': [], 'unchecked': []}
+   PASS printed vs printed: no overlap or contact | {'nearest': [(0.3, 'horn', 'rod_mcp'), (0.3, 'rod_mcp', 'horn'), (0.3, 'base', 'proximal')], 'overlaps': [], 'unchecked': []}
+== C7_raptor-finray-pads
+   PASS no feature errors/warnings | none
+   PASS finger width 18-20 (Y, middle+distal; proximal carries hubs/levers) | 18.0
+   PASS finger length 90-110 incl. root wrap (Z) | 100.0
+   PASS dovetail params == GRIP-0002 | {'dt_len': 40.0, 'dt_bot': 34.0, 'dt_top': 28.0, 'dt_h': 6.0, 'head_h': 4.0}
+   PASS servo inserted (4 vendor bodies) | 4
+   PASS servo vs printed: seat 0.05 (lifted), else >= 0.3 | {'nearest': [(0.05, 'SJ-CL00-0027-OUTPUTGEAR-0716_37', 'spool'), (0.05, 'SJ-WK00-0038-TOPCASE-0716_41_1', 'base'), (0.49, 'SJ-WK00-0037-BOTTOMCASE-0716_9_', 'base')], 'overlaps': [], 'unchecked': []}
+   PASS printed vs printed: no overlap or contact | {'nearest': [(0.3, 'base', 'proximal'), (0.3, 'proximal', 'base'), (0.3, 'base', 'pad_proximal')], 'overlaps': [], 'unchecked': []}
+   PASS exact interference (boolean), all printed bodies: none | {'count': 0, 'unchecked': []}
+   PASS C7 proximal: lip recess + tooth grooves cut in full (vs C5) | (415.14, 415.14)
+   PASS C7 pad_proximal: 18 wide, 6.0 deep fin ray + 0.1 seat, lips to x -4.2 | [-14.1, -9.0, 63.5, -4.2, 9.0, 104.0]
+   PASS C7 middle: lip recess + tooth grooves cut in full (vs C5) | (226.44, 226.44)
+   PASS C7 pad_middle: 18 wide, 6.0 deep fin ray + 0.1 seat, lips to x -4.2 | [-14.1, -9.0, 107.0, -4.2, 9.0, 129.0]
+   PASS C7 distal: lip recess + tooth grooves cut in full (vs C5) | (129.54, 129.54)
+   PASS C7 pad_distal: 18 wide, 6.0 deep fin ray + 0.1 seat, lips to x -4.2 | [-14.1, -9.0, 132.0, -4.2, 9.0, 144.5]
+ALL PASS

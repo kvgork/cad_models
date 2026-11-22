@@ -1,0 +1,11 @@
+{
+ "_note": "model direction that faces the bed (tools/plates.py, tools/sortsheet.py). Base: dovetail down. Phalanges lie on their back (dorsal face +X): the fork cheeks and tongue print as walls, the pin holes are horizontal teardrops pointing up, the cord / elastic channels are 2.2 mm bridges. Pins lie on a flat (flat normals +-X). Ring flat. Spool on its screw-side flange, so the spline bore prints vertical (it prints ~0.1-0.2 small: the press fit).",
+ "GRIP-0140": [0, 0, -1],
+ "GRIP-0141": [1, 0, 0],
+ "GRIP-0142": [1, 0, 0],
+ "GRIP-0143": [1, 0, 0],
+ "GRIP-0144": [1, 0, 0],
+ "GRIP-0145": [1, 0, 0],
+ "GRIP-0146": [0, 0, -1],
+ "GRIP-0147": [0, -1, 0]
+}
