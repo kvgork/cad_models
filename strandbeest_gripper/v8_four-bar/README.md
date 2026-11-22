@@ -1,6 +1,6 @@
 # Strandbeest gripper v8: four-bar legs (GRIP-9016)
 
-X2 (coupler fix), first build in progress. **NEEDS PRINT TEST.** This is [v7](../v7_sandwich/README.md) made simpler and smaller. The jaw motion is kept: same parallel jaws, same clamp gap, same opening and the same flat clamp-and-pull stroke. Each 7-link Jansen leg is replaced by a **four-bar linkage**: an eccentric on the crank gear, a coupler that carries the jaw, and a rocker. Overview of all versions: [../README.md](../README.md).
+X3 (second coupler fix), first build in progress. **NEEDS PRINT TEST.** This is [v7](../v7_sandwich/README.md) made simpler and smaller. The jaw motion is kept: same parallel jaws, same clamp gap, same opening and the same flat clamp-and-pull stroke. Each 7-link Jansen leg is replaced by a **four-bar linkage**: an eccentric on the crank gear, a coupler that carries the jaw, and a rocker. Overview of all versions: [../README.md](../README.md).
 
 Strictly speaking it is no longer a Strandbeest: the jaw follows the same clamp stroke, but the return path above it has a different shape.
 
@@ -72,7 +72,7 @@ Leg B1: + (48.74, 0). Finger 2: y → −74.24 − y. Idlers X1 (24.37, −25.12
 | 1 | `GRIP-0112_gear-crank-a2-eccentric_X1.stl` | GEAR, CRANK, A2, Z46 M1, ECCENTRIC BOSS, STRANDBEEST V8 | PETG, FDM |
 | 1 | `GRIP-0113_gear-crank-b2-eccentric_X1.stl` | GEAR, CRANK, B2, Z46 M1, ECCENTRIC BOSS, STRANDBEEST V8 | PETG, FDM |
 | 2 | `GRIP-0114_gear-idler-z24_X1.stl` | GEAR, IDLER, Z24 M1, FINGER SYNC | PETG, FDM |
-| 4 | `GRIP-0115_coupler-eccentric_X2.stl` | COUPLER, ECCENTRIC RING, FOUR-BAR (FINGER 2 FLIPPED) | PETG, FDM |
+| 4 | `GRIP-0115_coupler-eccentric_X3.stl` | COUPLER, ECCENTRIC RING, FOUR-BAR (FINGER 2 FLIPPED) | PETG, FDM |
 | 4 | `GRIP-0116_rocker-q-b_X1.stl` | ROCKER, Q-B, FOUR-BAR | PETG, FDM |
 | 2 | `GRIP-0117_jaw-four-bar_X1.stl` | JAW, PARALLEL, HOLE + SHORT SLOT, STRANDBEEST V8 | PETG, FDM |
 | 3 | `GRIP-0118_shaft-crank-double-d_X1.stl` | SHAFT, CRANK, D5, DOUBLE-D, SNAP, STRANDBEEST V8 | PETG, FDM |
@@ -93,7 +93,7 @@ No fasteners: every pin and axle is printed (snap pins, press pins, double-D cra
 
 **Plates:** `exports/plates/` (Bambu Studio projects for the X2D, PETG HF on Textured PEI; `tools/plates.py`). All parts PETG. Print the pins and shafts lying on one of their flats (the plate files do this). Print the gears and couplers flat, the jaws on their bottom face (counterbores up), and the top plate upside down with the stubs up.
 
-**Reprint plate (X2 coupler fix):** `exports/plates/GRIP-9016_assy-four-bar_reprint_plate1-petg_X2.3mf` holds the frame (GRIP-0107, unchanged X1) and the 4 X2 couplers (GRIP-0115), ~34 g, ~62 min, slices without warnings. Made with `python3 tools/plates.py strandbeest_gripper/v8_four-bar --only GRIP-0107,GRIP-0115 --tag reprint`. The full-kit plates are regenerated as X2 too; the X1 plates are in `exports/_superseded/plates/`.
+**Reprint plate (X3 coupler fix):** `exports/plates/GRIP-9016_assy-four-bar_reprint_plate1-petg_X3.3mf` holds only the 4 X3 couplers (GRIP-0115), ~6 g, ~14 min, slices without warnings. Made with `python3 tools/plates.py strandbeest_gripper/v8_four-bar --only GRIP-0115 --tag reprint`. The full-kit plates are regenerated as X3 too; the X1 and X2 plates are in `exports/_superseded/plates/`.
 
 ## Build plan
 
@@ -107,7 +107,7 @@ Sorting sheet with 1:1 outlines: [docs/GRIP-9016_assy-four-bar_sort-sheet_A4.pdf
 | GRIP-0108 top plate | 1 | 4 O stubs, 4 Q stubs | as frame | 135.3 × 79.4 × 12.5 |
 | GRIP-0110…0113 crank gear A1 / B1 / A2 / B2 | 1 each | double-D bore, eccentric boss Ø25.2 | eccentricity 8.77 | 48.0 × 48.0 × 9.0 |
 | GRIP-0114 idler Z24 | 2 | Ø3.4, head recess on top | — | 25.9 × 25.9 × 4.5 |
-| GRIP-0115 coupler | 4 | ring Ø25.5, B and P Ø3.05 (press) + 0.3 × 45° lead-in both ends | J1–B 16.75, B–P 30.33, J1–P 32.00 | 48.6 × 35.2 × 3.5 |
+| GRIP-0115 coupler | 4 | ring Ø25.5, B and P Ø3.2 (drawn loose, prints snug) + 0.3 × 45° lead-in both ends | J1–B 16.75, B–P 30.33, J1–P 32.00 | 48.6 × 35.2 × 3.5 |
 | GRIP-0116 rocker | 4 | Q Ø6.3 (eye Ø11), B Ø3.4 | 25.07 | 32.9 × 16.7 × 3.5 |
 | GRIP-0117 jaw | 2 | hole Ø3.4 + 2 mm slot, counterbores on top | 48.74 | 104.7 × 11.0 × 8.0 |
 | GRIP-0118 crank shaft | 3 | — | — | 27.7 × 8.0 × 3.4 |
@@ -126,48 +126,52 @@ Orange = the parts added in that step.
 
 Put the two Z24 idlers on the X holes, the head recess up. Push an idler snap pin (GRIP-0123) down through each idler until the barb clicks under the base. The head sits in the idler's recess.
 
-### Step 2: crank gears
+### Step 2: crank gears and crank shafts
 
 ![step 2](docs/build/step2_cranks.png)
 ![step 2 top](docs/build/step2_cranks_top.png)
 
+The shafts and column pins go in from below; their heads sit in counterbores in the base, so the frame stays flat on the table. Lift one corner to push each one in.
+
 Lay each crank gear on its O hole: **A1** at the knob corner, **B1** next to it along the stroke, **A2** and **B2** on the other finger (the labels are on the gear face). **Every eccentric boss points the same way, toward the jaw tips (+x)**, as in the top view. Mesh them with the idlers. If a gear doesn't drop in, lift it and try the next tooth: keep the boss pointing +x.
 
-### Step 3: couplers
+Then push a crank shaft up from below through each O hole into its gear: the **long shaft (GRIP-0119) at A1**, the three short shafts (GRIP-0118) at B1, A2 and B2. Turn each shaft until its flats find the gear's double-D hole and push it home (head in its counterbore). The shafts now hold the gears in place and stand up as guides for the top plate.
 
-![step 3](docs/build/step3_couplers.png)
+### Step 3: column pins
 
-Drop a coupler ring over each eccentric boss. It rests on the 0.5 mm flange. Finger 2's couplers are the same part **turned over** (mirror image). The long arm with the P hole points toward the clamp line.
+![step 3](docs/build/step3_column-pins.png)
 
-### Step 4: rockers
+Push a Q column snap pin (GRIP-0120) up from below through each of the 4 Q columns, head in its counterbore. The barbs stick out above the columns.
 
-![step 4](docs/build/step4_rockers.png)
+### Step 4: couplers
 
-Put each rocker's big eye over its Q journal and its small hole over the coupler's B hole. Press a B pin (GRIP-0121) down through the rocker into the coupler until it is **flush with the coupler's underside**. The head stays 0.2 mm above the rocker so the rocker can turn.
+![step 4](docs/build/step4_couplers.png)
 
-### Step 5: jaws
+Drop a coupler ring over each eccentric boss (the shaft is inside the boss). It rests on the 0.5 mm flange. Finger 2's couplers are the same part **turned over** (mirror image). The long arm with the P hole points toward the clamp line.
 
-![step 5](docs/build/step5_jaws.png)
+### Step 5: rockers
+
+![step 5](docs/build/step5_rockers.png)
+
+Put each rocker's big eye over its Q journal (the column pin is inside it) and its small hole over the coupler's B hole. Press a B pin (GRIP-0121) down through the rocker into the coupler until it is **flush with the coupler's underside**. The head stays 0.2 mm above the rocker so the rocker can turn.
+
+### Step 6: jaws
+
+![step 6](docs/build/step6_jaws.png)
 
 Lay each jaw on its finger's two P holes: the round hole on leg A, the short slot on leg B, counterbores up. Press a P pin (GRIP-0122) through each into the coupler, flush underneath. The head sits in the counterbore.
 
-### Step 6: top plate
+### Step 7: top plate
 
-![step 6](docs/build/step6_top-plate.png)
+![step 7](docs/build/step7_top-plate.png)
 
-Lower the top plate onto the four Q columns (stubs down). The O stubs go over the eccentric bosses.
+Lower the top plate (stubs down) over the 8 pin tips: 4 shafts and 4 column pins. The O stubs go over the eccentric bosses. Press the plate down over each pin in turn with your thumb until all 8 barbs click above the plate (the A1 shaft goes on up through the plate for the knob). The pins now hold base and plate together.
 
-### Step 7: knob
+### Step 8: knob
 
-![step 7](docs/build/step7_knob.png)
+![step 8](docs/build/step8_knob.png)
 
-Put the knob on the plate over crank A1.
-
-### Step 8: crank shafts and column pins (from below)
-
-![step 8](docs/build/step8_axles.png)
-
-Turn the gripper over, holding the plate on. Push the **long shaft (GRIP-0119)** up through A1: base, gear, boss, stub, plate and knob. Turn it until its flats find the gear's double-D hole, then push until the barb clicks above the knob. Do the same with the three short shafts (GRIP-0118) at B1, A2 and B2 (the barb clicks above the plate). Push a Q column snap pin (GRIP-0120) up through each of the 4 columns until it clicks above the plate. The pins hold base and plate together.
+Push the knob down over the long A1 shaft, turning it until the double-D bore finds the flats, until the barb clicks above the knob.
 
 ### Step 9: check
 
@@ -208,13 +212,13 @@ Run on the built `.sc` (2026-11-15). 27 checks:
 | rocker B2 vs all (not the frame): no contact over a full turn, closest >= 0.45 mm | 0.486 mm | PASS |
 | jaw 1 vs all: no contact over a full turn, closest >= 0.45 mm | 0.500 mm | PASS |
 | jaw 2 vs all: no contact over a full turn, closest >= 0.45 mm | 0.500 mm | PASS |
-| 19 pins / shafts / knob vs all parts at 12 crank angles: no overlap except the B / P press fits in the couplers; no other pair unchecked | 73+ pairs per angle, 0 overlaps; press fits measured 96 (<= 0.90 mm3), unchecked by the kernel 0; other unchecked 0 | PASS |
+| 19 pins / shafts / knob vs all parts at 12 crank angles: no overlap (X3: B / P pins drawn loose in the couplers); only pin-in-coupler pairs may be unchecked | 73+ pairs per angle, 0 overlaps; unchecked 0 | PASS |
 | close pairs left out of the sweeps (coupler ring on its boss, rocker eye on its journal) at 12 crank angles: no overlap, none unchecked | 12+ pairs per angle, 0 overlaps, 0 unchecked, closest 0.000 mm (ring / journal play 0.15, thrust faces touch) | PASS |
 
 ## Fit (NEEDS PRINT TEST)
 
 - **Pins:** 0.15 mm play per side in the Ø3.4 holes (pins Ø3.1 with two 0.25 mm flats). Snap barbs Ø4.0 over Ø3.4 (as v4b–v7).
-- **B and P press pins (coupler X2, 2026-11-19):** Ø3.1 in Ø3.05 coupler holes (0.05 mm nominal interference), with a 0.3 × 45° lead-in on both ends of each hole, 3.5 mm long. X1 had Ø2.9 holes (0.2 mm interference): small vertical holes print about 0.1–0.2 mm small, so the pins did not go in during the first build. The printed X2 hole should come out about Ø2.85–2.95, a real press fit. If they are loose, a drop of glue in the coupler is fine; if still too tight, drill Ø3.0.
+- **B and P pins in the coupler (coupler X3, 2026-11-22):** Ø3.1 pins in Ø3.2 coupler holes (drawn 0.05 mm loose per side), with a 0.3 × 45° lead-in on both ends of each hole, 3.5 mm long. X1 (Ø2.9) and X2 (Ø3.05) were both too tight in the build: the B pins went into the rockers but not the couplers. Small vertical holes print about 0.1–0.2 mm small, so the X3 hole should print about Ø3.0–3.1, a snug fit. If the pins are loose, put a drop of CA glue in the coupler (not in the rocker); if still too tight, drill Ø3.1.
 - **Eccentric:** coupler ring Ø25.54 on the Ø25.24 boss (0.15 per side). Its friction radius is about 13 mm, much bigger than a crank pin's, so the knob needs more torque than v7's. Grease it.
 - **Crank shaft:** Ø5 with two flats 3.4 apart. It turns in Ø5.3 holes in the base and the plate stub, and keys the gear and the knob in 5.3 × 3.7 double-D holes. The barb (Ø5.9 over Ø5.3) clicks above the plate.
 - **Rocker on the column:** eye Ø6.3 on the Ø6 journal.
